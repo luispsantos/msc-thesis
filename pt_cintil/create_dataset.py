@@ -75,6 +75,28 @@ pos_tagset_ud_map = {
     'WD': 'NOUN'
 }
 
+def normalize_token(token_dict):
+
+    # remove last "_" in tokens that operate as contractions (e.g., por_, de_, em_)
+    if token_dict['Token'][-1] == '_' and len(token_dict['Token']) > 1:
+        token_dict['Token'] = token_dict['Token'][:-1]
+
+    #map POS tags from CINTIL tagset to UD tagset
+    token_pos_cintil = token_dict['POS']
+
+    if token_dict['Token'] == 'sido' and token_pos_cintil == 'PPT':
+        token_pos_ud = 'AUX'
+    # discard tokens with optional gender and number (e.g., (s), (as), etc.)
+    elif token_pos_cintil == 'TERMN':
+        return False
+    else:
+        token_pos_ud = pos_tagset_ud_map[token_pos_cintil]
+
+    token_dict['POS'] = token_pos_ud
+
+    return token_dict
+
+
 # read CINTIL's file contents
 cintil_text = cintil_input_file.read_text()
 
@@ -102,14 +124,16 @@ for idx, raw_sent in enumerate(raw_sents):
 
     for raw_token in raw_tokens:
         match = token_re.match(raw_token)
-        token_dict = match.groupdict()
-        token_dict['Token'] = token_dict['Token'][:-1] if token_dict['Token'][-1] == '_' else token_dict['Token']
 
         #make sure the match included the whole token
         assert match.start() == 0 and match.end() == len(raw_token), \
                'Token regex did not cover the whole token: {}'.format(raw_token)
 
-        sent_tokens.append(token_dict)
+        token_dict = match.groupdict()
+        token_normalized = normalize_token(token_dict)
+
+        if token_normalized:
+            sent_tokens.append(token_normalized)
 
     sents.append(sent_tokens)
 
@@ -129,23 +153,11 @@ dataset_sents['test'] = sents[dev_split:]
 
 for dataset_type in ['train', 'dev', 'test']:
     cintil_output_file = dataset_out_dir / '{}.txt'.format(dataset_type)
-    sents = dataset_sents[dataset_type]
+    cintil_sents = dataset_sents[dataset_type]
 
     with cintil_output_file.open('w') as f:
-        for sent_tokens in sents:
-            for token_idx, token_dict in enumerate(sent_tokens):
-                token_pos_cintil = token_dict['POS']
-
-                #map POS tags from CINTIL tagset to UD tagset
-                if token_dict['Token'] == 'sido' and token_pos_cintil == 'PPT':
-                    token_pos_ud = 'AUX'
-                # discard tokens with optional gender and number (e.g., (s), (as), etc.)
-                elif token_pos_cintil == 'TERMN':
-                    continue
-                else:
-                    token_pos_ud = pos_tagset_ud_map[token_pos_cintil] if token_dict['POS'] in pos_tagset_ud_map else token_dict['POS']
-
-                token_dict['POS'] = token_pos_ud
+        for sent_tokens in cintil_sents:
+            for token_dict in sent_tokens:
                 token_columns = [token_dict[col] for col in output_columns]
 
                 token_line = output_separator.join(token_columns)
