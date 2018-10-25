@@ -1,8 +1,13 @@
 import pandas as pd
 from pathlib import Path
+import yaml
 
-dataset_in_dir = Path('original_data')
-dataset_out_dir = Path('data')
+#read variables from the configuration file
+with open('config.yml', 'r') as f:
+    config = yaml.load(f)
+
+dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
+output_separator, output_columns  = config['output_separator'], config['output_columns']
 
 # create output dataset directory if it doesn't exist
 if not dataset_out_dir.exists():
@@ -30,5 +35,6 @@ for dataset_type in ['train', 'dev', 'test']:
             if pd.isnull(row.Token):
                 f.write('\n')
             else:
-                f.write('{} {}\n'.format(row.Token, row.POS))
+                f.write(row.Token + output_separator + row.POS + '\n')
 
+        print('Created file {}'.format(dataset_out_path))

@@ -1,27 +1,26 @@
 from lxml import etree
 from html import escape
 from pathlib import Path
+import yaml
 import random
 import re
 
+#read variables from the configuration file
+with open('config.yml', 'r') as f:
+    config = yaml.load(f)
+
+dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
+train_proportion, dev_proportion = config['train_proportion'], config['dev_proportion']
+output_separator, output_columns  = config['output_separator'], config['output_columns']
+
 # fix the random seed for reproducibility
 random.seed(123)
-
-dataset_in_dir = Path('original_data')
-dataset_out_dir = Path('data')
-
-train_proportion = 0.8
-dev_proportion = 0.1
-
-cintil_input_file = dataset_in_dir / 'CINTIL-WRITTEN.txt'
 
 # create output dataset directory if it doesn't exist
 if not dataset_out_dir.exists():
     dataset_out_dir.mkdir(parents=True)
 
-output_columns = ['Token', 'POS', 'NER']
-output_separator = ' '
-token_re = re.compile(r'(?:\\\*)?(?P<Token>.+?)(?:\*/)?/(?:.+?/)?(?P<POS>.+?)\d?(?:#.+?)?\[(?P<NER>.+?)\]')
+token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/(?P<Lemma>[^a-z]+))?(?:/(?P<POS>[A-Z]+)\d?)(?:#(?P<FEATS>[\w?-]+))?(?:\[(?P<NER>[A-Z-]+)\])$')
 
 pos_tagset_ud_map = {
     'ADJ': 'ADJ',
@@ -90,7 +89,7 @@ def normalize_token(token_dict):
     elif token_pos_cintil == 'TERMN':
         return False
     else:
-        token_pos_ud = pos_tagset_ud_map[token_pos_cintil]
+        token_pos_ud = pos_tagset_ud_map[token_pos_cintil] if token_pos_cintil in pos_tagset_ud_map else token_pos_cintil
 
     token_dict['POS'] = token_pos_ud
 
@@ -98,6 +97,7 @@ def normalize_token(token_dict):
 
 
 # read CINTIL's file contents
+cintil_input_file = dataset_in_dir / 'CINTIL-WRITTEN.txt'
 cintil_text = cintil_input_file.read_text()
 
 # delete unnecessary tags: <i>, </i>, <t>, </t>
@@ -126,8 +126,7 @@ for idx, raw_sent in enumerate(raw_sents):
         match = token_re.match(raw_token)
 
         #make sure the match included the whole token
-        assert match.start() == 0 and match.end() == len(raw_token), \
-               'Token regex did not cover the whole token: {}'.format(raw_token)
+        assert match, 'Token regex did not cover the whole token: {}'.format(raw_token)
 
         token_dict = match.groupdict()
         token_normalized = normalize_token(token_dict)
@@ -152,11 +151,10 @@ dataset_sents['dev'] = sents[train_split:dev_split]
 dataset_sents['test'] = sents[dev_split:]
 
 for dataset_type in ['train', 'dev', 'test']:
-    cintil_output_file = dataset_out_dir / '{}.txt'.format(dataset_type)
-    cintil_sents = dataset_sents[dataset_type]
+    dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
 
-    with cintil_output_file.open('w') as f:
-        for sent_tokens in cintil_sents:
+    with dataset_out_path.open('w') as f:
+        for sent_tokens in dataset_sents[dataset_type]:
             for token_dict in sent_tokens:
                 token_columns = [token_dict[col] for col in output_columns]
 
@@ -166,4 +164,4 @@ for dataset_type in ['train', 'dev', 'test']:
             # write an empty line to denote sentence boundaries
             f.write('\n')
 
-    print('Created file {}'.format(cintil_output_file))
+    print('Created file {}'.format(dataset_out_path))
