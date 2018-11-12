@@ -1,6 +1,8 @@
+import numpy as np
+import pandas as pd
+from pathlib import Path
 from lxml import etree
 from html import escape
-from pathlib import Path
 import yaml
 import random
 import re
@@ -61,8 +63,8 @@ pos_tagset_ud_map = {
     'POSS': 'DET',
     'PP': 'ADV',
     'PPA': 'ADJ',
-    'PREP': 'ADP',
     'PPT': 'VERB',
+    'PREP': 'ADP',
     'PRS': 'PRON',
     'QNT': 'DET',
     'REL': 'PRON',
@@ -96,45 +98,55 @@ def normalize_token(token_dict):
     return token_dict
 
 
-# read CINTIL's file contents
-cintil_input_file = dataset_in_dir / 'CINTIL-WRITTEN.txt'
-cintil_text = cintil_input_file.read_text()
+def preprocess_text(cintil_text):
+    # delete unnecessary tags: <i>, </i>, <t>, </t>
+    # their function is not fundamental to the creation of POS or NER systems
+    # furthermore some of these tags are opened without being properly closed
+    cintil_text = re.sub(r'</?(i|t)> ', '', cintil_text)
 
-# delete unnecessary tags: <i>, </i>, <t>, </t>
-# their function is not fundamental to the creation of POS or NER systems
-# furthermore some of these tags are opened without being properly closed
-cintil_text = re.sub(r'</?(i|t)> ', '', cintil_text)
+    # URL encode '&' symbol - necessary in order to use a XML parser
+    cintil_text = cintil_text.replace('&', '&amp;')
 
-# URL encode '&' symbol - necessary in order to use a XML parser
-cintil_text = cintil_text.replace('&', '&amp;')
+    # URL encode '<' and '>' symbols whenever they occur as tokens (not as XML tags)
+    cintil_text = re.sub(r'(?:\\\*)?(<|>)(?:\*/)?/[^>]+?\[.+?\]', lambda match: escape(match.group(0)), cintil_text)
 
-# URL encode '<' and '>' symbols whenever they occur as tokens (not as XML tags)
-cintil_text = re.sub(r'(?:\\\*)?(<|>)(?:\*/)?/[^>]+?\[.+?\]', lambda match: escape(match.group(0)), cintil_text)
+    return cintil_text
 
-# parse XML
-cintil = etree.fromstring(cintil_text)
+def token_generator(dataset_in_path):
+    # read CINTIL's file contents
+    cintil_text = dataset_in_path.read_text()
 
-# find XML tags which correspond to sentences
-raw_sents = cintil.xpath('excerpt/text/p/s/text()')
-sents = []
+    # preprocess text (required for the XML parser to work)
+    cintil_text = preprocess_text(cintil_text)
 
-for idx, raw_sent in enumerate(raw_sents):
-    raw_tokens = raw_sent.strip().split(' ')
-    sent_tokens = []
+    # parse XML
+    cintil = etree.fromstring(cintil_text)
 
-    for raw_token in raw_tokens:
-        match = token_re.match(raw_token)
+    # find XML tags which correspond to sentences
+    sents = cintil.xpath('excerpt/text/p/s/text()')
 
-        #make sure the match included the whole token
-        assert match, 'Token regex did not cover the whole token: {}'.format(raw_token)
+    for sent in sents:
+        for token in sent.strip().split():
+            yield token
+        # NaN values indicate sentence boundaries
+        yield np.nan
 
-        token_dict = match.groupdict()
-        token_normalized = normalize_token(token_dict)
 
-        if token_normalized:
-            sent_tokens.append(token_normalized)
+dataset_in_path = dataset_in_dir / 'CINTIL-WRITTEN.txt'
 
-    sents.append(sent_tokens)
+# create a Series of raw tokens by means of a token generator on the input dataset file
+raw_tokens = pd.Series(token_generator(dataset_in_path))
+
+# make sure the token regex matches the whole token
+assert raw_tokens.str.match(token_re).all(), 'Token regex failed to match at least one token'
+
+# convert a Series of raw tokens into a DataFrame of cleaned-up strings
+# where each capture group names in the regex are used as column names
+data = raw_tokens.str.extract(token_re)
+
+
+data = data[output_columns]
+pos = data.POS
 
 # randomize the dataset before splitting
 random.shuffle(sents)

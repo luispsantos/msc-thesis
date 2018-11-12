@@ -22,19 +22,17 @@ for dataset_type in ['train', 'dev', 'test']:
     df = pd.read_csv(dataset_in_path, sep='\t', names=column_names, skip_blank_lines=False, comment='#')
 
     # remove multi-word tokens by skipping all range IDs
+    mwes = df[~(df.ID.isna() | df.ID.str.isdecimal())]['FORM']
     df = df[df.ID.isna() | df.ID.str.isdecimal()]
 
     # keep only a few columns of the dataset and discard the rest
     df = df[['FORM', 'UPOS']]
     df.rename(columns={'FORM': 'Token', 'UPOS': 'POS'}, inplace=True)
 
-    # output a line-based format similar to the CoNLL-2003 format
-    with dataset_out_path.open('w') as f:
-        for row in df.itertuples(index=False):
-            # write an empty line to denote sentence boundaries
-            if pd.isnull(row.Token):
-                f.write('\n')
-            else:
-                f.write(row.Token + output_separator + row.POS + '\n')
+    # define output format as joining columns with an output separator (e.g., ' ', '\t')
+    # in a line-based format of a token per line where empty lines denote sentence boundaries
+    output_rows = df.Token + output_separator + df.POS
+    output_text = output_rows.str.cat(sep='\n', na_rep='')
 
-        print('Created file {}'.format(dataset_out_path))
+    dataset_out_path.write_text(output_text)
+    print('Created file {}'.format(dataset_out_path))
