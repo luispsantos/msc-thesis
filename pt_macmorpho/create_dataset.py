@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pathlib import Path
 import yaml
@@ -16,40 +17,64 @@ if not dataset_out_dir.exists():
 
 token_re = re.compile('^(?P<Token>.+?)_(?P<POS>[A-Z+-]+)$')
 
-def normalize_token(token_dict):
-    return token_dict
+pos_tagset_ud_map = {
+    'ADJ': 'ADJ',
+    'ADV': 'ADV',
+    'ADV-KS': 'SCONJ',
+    'ART': 'DET',
+    'CUR': 'SYM',
+    'IN': 'INTJ',
+    'KC': 'CCONJ',
+    'KS': 'SCONJ',
+    'N': 'NOUN',
+    'NPROP': 'PROPN',
+    'NUM': 'NUM',
+    'PCP': 'VERB',
+    'PDEN': 'ADV',
+    'PREP': 'ADP',
+    'PREP+ADV': 'ADP+ADV',
+    'PREP+ART': 'ADP+DET',
+    'PREP+PRO-KS': 'ADP+SCONJ',
+    'PREP+PROADJ': 'ADP+DET',
+    'PREP+PROPESS': 'ADP+PRON',
+    'PREP+PROSUB': 'ADP+PRON',
+    'PRO-KS': 'SCONJ',
+    'PROADJ': 'DET',
+    'PROPESS': 'PRON',
+    'PROSUB': 'PRON',
+    'PU': 'PUNCT',
+    'V': 'VERB',
+}
 
-for dataset_type in ['train']:
-#for dataset_type in ['train', 'dev', 'test']:
+def token_generator(dataset_in_path):
+    for sent in dataset_in_path.open('r'):
+        for token in sent.split():
+            yield token
+        # NaN values indicate sentence boundaries
+        yield np.nan
+
+for dataset_type in ['train', 'dev', 'test']:
     dataset_in_path = dataset_in_dir / 'macmorpho-{}.txt'.format(dataset_type)
     dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
 
-    sents = []
-    for raw_sent in dataset_in_path.open('r'):
-        sent_tokens = []
+    # create a Series of raw tokens by means of a token generator on the input dataset file
+    raw_tokens = pd.Series(token_generator(dataset_in_path))
 
-        for raw_token in raw_sent.split():
-            match = token_re.match(raw_token)
+    # make sure the token regex matches the whole token
+    assert raw_tokens.str.match(token_re).all(), 'Token regex failed to match at least one token'
 
-            #make sure the match included the whole token
-            assert match, 'Token regex did not cover the whole token: {}'.format(raw_token)
+    # convert a Series of raw tokens into a DataFrame of cleaned-up strings
+    # where each capture group names in the regex are used as column names
+    data = raw_tokens.str.extract(token_re)
 
-            token_dict = match.groupdict()
-            token_normalized = normalize_token(token_dict)
+    # convert the POS tagset
+    data.POS = data.POS.map(pos_tagset_ud_map)
 
-            sent_tokens.append(token_normalized)
+    # define output format as joining columns with an output separator (e.g., ' ', '\t')
+    # in a line-based format of a token per line where empty lines denote sentence boundaries
+    output_rows = data.Token + output_separator + data.POS
+    output_text = output_rows.str.cat(sep='\n', na_rep='')
 
-        sents.append(sent_tokens)
+    dataset_out_path.write_text(output_text)
+    print('Created file {}'.format(dataset_out_path))
 
-    with dataset_out_path.open('w') as f:
-        for sent_tokens in sents:
-            for token_dict in sent_tokens:
-                token_columns = [token_dict[col] for col in output_columns]
-
-                token_line = output_separator.join(token_columns)
-                f.write(token_line + '\n')
-
-            # write an empty line to denote sentence boundaries
-            f.write('\n')
-
-        print('Created file {}'.format(dataset_out_path))
