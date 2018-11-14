@@ -3,6 +3,13 @@ import pandas as pd
 from pathlib import Path
 import yaml
 import re
+import sys
+import os
+
+# importing from utils directory
+sys.path.insert(1, os.path.join(sys.path[0], '..', 'utils'))
+from rule_matcher import RuleMatcher
+import contractions
 
 #read variables from the configuration file
 with open('config.yml', 'r') as f:
@@ -10,12 +17,15 @@ with open('config.yml', 'r') as f:
 
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_separator, output_columns  = config['output_separator'], config['output_columns']
+keep_contractions = config['keep_contractions']
 
 # create output dataset directory if it doesn't exist
 if not dataset_out_dir.exists():
     dataset_out_dir.mkdir(parents=True)
 
 token_re = re.compile('^(?P<Token>.+?)_(?P<POS>[A-Z+-]+)$')
+
+matcher = RuleMatcher(contractions.rule_list_reversed)
 
 pos_tagset_ud_map = {
     'ADJ': 'ADJ',
@@ -69,6 +79,10 @@ for dataset_type in ['train', 'dev', 'test']:
 
     # convert the POS tagset
     data.POS = data.POS.map(pos_tagset_ud_map)
+
+    # remove contractions
+    if not keep_contractions:
+        data = matcher.apply_rules(data)
 
     # define output format as joining columns with an output separator (e.g., ' ', '\t')
     # in a line-based format of a token per line where empty lines denote sentence boundaries
