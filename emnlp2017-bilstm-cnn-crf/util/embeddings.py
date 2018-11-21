@@ -1,8 +1,7 @@
 import urllib.request
 from pathlib import Path
 import lxml.html
-import zipfile
-from gensim.models import KeyedVectors
+import subprocess
 import logging
 import sys
 
@@ -38,16 +37,14 @@ class NILCPortugueseEmbeddings:
         self.embeddings_dir = Path(embeddings_dir)
         
         if self.model == 'glove':
-            embeddings_name = '{}_{}_{}d.vec'.format(self.lang, self.model, self.model_dimension)
+            embeddings_name = '{}_{}_{}d.gz'.format(self.lang, self.model, self.model_dimension)
         else:
-            embeddings_name = '{}_{}_{}_{}d.vec'.format(self.lang, self.model, self.model_type, self.model_dimension)
+            embeddings_name = '{}_{}_{}_{}d.gz'.format(self.lang, self.model, self.model_type, self.model_dimension)
 
-        # download embeddings if these are not available locally, otherwise load embeddings with Gensim
+        # download embeddings if these are not available locally
         self.path = self.embeddings_dir / embeddings_name
         if not self.path.exists():
             self.download()
-        else:
-            self.word_vectors = KeyedVectors.load(str(self.path), mmap='r')
         
 
     def download(self):
@@ -70,22 +67,13 @@ class NILCPortugueseEmbeddings:
         _, headers = urllib.request.urlretrieve(embeddings_url, embeddings_zip_path)
 
         logger.info('Extracting word embeddings')
-        with zipfile.ZipFile(embeddings_zip_path, 'r') as zip_ref:
-            temp_text_file = zip_ref.namelist()[0]
-            zip_ref.extract(temp_text_file, self.embeddings_dir)
+        subprocess.run('''unzip -p {} |  # extracts embeddings text file from the ZIP archive
+                          tail -n +2 |  # removes first line that contains stats (number of tokens + embedding dim)
+                          gzip > {}  # compresses embeddings into a GZIP compressed text file
+                       '''.format(embeddings_zip_path, self.path), shell=True)
 
-        # rename the extracted embeddings file
-        temp_text_file = self.embeddings_dir / temp_text_file
-        embeddings_text_path = self.path.with_suffix('.txt')
-        temp_text_file.replace(embeddings_text_path)
-
-        # convert word vectors from the textual word2vec format to Gensims' binary format
-        # converting the vectors saves considerable disk space and should improve loading times
-        self.word_vectors = KeyedVectors.load_word2vec_format(embeddings_text_path)
-        #self.word_vectors.init_sims(replace=True)
-        self.word_vectors.save(str(self.path))
-
-        # remove the now unnecessary .zip and .txt embedding files
+        # remove the now unnecessary .zip file
         embeddings_zip_path.unlink()
-        embeddings_text_path.unlink()
+
+        logger.info('Created embeddings file: {}'.format(self.path))
 
