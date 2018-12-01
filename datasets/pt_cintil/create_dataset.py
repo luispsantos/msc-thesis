@@ -1,28 +1,37 @@
-import numpy as np
 import pandas as pd
 from pathlib import Path
 from lxml import etree
 from html import escape
 import yaml
-import random
 import re
+import sys
+import os
+
+# change working dir into the directory containing the script
+os.chdir(sys.path[0])
+
+# importing from util/ directory
+sys.path.insert(1, str(Path.cwd().parent / 'util'))
+from rule_matcher import RuleMatcher
+import contractions
+from util import *
 
 #read variables from the configuration file
 with open('config.yml', 'r') as f:
     config = yaml.load(f)
 
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
-train_proportion, dev_proportion = config['train_proportion'], config['dev_proportion']
+data_split = config['data_split']
 output_separator, output_columns  = config['output_separator'], config['output_columns']
-
-# fix the random seed for reproducibility
-random.seed(123)
 
 # create output dataset directory if it doesn't exist
 if not dataset_out_dir.exists():
     dataset_out_dir.mkdir(parents=True)
 
-token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/(?P<Lemma>[^a-z]+))?(?:/(?P<POS>[A-Z]+)\d?)(?:#(?P<FEATS>[\w?-]+))?(?:\[(?P<NER>[A-Z-]+)\])$')
+# more complex pattern that captures the lemma and token features
+#token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/(?P<Lemma>[^a-z]+))?(?:/(?P<POS>[A-Z]+)\d?)(?:#(?P<FEATS>[\w?-]+))?(?:\[(?P<NER>[A-Z-]+)\])$')
+
+token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/.+)?(?:/(?P<POS>[A-Z]+)\d?)(?:#.+)?(?:\[(?P<NER>[A-Z-]+)\])$')
 
 pos_tagset_ud_map = {
     'ADJ': 'ADJ',
@@ -128,52 +137,21 @@ def token_generator(dataset_in_path):
     for sent in sents:
         for token in sent.strip().split():
             yield token
-        # NaN values indicate sentence boundaries
-        yield np.nan
+        yield SENT_BOUNDARY
 
 
 dataset_in_path = dataset_in_dir / 'CINTIL-WRITTEN.txt'
+data_df = read_data(token_generator(dataset_in_path), token_re)
 
-# create a Series of raw tokens by means of a token generator on the input dataset file
-raw_tokens = pd.Series(token_generator(dataset_in_path))
+# data transformation ops like this should go into a function
+data_df.POS = data_df.POS.map(pos_tagset_ud_map)
+data_df.Token = data_df.Token.str.replace(r'\B_$', '')
 
-# make sure the token regex matches the whole token
-assert raw_tokens.str.match(token_re).all(), 'Token regex failed to match at least one token'
-
-# convert a Series of raw tokens into a DataFrame of cleaned-up strings
-# where each capture group names in the regex are used as column names
-data = raw_tokens.str.extract(token_re)
-
-
-data = data[output_columns]
-pos = data.POS
-
-# randomize the dataset before splitting
-random.shuffle(sents)
-
-# create train-dev-test split
-num_sents = len(sents)
-dataset_sents = {}
-
-train_split = int(train_proportion * num_sents)
-dev_split = int((train_proportion + dev_proportion) * num_sents)
-
-dataset_sents['train'] = sents[:train_split]
-dataset_sents['dev'] = sents[train_split:dev_split]
-dataset_sents['test'] = sents[dev_split:]
+data_splitted = train_test_split(data_df, data_split)
 
 for dataset_type in ['train', 'dev', 'test']:
     dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
 
-    with dataset_out_path.open('w') as f:
-        for sent_tokens in dataset_sents[dataset_type]:
-            for token_dict in sent_tokens:
-                token_columns = [token_dict[col] for col in output_columns]
-
-                token_line = output_separator.join(token_columns)
-                f.write(token_line + '\n')
-
-            # write an empty line to denote sentence boundaries
-            f.write('\n')
-
+    write_data(data_splitted[dataset_type], dataset_out_path, output_separator)
     print('Created file {}'.format(dataset_out_path))
+
