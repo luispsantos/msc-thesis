@@ -33,6 +33,24 @@ def read_data(raw_tokens, token_re):
 
     return data_df
 
+def read_conllu(dataset_in_path, remove_multiwords=True, keep_columns=['FORM', 'UPOS']):
+    """
+    Reads a CoNLL-U file into a DataFrame. Optionally removes multi-word tokens.
+    The CoNLL-U format specification can be found at http://universaldependencies.org/format.html.
+    """
+    column_names = ['ID', 'FORM', 'LEMMA', 'UPOS', 'XPOS', 'FEATS', 'HEAD', 'DEPREL', 'DEPS', 'MISC']
+    data_df = pd.read_csv(dataset_in_path, sep='\t', names=column_names, skip_blank_lines=False, comment='#')
+
+    # remove multi-word tokens by skipping over all range IDs
+    if remove_multiwords:
+        data_df = data_df[data_df.ID.isna() | data_df.ID.str.isdecimal()]
+
+    # keep only a few columns of the dataset and discard the rest
+    data_df = data_df[keep_columns]
+    data_df.rename(columns={'FORM': 'Token', 'UPOS': 'POS'}, inplace=True)
+
+    return data_df
+
 def sent_counts(data_df):
     """
     Retrieves number of tokens and number of sentences from a DataFrame.
