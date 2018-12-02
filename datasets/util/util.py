@@ -51,9 +51,9 @@ def read_conllu(dataset_in_path, remove_multiwords=True, keep_columns=['FORM', '
 
     return data_df
 
-def sent_counts(data_df):
+def count_sents(data_df):
     """
-    Retrieves number of tokens and number of sentences from a DataFrame.
+    Retrieves number of sentences and number of tokens from a DataFrame.
     """
     num_tokens = data_df.Token.count()  # counts non-NaN rows
     num_sents = len(data_df) - num_tokens  # counts NaN rows
@@ -62,14 +62,14 @@ def sent_counts(data_df):
     if NOT_SENT_BOUNDARY(data_df.Token.iloc[-1]):
         num_sents += 1
 
-    return num_tokens, num_sents
+    return num_sents, num_tokens
 
 def dataframe_to_sents(data_df):
     """
     Converts a DataFrame into a list of sentences, where in turn each
     sentence is a list of tokens. A token is represented as a namedtuple.
     """
-    _, num_sents = sent_counts(data_df)
+    num_sents, _ = count_sents(data_df)
     sents = [[] for idx in range(num_sents)]
     sent_idx = 0
 

@@ -1,7 +1,8 @@
 import pandas as pd
 from pathlib import Path
 import argparse
-from lib.dataset import Dataset
+from util.dataset import Dataset
+from util.util import count_sents
 
 parser = argparse.ArgumentParser(description='Print dataset statistics such as the number of tokens and sentences, as well as the size of POS and NER tagsets')
 parser.add_argument('dataset_path', help='Path to a dataset containing a data folder')
@@ -14,10 +15,9 @@ dataset_path, print_tag_counts = Path(args.dataset_path), args.print_tag_counts
 dataset = Dataset(dataset_path)
 
 # output number of tokens and sentences for train, dev and test sets
-for dataset_type, data in dataset.data.items():
-    num_tokens = data.Token.count()
-    num_sents = len(data) - num_tokens
-    print('{} - {} sents, {} tokens'.format(dataset_type, num_sents, num_tokens))
+for dataset_type, data_df in dataset:
+    num_sents, num_tokens = count_sents(data_df)
+    print('{} - {} sents, {} tokens'.format(dataset_type.capitalize(), num_sents, num_tokens))
 
 # compute POS and NER statistics on the training set
 train_data = dataset.data['train']
