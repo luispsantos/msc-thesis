@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from pathlib import Path
 import yaml
@@ -6,10 +5,14 @@ import re
 import sys
 import os
 
-# importing from utils directory
-sys.path.insert(1, os.path.join(sys.path[0], '..', 'utils'))
+# change working dir into the directory containing the script
+os.chdir(sys.path[0])
+
+# importing from util/ directory
+sys.path.insert(1, str(Path.cwd().parent / 'util'))
 from rule_matcher import RuleMatcher
 import contractions
+from util import *
 
 #read variables from the configuration file
 with open('config.yml', 'r') as f:
@@ -60,35 +63,21 @@ def token_generator(dataset_in_path):
     for sent in dataset_in_path.open('r'):
         for token in sent.split():
             yield token
-        # NaN values indicate sentence boundaries
-        yield np.nan
+        yield SENT_BOUNDARY
 
 for dataset_type in ['train', 'dev', 'test']:
     dataset_in_path = dataset_in_dir / 'macmorpho-{}.txt'.format(dataset_type)
     dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
 
-    # create a Series of raw tokens by means of a token generator on the input dataset file
-    raw_tokens = pd.Series(token_generator(dataset_in_path))
-
-    # make sure the token regex matches the whole token
-    assert raw_tokens.str.match(token_re).all(), 'Token regex failed to match at least one token'
-
-    # convert a Series of raw tokens into a DataFrame of cleaned-up strings
-    # where each capture group names in the regex are used as column names
-    data = raw_tokens.str.extract(token_re)
+    data_df = read_data(token_generator(dataset_in_path), token_re)
 
     # convert the POS tagset
-    data.POS = data.POS.map(pos_tagset_ud_map)
+    data_df.POS = data_df.POS.map(pos_tagset_ud_map)
 
     # remove contractions
     if not keep_contractions:
-        data = matcher.apply_rules(data)
+        data_df = matcher.apply_rules(data_df)
 
-    # define output format as joining columns with an output separator (e.g., ' ', '\t')
-    # in a line-based format of a token per line where empty lines denote sentence boundaries
-    output_rows = data.Token + output_separator + data.POS
-    output_text = output_rows.str.cat(sep='\n', na_rep='')
-
-    dataset_out_path.write_text(output_text)
+    write_data(data_df, dataset_out_path, output_separator)
     print('Created file {}'.format(dataset_out_path))
 

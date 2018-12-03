@@ -11,6 +11,10 @@ class Dataset:
     def __init__(self, dataset_path):
         self.load(dataset_path)
 
+    def __iter__(self):
+        for dataset_type in ['train', 'dev', 'test']:
+            yield dataset_type, self.data[dataset_type]
+
     def load(self, dataset_path):
         if not dataset_path.exists():
             raise InvalidDatasetError('Dataset {} does not exist'.format(dataset_path))

@@ -8,31 +8,39 @@ from spacy.tokens import Doc
 from spacy.gold import GoldParse, iob_to_biluo
 from spacy.scorer import Scorer
 
-parser = argparse.ArgumentParser(description='Apply the Spacy Tagger and EntityRecognizer on a dataset and evaluate ' \
+parser = argparse.ArgumentParser(description='Apply the spaCy Tagger and EntityRecognizer on a dataset and evaluate ' \
                                              'according to the gold annotations (Accuracy for PoS, F1 score for NER).')
 parser.add_argument('dataset_path', help='Path to a dataset containing a data folder')
+parser.add_argument('max_sents', type=int, nargs='?', default=10000,
+                    help='Maximum number of sentences for spaCy to process due to memory constraints')
 
 args = parser.parse_args()
-dataset_path = Path(args.dataset_path)
+dataset_path, max_sents = Path(args.dataset_path), args.max_sents
 
 # load dataset
 dataset = Dataset(dataset_path)
 
-# load spacy model
+# load spaCy model
 nlp = spacy.load('pt_core_news_sm')
 
-for dataset_type in ['train', 'dev', 'test']:
-    data_df = dataset.data[dataset_type]
+for dataset_type, data_df in dataset:
 
     # store a boolean array specifying when sentences start
-    data_df['is_sent_start'] = data_df.Token.isna().shift(1)
+    is_sent_end = data_df.Token.isna()
+    data_df['is_sent_start'] = is_sent_end.shift(1)
     data_df.loc[0, 'is_sent_start'] = True
+
+    # limit number of sentences due to memory constraints
+    sent_end_idxs = is_sent_end.nonzero()[0]
+    if len(sent_end_idxs) >= max_sents:
+        last_sent_idx = sent_end_idxs[max_sents-1]
+        data_df = data_df.head(last_sent_idx).copy()
 
     # remove NaN values
     data_df.dropna(inplace=True)
     data_df.reset_index(drop=True, inplace=True)
 
-    # create spacy Doc with pre-tokenized text
+    # create spaCy Doc with pre-tokenized text
     # this construction doesn't call pipeline components
     doc = Doc(nlp.vocab, list(data_df.Token))
 
