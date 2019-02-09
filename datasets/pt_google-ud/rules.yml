@@ -1,0 +1,143 @@
+# Rules to deal with compound words in Portuguese due to use of hyphen (hífen).
+# Compund words are converted to a single token, whereas Google UD adopts a
+# tokenization strategy of separating tokens (e.g., ex - presidente -> 3 tokens).
+compound_words:
+  # convert concatenated UPOS tags to a single UPOS tag
+  hyphen_upos_map:
+    # proper nouns
+    PROPN+PUNCT+PROPN: PROPN              # X-Men, Villas-Boas, Romano-Germânico, etc.
+    PROPN+PUNCT+NUM: PROPN                # BR-040, MH-60S, Eurocopa-2012, P-52, etc.
+    ADJ+PUNCT+PROPN: PROPN                # curta-metragem, e-Farm, II-Hospital, etc.
+    PART+PUNCT+PROPN: PROPN               # ex-BBB, Vice-presidente, ex-ARENA, etc.
+    PROPN+PUNCT+ADJ: PROPN                # Casa-forte, Capitão-mor, João-pintado, etc.
+    NOUN+PUNCT+PROPN: PROPN               # tipo-HBO, Quebra-mar, bairro-Centro
+    PROPN+PUNCT+NOUN: PROPN               # Atlético-PR, TJ-PR, Pós-Graduação
+    NOUN+PUNCT+NUM: PROPN                 # 971R-10, BR-314, BR-471
+    NUM+PUNCT+PROPN: PROPN                # 2012-Rio, 2-CH
+    PROPN+PUNCT+ADP+PUNCT+PROPN: PROPN    # Point-to-Point, Nogent-sur-Marne, etc.
+    # nouns
+    PART+PUNCT+NOUN: NOUN                 # vice-presidente, ex-candidato, pré-inscrição, etc.
+    NOUN+PUNCT+NOUN: NOUN                 # zigue-zague, porta-voz, diretor-presidente, etc.
+    ADJ+PUNCT+NOUN: NOUN                  # sul-coreanos, norte-americana, maus-tratos, etc.
+    NOUN+PUNCT+ADJ: NOUN                  # diretor-geral, matérias-primas, guarda-mor, etc.
+    ADV+PUNCT+NOUN: NOUN                  # abaixo-assinado, não-tripulada, bem-estar, etc.
+    NOUN+PUNCT+ADP+PUNCT+NOUN: NOUN       # cana-de-açúcar, mão-de-obra, lua-de-mel, etc.
+    PART+PUNCT+NOUN+PUNCT+ADJ: NOUN       # ex-diretor-geral, ex-lateral-direito, etc.
+    NOUN+PUNCT+ADP+DET+PUNCT+NOUN: NOUN   # pulo-do-gato, jogo-do-bicho
+    # adjectives
+    ADJ+PUNCT+ADJ: ADJ                    # sul-coreana, são-paulina, latino-americana, etc.
+    PART+PUNCT+ADJ: ADJ                   # pré-gravado, inter-insular, recém-formados, etc.
+    ADV+PUNCT+ADJ: ADJ                    # mal-cheirosos, não-europeus, bem-sucedidos, etc.
+    # verbs
+    VERB+PUNCT+PRON: VERB+PRON            # fechá-la, bloquear-lhe, acostumou-se, etc.
+    VERB+PUNCT+PART: VERB+PRON            # refere-se, encontrava-se, passando-se, etc.
+    AUX+PUNCT+PRON: AUX+PRON              # tornar-se, deve-se, foi-lhe, tê-lo, etc.
+    AUX+PUNCT+PART: AUX+PRON              # tornou-se, pode-se, fez-se, tendo-se, etc.
+    VERB+PUNCT+NOUN: VERB+PRON            # realizá-las, jogá-las, utilizá-los, etc.
+    PART+PUNCT+VERB: VERB                 # auto-proclamava, auto-organizar, etc.
+
+  # Directly map tokens to a UPOS tag. Whenever the concated UPOS tags are too infrequent in the data
+  # (e.g., 1-3 token counts), it is more explicit to specify the tokens than the concatenated tags.
+  token_upos_map:
+    PROPN: ['não-Unix', 'Ver-o-Peso', 'Rennes-le-Château', 'Saint-Grégoire-le-Grand-de-Monnoir', 'Maine-et-Loire', 'Norte-rio-grandense', 'Pôr-do-sol', 'dali-Boley', 'Va-Va-Vum', '2-CH-CH2-CH3', 'n-Alban', 'Aver-o-Mar', 'Sub-20', 'del-Rei']
+    NOUN: ['ex-presidente', 'ex-vice-presidente', 'ex-primeiro-ministro', 'ex-ministro-chefe', 'jiu-jítsu', 'porta-voz', 'quebra-cabeças', 'e-mail', 'post-mortem', 'grão-duque', 'play-offs', 'drive-in', 'tomara-que-caia', 'sub-20', 'super-8', '75-foot', 'cana-de-açúcar', 'palavra-em-um-tempo', 'ofereça-a-outra-face']
+    ADJ: ['sul-mato-grossense', 'sul-mato-grossenses', 'sem-terra', 'on-line']
+    VERB+PRON: ['auto-organizar-se', 'comparando-à', 'ajuda-lo', 'tornar-se-ão', 'Considerar-se-á']
+
+  # Exception words where the tokenization is not performed correctly. Either keep
+  # these tokens as single words, or separate tokens which shouldn't be together.
+  exceptions:
+    single_words: ['2-CH-CH2-CH3', 'palavra-em-um-tempo', 'ofereça-a-outra-face', 'Saint-Grégoire-le-Grand-de-Monnoir']
+    separate_words: ['Nevares-conseguiu', 'Coritiba-Tentamos', 'INCORPORAÇÕES-Este', 'domingo-os', 'comercial-O', '3-argumentos', '4-E', 'versivos-ir', 'ou-ar', 'utz-ir', 'vadiagem-ou', 'bancários-liderado', 'mercado-também', 'Pike-ambas', 'mulheres-para', 'tão-somente']
+
+rules:
+  # General rules to concatenate words with a hyphen in the middle.
+  # Since these rules are so general, exception rules are required
+  # to fix some specific cases where the tokenization is incorrect.
+  2words-hyphen:
+    rule_in: [{'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
+              {'Token': '-', 'UPOS': 'PUNCT'},
+              {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}}]
+    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': {'CONCAT': '+'}}]
+    
+  3words-hyphen:
+    rule_in: [{'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
+              {'Token': '-', 'UPOS': 'PUNCT'},
+              {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
+              {'Token': '-', 'UPOS': 'PUNCT'},
+              {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}}]
+    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': {'CONCAT': '+'}}]
+
+  # obtain weekdays as a single token: segunda-feira, terça-feira, quintas-feiras, etc.
+  weekdays:
+    rule_in: [{}, {'Token': '-', 'UPOS': 'PUNCT'}, {'Token': {'IN': ['feira', 'feiras']}}]
+    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': 'NOUN'}]
+
+  # tag weekend days sábado and domingo as nouns rather than proper nouns
+  weekend:
+    rule_in: [{'Token': {'IN': ['sábado', 'domingo']}, 'UPOS': 'PROPN'}]
+    rule_out: [{'UPOS': 'NOUN'}]
+
+  X-pronoun:
+    rule_in: [{'Token': {'LOWER_IN': ['desse', 'dessa', 'desses', 'dessas', 'nessa', 'disso', 'nisso', 'comigo', 'contigo', 'consigo', 
+                         'conosco', 'dele', 'dela', 'deles', 'delas', 'nele', 'nela', 'neles', 'nelas', 'do', 'da', 'dos', 'das', 
+                         'no', 'na', 'num', 'pelo', 'ao', 'à', 'aos', 'às', 'daquele', 'daquela', 'daqueles', 'daquelas', 'naqueles', 
+                         'àquela', 'àqueles', 'naquilo', 'deste', 'desta', 'destes', 'destas', 'nesta', 'disto']}, 'UPOS': 'X'}]
+    rule_out: [{'UPOS': 'ADP+PRON'}]
+
+  X-determiner:
+    rule_in: [{'Token': {'LOWER_IN': ['deste', 'desta', 'neste', 'nesta']}, 'UPOS': {'TEXT': 'X', 'NEXT_IN': ['NOUN', 'PROPN']}}]
+    rule_out: [{'UPOS': 'ADP+DET'}]
+
+  # convert tokens tagged as ADP+NUM either to ADP+PRON or ADP+DET
+  ADP+NUM+pronoun:
+    rule_in: [{'Token': {'LOWER_IN': ['dum', 'duma', 'num', 'numa']}, 'UPOS': 'ADP+NUM'}]
+    rule_out: [{'UPOS': 'ADP+PRON'}]
+
+  ADP+NUM+determiner:
+    rule_in: [{'Token': {'LOWER_IN': ['dum', 'duma', 'num', 'numa']}, 'UPOS': {'TEXT': 'ADP+NUM', 'NEXT_IN': ['NOUN', 'PROPN']}}]
+    rule_out: [{'UPOS': 'ADP+DET'}]
+
+  ADP+determiner:
+    rule_in: [{'Token': {'LOWER_IN': ['deste', 'desta', 'destes', 'destas', 'neste', 'nesta', 'nestes', 'nestas', 'dum', 'duma',
+                                      'desse', 'dessa', 'desses', 'dessas', 'nesse', 'nessa', 'nesses', 'nessas', 'num', 'numa',
+                                      'daquele', 'daquela', 'daqueles', 'daquelas', 'naquele', 'naquela', 'naqueles', 'naquelas',
+                                      'àquela', 'àqueles', 'á', 'ás', 'doutros', 'al', 'del', 'des', 'dello', 'della', 'sulla']}, 'UPOS': 'ADP'}]
+    rule_out: [{'UPOS': 'ADP+DET'}]
+
+  ADP+adverb:
+    rule_in: [{'Token': {'LOWER_IN': ['daí', 'daqui', 'dali', 'donde']}, 'UPOS': 'ADP'}]
+    rule_out: [{'UPOS': 'ADP+ADV'}]
+
+  ADP+pronoun:
+    rule_in: [{'Token': {'LOWER_IN': ['dele', 'disso']}, 'UPOS': 'ADP'}]
+    rule_out: [{'UPOS': 'ADP+PRON'}]
+
+  # convert URLs (and emails) tagged as X to SYM
+  url-X:
+    rule_in: [{'Token': {'URL_LIKE': True}, 'UPOS': 'X'}]
+    rule_out: [{'UPOS': 'SYM'}]
+
+  # convert symbols tagged as X to SYM
+  sym-X:
+    rule_in: [{'Token': {'IN': ['+', '@']}, 'UPOS': 'X'}]
+    rule_out: [{'UPOS': 'SYM'}]
+
+  # convert etc_X ._PUNCT to etc._ADV for consistency with other datasets
+  etc-dot-X:
+    rule_in: [{'Token': 'etc', 'UPOS': 'X'}, {'Token': '.', 'UPOS': 'PUNCT'}]
+    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': 'ADV'}]
+
+  etc-X:
+    rule_in: [{'Token': 'etc', 'UPOS': 'X'}]
+    rule_out: [{'UPOS': 'ADV'}]
+
+  # decode ampersand symbol (used for proper nouns like Hotéis & Resorts, Starsky & Hutch, etc.)
+  amp-cconj:
+    rule_in: [{'Token': '&amp;', 'UPOS': 'CCONJ'}]
+    rule_out: [{'Token': '&'}]
+
+  amp-propn:
+    rule_in: [{'Token': '&amp;', 'UPOS': {'IN': ['PROPN', 'X']}}]
+    rule_out: [{'Token': '&'}]
+
