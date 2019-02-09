@@ -11,7 +11,6 @@ os.chdir(sys.path[0])
 # importing from util/ directory
 sys.path.insert(1, str(Path.cwd().parent / 'util'))
 from rule_matcher import RuleMatcher
-import contractions
 from util import *
 
 #read variables from the configuration file
@@ -20,44 +19,15 @@ with open('config.yml', 'r') as f:
 
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_separator, output_columns  = config['output_separator'], config['output_columns']
-keep_contractions = config['keep_contractions']
 
-# create output dataset directory if it doesn't exist
-if not dataset_out_dir.exists():
-    dataset_out_dir.mkdir(parents=True)
+# read dataset-specific rules
+with open('rules.yml', 'r') as f:
+    rules = yaml.load(f)
+
+rules, pos_tagset_ud_map = rules['rules'], rules['pos_tagset_ud_map']
+matcher = RuleMatcher(rules)
 
 token_re = re.compile('^(?P<Token>.+?)_(?P<POS>[A-Z+-]+)$')
-
-matcher = RuleMatcher(contractions.rule_list_reversed)
-
-pos_tagset_ud_map = {
-    'ADJ': 'ADJ',
-    'ADV': 'ADV',
-    'ADV-KS': 'SCONJ',
-    'ART': 'DET',
-    'CUR': 'SYM',
-    'IN': 'INTJ',
-    'KC': 'CCONJ',
-    'KS': 'SCONJ',
-    'N': 'NOUN',
-    'NPROP': 'PROPN',
-    'NUM': 'NUM',
-    'PCP': 'VERB',
-    'PDEN': 'ADV',
-    'PREP': 'ADP',
-    'PREP+ADV': 'ADP+ADV',
-    'PREP+ART': 'ADP+DET',
-    'PREP+PRO-KS': 'ADP+SCONJ',
-    'PREP+PROADJ': 'ADP+DET',
-    'PREP+PROPESS': 'ADP+PRON',
-    'PREP+PROSUB': 'ADP+PRON',
-    'PRO-KS': 'SCONJ',
-    'PROADJ': 'DET',
-    'PROPESS': 'PRON',
-    'PROSUB': 'PRON',
-    'PU': 'PUNCT',
-    'V': 'VERB',
-}
 
 def token_generator(dataset_in_path):
     for sent in dataset_in_path.open('r'):
@@ -72,12 +42,9 @@ for dataset_type in ['train', 'dev', 'test']:
     data_df = read_data(token_generator(dataset_in_path), token_re)
 
     # convert the POS tagset
-    data_df.POS = data_df.POS.map(pos_tagset_ud_map)
+    data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
+    data_df, rule_counts = matcher.apply_rules(data_df)
 
-    # remove contractions
-    if not keep_contractions:
-        data_df = matcher.apply_rules(data_df)
-
-    write_data(data_df, dataset_out_path, output_separator)
+    write_data(data_df, dataset_out_path, output_separator, output_columns)
     print('Created file {}'.format(dataset_out_path))
 

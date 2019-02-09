@@ -1,0 +1,33 @@
+pos_tagset_ud_map:
+  ADJ: ADJ
+  ADV: ADV
+  ADV-KS: SCONJ
+  ART: DET
+  CUR: SYM
+  IN: INTJ
+  KC: CCONJ
+  KS: SCONJ
+  N: NOUN
+  NPROP: PROPN
+  NUM: NUM
+  PCP: VERB
+  PDEN: ADV
+  PREP: ADP
+  PREP+ADV: ADP+ADV
+  PREP+ART: ADP+DET
+  PREP+PRO-KS: ADP+SCONJ
+  PREP+PROADJ: ADP+DET
+  PREP+PROPESS: ADP+PRON
+  PREP+PROSUB: ADP+PRON
+  PRO-KS: SCONJ
+  PROADJ: DET
+  PROPESS: PRON
+  PROSUB: PRON
+  PU: PUNCT
+  V: VERB
+
+rules:
+  clitics:
+    rule_in: [{'UPOS': 'VERB'}, {'Token': {'STARTS_WITH': '-'}, 'UPOS': 'PRON'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'UPOS': {'CONCAT': '+'}}]
+
