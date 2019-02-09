@@ -119,12 +119,12 @@ class RuleInOperation:
     def binary_op1(self, col_func, data_col, values):
         col_no_nan = self.get_col_no_nan(data_col)
         col_mask = col_func(col_no_nan)
-        col_masks = np.vstack(col_mask if value else ~col_mask for value in values)
+        col_masks = np.vstack([col_mask if value else ~col_mask for value in values])
         return col_masks
 
     def binary_op2(self, col_func, data_col, values):
         col_no_nan = self.get_col_no_nan(data_col)
-        col_masks = np.vstack(col_func(col_no_nan, value) for value in values)
+        col_masks = np.vstack([col_func(col_no_nan, value) for value in values])
         return col_masks
 
     def is_lower_op(self, data_col, values):
@@ -179,7 +179,7 @@ class RuleInOperation:
         col_masks = self.text_op(data_col, unique_values)
 
         col_terms = [[unique_values.index(term) for term in value] for value in values]
-        col_masks = np.vstack(np.any(col_masks[col_idxs, :], axis=0) for col_idxs in col_terms)
+        col_masks = np.vstack([np.any(col_masks[col_idxs, :], axis=0) for col_idxs in col_terms])
         return col_masks
 
     def not_in_op(self, data_col, values):
@@ -279,22 +279,22 @@ class RuleMatcher:
 
         # combine column masks from different operations into a single matrix
         rule_in_operation = RuleInOperation()
-        column_masks = np.vstack(rule_in_operation.apply_op(rule_in_op, data_df[column], values)
-                                 for column, attrs in column_values.items() for rule_in_op, values in attrs.items())
+        column_masks = np.vstack([rule_in_operation.apply_op(rule_in_op, data_df[column], values)
+                                 for column, attrs in column_values.items() for rule_in_op, values in attrs.items()])
 
         return column_masks
 
     def _create_token_masks(self, column_masks):
         token_cols = [[self.columns_mapping[col] for col in token] for token in self.tokens_mapping]
-        token_masks = np.vstack(np.all(column_masks[col_idxs], axis=0) if len(col_idxs) != 1
-                                else column_masks[col_idxs[0]] for col_idxs in token_cols)
+        token_masks = np.vstack([np.all(column_masks[col_idxs], axis=0) if len(col_idxs) != 1
+                                else column_masks[col_idxs[0]] for col_idxs in token_cols])
 
         return token_masks
 
     def _create_rule_masks(self, token_masks):
         rule_tokens = [[self.tokens_mapping[token] for token in rule.rule_in] for rule in self.rules]
-        rule_masks = np.vstack(np.all(self._shift_align(token_masks, token_idxs), axis=0) if len(token_idxs) != 1
-                               else token_masks[token_idxs[0]] for token_idxs in rule_tokens)
+        rule_masks = np.vstack([np.all(self._shift_align(token_masks, token_idxs), axis=0) if len(token_idxs) != 1
+                               else token_masks[token_idxs[0]] for token_idxs in rule_tokens])
 
         return rule_masks
 

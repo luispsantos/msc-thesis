@@ -30,7 +30,7 @@ token_upos_map = {token: upos_tag for upos_tag, tokens in token_upos_map.items()
 def create_exception_rules(exceptions):
     exception_rules = {}
     hyphen = {'Token': '-', 'UPOS': 'PUNCT'}
-    concat_tokens = [{'Token': {'CONCAT': True}, 'UPOS': {'CONCAT': '+'}}]
+    concat_tokens = [{'Token': {'CONCAT': ''}, 'UPOS': {'CONCAT': '+'}}]
 
     for exception_type, words in exceptions.items():
         for word in words:

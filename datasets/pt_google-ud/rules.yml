@@ -58,7 +58,7 @@ rules:
     rule_in: [{'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
               {'Token': '-', 'UPOS': 'PUNCT'},
               {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}}]
-    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': {'CONCAT': '+'}}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'UPOS': {'CONCAT': '+'}}]
     
   3words-hyphen:
     rule_in: [{'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
@@ -66,12 +66,12 @@ rules:
               {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}},
               {'Token': '-', 'UPOS': 'PUNCT'},
               {'UPOS': {'NOT': 'PUNCT', 'IS_SENT_BOUNDARY': False}}]
-    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': {'CONCAT': '+'}}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'UPOS': {'CONCAT': '+'}}]
 
   # obtain weekdays as a single token: segunda-feira, terça-feira, quintas-feiras, etc.
   weekdays:
     rule_in: [{}, {'Token': '-', 'UPOS': 'PUNCT'}, {'Token': {'IN': ['feira', 'feiras']}}]
-    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': 'NOUN'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'UPOS': 'NOUN'}]
 
   # tag weekend days sábado and domingo as nouns rather than proper nouns
   weekend:
@@ -126,7 +126,7 @@ rules:
   # convert etc_X ._PUNCT to etc._ADV for consistency with other datasets
   etc-dot-X:
     rule_in: [{'Token': 'etc', 'UPOS': 'X'}, {'Token': '.', 'UPOS': 'PUNCT'}]
-    rule_out: [{'Token': {'CONCAT': True}, 'UPOS': 'ADV'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'UPOS': 'ADV'}]
 
   etc-X:
     rule_in: [{'Token': 'etc', 'UPOS': 'X'}]
