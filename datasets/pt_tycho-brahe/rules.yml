@@ -1,0 +1,226 @@
+pos_tagset_ud_map:
+  '"': PUNCT
+  '(': PUNCT
+  ')': PUNCT
+  ',': PUNCT
+  '.': PUNCT
+  ADJ: ADJ
+  ADJ-R: ADJ
+  ADJ-S: ADJ
+  ADV: ADV
+  ADV+CL: ADV
+  ADV-NEG: ADV
+  ADV-R: ADV
+  ADV-S: ADV
+  ADVR: PRON
+  AUX: AUX
+  C: SCONJ
+  C+PRO: PRON
+  CL: PRON
+  CONJ: CCONJ
+  CONJ-NEG: CCONJ
+  CONJP: CCONJ
+  CONJS: SCONJ
+  D: DET
+  D+D: ADP+DET
+  D+OUTRO: PRON
+  D-UM: DET
+  DEM: PRON
+  ET: VERB
+  ETP: VERB
+  ET+CL: VERB
+  FP: ADV
+  FW: ADV
+  HV: VERB
+  HV+CL: VERB
+  HV+P+CL: VERB
+  HV-AN: VERB
+  HVP: VERB
+  INTJ: INTJ
+  LATIN: X
+  N: NOUN
+  NEG: ADV
+  NPR: PROPN
+  NUM: NUM
+  OUTRO: PRON
+  P: ADP
+  P+ADV: ADP+ADV
+  P+CL: ADP+DET
+  P+D: ADP+DET
+  P+D+OUTRO: ADP+PRON
+  P+D-UM: ADP+DET
+  P+DEM: ADP+PRON
+  P+N: NOUN
+  P+NPR: PROPN
+  P+OUTRO: ADP+PRON
+  P+PRO: ADP+PRON
+  P+Q: ADP+PRON
+  P+VB: VERB
+  P+WADV: ADP+ADV
+  P+WD: ADP+DET
+  P+WPRO: ADP+PRON
+  PRO: PRON
+  PRO$: PRON
+  PUNC: PUNCT
+  Q: PRON
+  Q-NEG: PRON
+  Q+ADV: ADV
+  QT: PUNCT
+  SE: PRON
+  SENAO: ADP
+  SR: VERB
+  SRP: VERB
+  SR+CL: VERB
+  TR: VERB
+  TR-AN: VERB
+  TRP: VERB
+  TR+CL: VERB
+  VB: VERB
+  VB+CL: VERB+PRON
+  VB-AN: VERB
+  VBP: VERB
+  VBP+CL: VERB+PRON
+  WADV: ADV
+  WADVP: SCONJ
+  WD: DET
+  WNP: SCONJ
+  WPRO: PRON
+  WPRO$: PRON
+  WPRO+CL: PRON
+  WQ: PRON
+  X: X
+  XX: X
+
+# POS tag corrections for tags that occur infrequently in the data
+pos_corrections:
+  ADJ+N: N
+  ADJP-F: ADJ
+  ADV+ADV: ADV
+  ADV+P+D: ADV
+  ADV+PRO: PRO
+  CL+CL: CL
+  CL+D: CL
+  CL+HV: VB+CL
+  CL+PRO: PRO
+  CL+VB: VB+CL
+  CL+VB-SD: VB+CL
+  D+N: N
+  D+PRO: P+PRO
+  FW+FW: VB+CL
+  HV+P: HV
+  SR+PRO: HV
+  N+D: N
+  NEG+CL: NEG
+  NP-ACC: CL
+  NP-DAT: CL
+  NP-P: N
+  NPR+CL: NPR
+  P+ADJ: P+PRO
+  P+ADJ-F: P+PRO
+  P+C: C
+  P+D-F-: P+D
+  P+HV: HV
+  P+N-P: P+N
+  P+NPR-P: P+NPR
+  P+P: P+D
+  PRO+D: PRO
+  Q+D: D
+  SE+CL: CL
+  SR+PRO: SR
+  SR-F: SR
+  VB.: VB
+  VB@: VB
+  VB+CL+D: VB+CL
+  VB+CL+NP: VB+CL
+  VB+CL+PRO: VB+CL
+  VB+CL+VB: VB+CL
+  VB+P: VB
+  VB+VB+CL: VB+CL
+  VBP-P: N
+  WADV+P: WADV
+  WADV+P+D: WADV
+  WADV+PRO: WADV
+  WADV+VB: VB
+  WPRO+ADV: ADV
+  WPRO+CL: WPRO
+  WPRO+ET: ET
+  WPRO+PRO: WPRO
+  WPRO+VB: VB
+
+# list of nominal POS tags that can vary in gender and number
+nominal_tags: ['N', 'NPR', 'D', 'D+OUTRO', 'D-UM', 'OUTRO', 'Q', 'Q-NEG', 'NUM', 'WD', 'VB-AN', 'HV-AN', 'TR-AN',
+               'ADJ', 'ADJ-R', 'ADJ-S', 'PRO$', 'WPRO', 'WPRO$', 'P+D', 'P+D+OUTRO', 'P+D-UM', 'P+OUTRO', 'P+Q']
+
+contractions:
+  # d@ @elRei (d'elRei), t@ @esperei (t'esperei), d@ @Álvares (d'Álvares), etc.
+  2word-apostrophe:
+    rule_in: [{'Token': {'ENDS_WITH': '@'}}, {'Token': {'STARTS_WITH': '@'}}]
+    rule_out: [{'Token': {'CONCAT': "'", 'DELETE_CHARS': '@'}, 'POS': {'CONCAT': '+'}}]
+  
+  # co@ @migo, con@ @sigo, d@ @os, d@ @estes, n@ @aquelas, d@ @eles, n@ @um etc.
+  2word-contractions:
+    rule_in: [{'Token': {'ENDS_WITH': '@'}, 'POS': {'IN': ['CL', 'P', 'VB']}}, {'Token': {'STARTS_WITH': '@'},
+               'POS': {'IN': ['ADV', 'CL', 'D', 'D-UM', 'DEM', 'OUTRO', 'PRO', 'Q', 'WADV', 'WPRO']}}]
+    rule_out: [{'Token': {'CONCAT': '', 'DELETE_CHARS': '@', 'REPLACE': {'aa': 'a'}}, 'POS': {'CONCAT': '+'}}]
+  
+  # a@ @a, a@ @os, A@ @AS, A@ @aquele, A@ @as, A@ @AQUELA, a@ @onde, etc.
+  a@-contractions:
+    rule_in: [{'Token': {'LOWER': 'a@'}}, {'Token': {'STARTS_WITH': '@'}}]
+    rule_out: [{'Token': {'CONCAT': '', 'DELETE_CHARS': '@', 'REPLACE': {'aa': 'à', 'Aa': 'À', 'AA': 'À'}},
+                'POS': {'CONCAT': '+'}}]
+
+  # d@ ess@ @outro, Quant@ a@ @a, quant@ a@ @aquela, etc.
+  3word-contractions:
+    rule_in: [{'Token': {'ENDS_WITH': '@'}}, {'Token': {'ENDS_WITH': '@'}}, {'Token': {'STARTS_WITH': '@'}}]
+    rule_out: [{'Token': {'CONCAT': '', 'DELETE_CHARS': '@', 'REPLACE': {'aa': 'à'}}, 'POS': {'CONCAT': '+'}}]
+
+rules:
+  # deu- -lhes, viu- -a, ensinar- -me, danou- -se, hão- -de, dá- -o, etc.
+  2word-clitics:
+    rule_in: [{'Token': {'ENDS_WITH': '-'}, 'POS': {'NOT': '('}}, {'Token': {'STARTS_WITH': '-'}, 'POS': {'NOT': '('}}]
+    rule_out: [{'Token': {'CONCAT': '', 'REPLACE': {'--': '-'}}, 'POS': {'CONCAT': '+'}}]
+
+  # ajoelhar- -se- -lhe, fez- -se- -lhe, afigurava- -se- -me, etc.
+  3word-clitics:
+    rule_in: [{'Token': {'ENDS_WITH': '-'}, 'POS': {'NOT': '('}}, {'Token': {'ENDS_WITH': '-'}, 'POS': {'NOT': '('}},
+              {'Token': {'STARTS_WITH': '-'}, 'POS': {'NOT': '('}}]
+    rule_out: [{'Token': {'CONCAT': '', 'REPLACE': {'--': '-'}}, 'POS': {'CONCAT': '+'}}]
+
+  22word-clitics:
+    rule_in: [{'Token': {'CONTAINS': '-'}, 'POS': 'VB'}, {'Token': {'STARTS_WITH': '-', 'ENDS_WITH': '-'}, 'POS': {'NOT': '('}}]
+    rule_out: [{'Token': {'REPLACE': {'-': 2}}, 'POS': {'CONCAT': '+'}}]
+
+  # foram apreendidas, tinham aclamado, tem acontecido, serem atendidos, etc.
+  auxiliary-verb:
+    rule_in: [{'POS': {'IN': ['SR', 'SR+CL', 'SRP', 'HV', 'HV+CL', 'ET', 'ET+CL', 'TR', 'TR+CL']}},
+              {'POS': {'IN': ['SRP', 'HV-AN', 'HVP', 'ETP', 'TR-AN', 'TRP', 'VB-AN', 'VBP', 'VBP+CL']}}]
+    rule_out: [{'POS': 'AUX'}, {'POS': 'VB'}]
+
+  # ter sido compradas, havia sido ordenado, houver sido anunciado, etc.
+  sido-auxiliary:
+    rule_in: [{'POS': {'IN': ['TR', 'HV']}}, {'POS': 'SRP'}, {'POS': 'VB-AN'}]
+    rule_out: [{'POS': 'AUX'}, {'POS': 'AUX'}, {'POS': 'VB'}]
+
+  # convert left and right encoded parentheses to their token representation
+  left-parentheses:
+    rule_in: [{'Token': {'LOWER': '<lparen>'}}]
+    rule_out: [{'Token': '(', 'POS': '('}]
+
+  right-parentheses:
+    rule_in: [{'Token': {'LOWER': '<rparen>'}}]
+    rule_out: [{'Token': ')', 'POS': ')'}]
+
+  # remove tokens whose POS tags add meta information (e.g., a multiword expression follows the meta tag)
+  meta-tags:
+    rule_in: [{'Token': '0', 'POS': {'IN': ['WNP', 'WADVP', 'WPP', 'IP-SUB', 'PP']}}]
+    rule_out: []
+
+  meta-tags2:
+    rule_in: [{'POS': {'IN': ['NP-SBJ']}}]
+    rule_out: []
+
+  # 0/P nesse/D, 0/P às/D, 0/P daqueles/D, 0/P sobr'isso/DEM, etc.
+  meta-tags3:
+    rule_in: [{'Token': '0', 'POS': 'P'}, {'Token': {'NOT_IN': ['o', 'a']}}]
+    rule_out: [{'Token': {'POSITION': 2}, 'POS': {'CONCAT': '+'}}]
+
