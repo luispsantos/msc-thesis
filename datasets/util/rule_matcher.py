@@ -37,22 +37,37 @@ class Column:
 @dataclass(order=True, frozen=True)
 class Token:
     '''Stores a set of columns joined together by ANDs (e.g., Token=="os" and POS=="DET").'''
-    columns: Set[Column]
+    columns: Set[Column] = field(init=False)
+    token: InitVar[Dict]
+    _val_types = {
+        list: lambda val: tuple(val),
+        dict: lambda val: tuple(val.items()),
+        tuple: lambda val: val,
+        str: lambda val: val,
+        int: lambda val: val
+    }
 
-    def __post_init__(self):
-        _check_dict_like(self.columns, 'Token should be a dict of columns and their values')
+    def _parse_val(self, val):
+        try:
+            return self._val_types[type(val)](val)
+        except KeyError:
+            raise InvalidRuleFormat(f'Unknown type {type(val)} of {val}.')
 
+    def _parse_token(self, token):
         columns = []
-        for column, value in sorted(self.columns.items()):
+        for column, value in sorted(token.items()):
             if isinstance(value, str):
                 columns.append(Column(column, 'TEXT', value))
             elif isinstance(value, dict):
-                value = {attr: tuple(val) if isinstance(val, list) else val for attr, val in value.items()}
-                columns.extend(Column(column, attr, val) for attr, val in sorted(value.items()))
+                columns.extend(Column(column, attr, self._parse_val(val)) for attr, val in sorted(value.items()))
             else:
                 raise InvalidRuleFormat(f'{value} is not str-like or dict-like.')
 
-        object.__setattr__(self, 'columns', tuple(columns))
+        return columns
+
+    def __post_init__(self, token):
+        _check_dict_like(token, 'Token should be a dict of columns and their values')
+        object.__setattr__(self, 'columns', tuple(self._parse_token(token)))
 
     def __iter__(self):
         return iter(self.columns)
@@ -60,14 +75,15 @@ class Token:
     def __repr__(self):
         return '+'.join(str(col) for col in self.columns)
 
-@dataclass(order=True, frozen=True)
+@dataclass
 class TokenList:
     '''Stores a list of tokens (e.g., (Token=="de" and POS=="ADP") and (Token=="os" and POS=="DET")).'''
-    tokens: List[Token]
+    tokens: List[Token] = field(init=False)
+    token_list: InitVar[List]
 
-    def __post_init__(self):
-        _check_list_like(self.tokens, 'Tokens should be a list of ordered tokens')
-        tokens = tuple(Token(token) for token in self.tokens)
+    def __post_init__(self, token_list):
+        _check_list_like(token_list, 'Tokens should be a list of ordered tokens')
+        tokens = tuple(Token(token) for token in token_list)
         object.__setattr__(self, 'tokens', tokens)
 
     def __len__(self):
@@ -79,7 +95,7 @@ class TokenList:
     def __repr__(self):
         return ', '.join(str(token) for token in self.tokens)
 
-@dataclass(order=True, frozen=True)
+@dataclass
 class Rule:
     '''Stores a pair (rule_in, rule_out). Every found instance of rule_in will be replaced by rule_out.'''
     name: str
@@ -202,9 +218,6 @@ class RuleInOperation:
 class RuleOutOperation:
     '''Defines the possible column operations to be applied on a rule_out column.'''
 
-    def check_value(self, rule_in_array, col_idx, value):
-        return rule_in_array[:, value-1, col_idx] if isinstance(value, int) else value
-
     def concat_op(self, rule_in_array, token_idx, col_idx, value):
         rows = rule_in_array[:, :, col_idx].tolist()
         rule_in_array[:, token_idx, col_idx] = [value.join(row) for row in rows]  # value acts as a separator
@@ -214,12 +227,16 @@ class RuleOutOperation:
                                                                  {ord(char): None for char in value})
 
     def replace_op(self, rule_in_array, token_idx, col_idx, value):
-        old_str, new_str = value
-        rule_in_array[:, token_idx, col_idx] = np.char.replace(rule_in_array[:, token_idx, col_idx].astype(str),
-                                                               old_str, self.check_value(rule_in_array, col_idx, new_str))
+        for old_str, new_str in value:
+            rule_in_array[:, token_idx, col_idx] = np.char.replace(rule_in_array[:, token_idx, col_idx].astype(str),
+                                                                   old_str, new_str if isinstance(new_str, str) else
+                                                                   rule_in_array[:, new_str-1, col_idx])
 
     def text_op(self, rule_in_array, token_idx, col_idx, value):
-        rule_in_array[:, token_idx, col_idx] = self.check_value(rule_in_array, col_idx, value)
+        rule_in_array[:, token_idx, col_idx] = value
+
+    def position_op(self, rule_in_array, token_idx, col_idx, value):
+        rule_in_array[:, token_idx, col_idx] = rule_in_array[:, value-1, col_idx]
 
     def apply_ops(self, rule_in_array, rule, df_columns):
         column_idxs = {column: idx for idx, column in enumerate(df_columns)}
@@ -332,7 +349,7 @@ class RuleMatcher:
 
         return merged_rules, merged_start_idxs
 
-    def _apply_rules(self, rule_masks, df_values, df_columns):
+    def _apply_rules(self, rule_masks, df_values, df_index, df_columns):
         num_rules, num_tokens, num_columns = len(self.rules), len(df_values), len(df_columns)
 
         # compute length (number of tokens) for each (rule_in, rule_out) pair
@@ -344,22 +361,29 @@ class RuleMatcher:
         sorted_rules, rule_start_idxs = self._merge_matches(rule_start_idxs, rule_in_length)
 
         rule_out_operation = RuleOutOperation()
+        index_mask = np.ones(num_tokens, dtype=bool)
         matched_rules = []
 
         for rule_idx, rule in enumerate(self.rules):
             rule_in_len, rule_out_len = rule_in_length[rule_idx], rule_out_length[rule_idx]
 
             # compute all token indices inside a rule match
-            token_idxs = [rule_start_idx+token_idx for rule_start_idx in rule_start_idxs[rule_idx]
-                          for token_idx in range(rule_in_len)]
+            matched_token_idxs = [rule_start_idx+token_idx for rule_start_idx in rule_start_idxs[rule_idx]
+                                  for token_idx in range(rule_in_len)]
+
+            # compute all token indices to be dropped on rule_out
+            dropped_token_idxs = [rule_start_idx+token_idx for rule_start_idx in rule_start_idxs[rule_idx]
+                                  for token_idx in range(rule_out_len, rule_in_len)]
+
+            # remove dropped tokens from the index
+            index_mask[dropped_token_idxs] = False
 
             # compute rule_in array of size (num_matches, len(rule_in), num_columns)
-            rule_in_array = df_values[token_idxs].reshape(-1, rule_in_len, num_columns)
+            rule_in_array = df_values[matched_token_idxs].reshape(-1, rule_in_len, num_columns)
 
             # apply rule_out operations and reshape rule_in to the size of rule_out
             rule_out_operation.apply_ops(rule_in_array, rule, df_columns)
             rule_out_array = rule_in_array[:, :rule_out_len, :]
-
             matched_rules.append(rule_out_array)
 
         df_slices = []
@@ -377,7 +401,7 @@ class RuleMatcher:
             # append dataframe slice in-between rules
             df_slices.append(df_values[rule_start_idx+rule_in_len:next_rule_start_idx])
 
-        df_merged = pd.DataFrame(np.concatenate(df_slices, axis=0), columns=df_columns)
+        df_merged = pd.DataFrame(np.concatenate(df_slices, axis=0), index=df_index[index_mask], columns=df_columns)
         rule_counts = {rule.name: rule_counts[rule_idx] for rule_idx, rule in enumerate(self.rules)}
 
         return df_merged, rule_counts
@@ -386,7 +410,28 @@ class RuleMatcher:
         column_masks = self._create_column_masks(data_df)
         token_masks = self._create_token_masks(column_masks)
         rule_masks = self._create_rule_masks(token_masks)
-        data_df, rule_counts = self._apply_rules(rule_masks, data_df.values, data_df.columns)
+        data_df, rule_counts = self._apply_rules(rule_masks, data_df.values, data_df.index, data_df.columns)
 
         return data_df, rule_counts
+
+class SequentialMatcher:
+    '''A Matcher that applies groups of rules in sequence (rules are applied in the order they were added).'''
+    
+    def __init__(self, *rule_groups):
+        self.matchers = []
+        self.add_rules(*rule_groups)
+        
+    def add_rules(self, *rule_groups):
+        self.matchers.extend(RuleMatcher(rules) for rules in rule_groups)
+    
+    def clear_rules(self):
+        self.matchers.clear()
+        
+    def apply_rules(self, data_df):
+        all_counts = {}
+        for matcher in self.matchers:
+            data_df, rule_counts = matcher.apply_rules(data_df)
+            all_counts.update(rule_counts)
+            
+        return data_df, all_counts
 
