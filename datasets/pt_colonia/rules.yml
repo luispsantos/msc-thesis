@@ -1,0 +1,57 @@
+pos_tagset_ud_map:
+  ADJ: ADJ
+  ADV: ADV
+  ADV+P: ADV
+  B: NOUN
+  CARD: NUM
+  CONJ: CCONJ
+  CONJSUB: SCONJ
+  DET: DET
+  F: NOUN
+  G: X
+  I: INTJ
+  L: SCONJ
+  NOM: NOUN
+  P: PRON
+  P+P: PRON+PRON
+  PR: PRON
+  PRP: ADP
+  PRP+ADJ: ADJ
+  PRP+ADV: ADP+ADV
+  PRP+DET: ADP+DET
+  PRP+NOM: NOUN
+  PRP+P: ADP+PRON
+  PRP+PRP: ADP
+  QUOTE: PUNCT
+  SENT: PUNCT
+  V: VERB
+  V+P: VERB+PRON
+  V+P+P: VERB+PRON+PRON
+  V+P_d: VERB+PRON
+  V+U_d: VERB+PRON
+  V+U_d+P: VERB+PRON+PRON
+  VIRG: PUNCT
+  X: X
+
+rules:
+  # \num livro_3 \txt, \num 24 \txt, \num parte_2_capítulo_3 \txt, \um 87 \txt, etc.
+  meta-tags:
+    rule_in: [{'Token': {'IN': ['\num', '\um', 'b\num']}}, {}, {'Token': '\txt'}]
+    rule_out: []
+
+  # \num151 \txt, \num73 \txt, \num4 \txt, \num 11, etc.
+  meta-tags2:
+    rule_in: [{'Token': {'STARTS_WITH': '\num'}}, {'Token': {'IN': ['\txt', '11']}}]
+    rule_out: []
+
+  # \num parte_2_capítulo 14 \txt
+  meta-tags3:
+    rule_in: [{'Token': '\num'}, {}, {}, {'Token': '\txt'}]
+    rule_out: []
+
+  # there is a small number of URLs even on an historical corpus
+  # URLs are typically tagged as SYM but here we tag them as X
+  urls:
+    rule_in: [{'Token': {'ENDS_WITH': '.br>'}}]
+    rule_out: [{'Token': {'DELETE_CHARS': '<>'}, 'POS': 'X'}]
+
