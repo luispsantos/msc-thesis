@@ -1,0 +1,55 @@
+pos_tagset_ud_map:
+  A: ADJ
+  AD: DET
+  AD+NC: NOUN
+  ADV: ADV
+  ADV+PCL: ADV
+  AI: DET
+  C: CCONJ
+  C+AD: CCONJ
+  C+NC: NOUN
+  C+PCL: CCONJ
+  CARD: NUM
+  CARD+NC: NOUN
+  CARDR: NUM
+  I: INTJ
+  NC: NOUN
+  NP: PROPN
+  P: ADP
+  P+AD: ADP+DET
+  P+ADV: ADP+ADV
+  P+AI: ADP+DET
+  P+NC: NOUN
+  P+NP: PROPN
+  P+PD: ADP+DET
+  P+PI: ADP+DET
+  P+PES: ADP+PRON
+  P+POS: ADP+PRON
+  P+VINF: VERB
+  PCL: PRON
+  PCL+PCL: PRON+PRON
+  PD: PRON
+  PES: PRON
+  PI: DET
+  PI+AD: DET
+  PI+PD: PRON
+  PI+NC: NOUN
+  POS: PRON
+  PUNC: PUNCT
+  QU: PRON
+  V: VERB
+  V+PCL: VERB+PRON
+  V+PCL+PCL: VERB+PRON+PRON
+  VINF: VERB
+  VINF+PCL: VERB+PRON
+  VN: VERB
+  VN+PCL: VERB+PRON
+  VPP: VERB
+
+# directly map tokens to a UPOS tag whenever the POS tags are too infrequent in the data
+token_upos_map: {quee: CCONJ, queno: PRON, volas: PRON, quitomellẽ: VERB+PRON, ia: NUM,
+                 daqual: ADP+DET, chu: DET, comeu: CCONJ, dond': ADP+ADV, rogoos: VERB+PRON,
+                 Donafõso: PROPN, Donaffonso: PROPN, polo: ADP+PRON, dezeû: NUM, uâ: VERB,
+                 âçíma: ADV, saiuda: NOUN, depolas: ADP+DET, enfilhar: VERB, telas: VERB+PRON,
+                 dardenolo: VERB+PRON, dãtre: ADP, Daazãbuya: PROPN, âultra: ADP+DET, demas: ADV, 
+                 daquãto: ADP+PRON, damtrãbos: ADP+DET, darnosslaedes: VERB+PRON, asubelho: ADJ}
