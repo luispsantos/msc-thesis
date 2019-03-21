@@ -1,7 +1,7 @@
-import pandas as pd
 from pathlib import Path
 from lxml import etree
 from html import escape
+import pandas as pd
 import yaml
 import re
 import sys
@@ -12,105 +12,42 @@ os.chdir(sys.path[0])
 
 # importing from util/ directory
 sys.path.insert(1, str(Path.cwd().parent / 'util'))
-from rule_matcher import RuleMatcher
-import contractions
+from rule_matcher import RuleMatcher, SequentialMatcher
 from util import *
 
-#read variables from the configuration file
+# read variables from the configuration file
 with open('config.yml', 'r') as f:
     config = yaml.load(f)
 
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
-data_split = config['data_split']
-output_separator, output_columns  = config['output_separator'], config['output_columns']
+output_columns = config['output_columns']
 
-# create output dataset directory if it doesn't exist
-if not dataset_out_dir.exists():
-    dataset_out_dir.mkdir(parents=True)
+# read dataset-specific rules
+with open('rules.yml', 'r') as f:
+    rules = yaml.load(f)
+
+fix_contractions, fix_clitics = rules['fix_contractions'], rules['fix_clitics']
+pos_tagset_ud_map, rules = rules['pos_tagset_ud_map'], rules['rules']
+
+# load contractions for Portuguese
+with open('contractions3.yml', 'r') as f:
+    contractions = yaml.load(f)
+
+# load clitic contractions for Portuguese
+with open('clitics3.yml', 'r') as f:
+    clitics = yaml.load(f)
+
+# regex to extract Token, POS and NER tags from raw tokens
+# capturing URLs uses a greedy version in order to match trailing slashes
+# discards information about spaces before/after, lemma and token features
+token_re = re.compile(r'(?:\\\*)?(?P<Token>http:.+|.+?)(?:\*\/)?(?:/.+)?(?:/(?P<POS>[A-Z]+)\d?)(?:#.+)?(?:\[(?P<NER>[A-Z-]+)\])$')
 
 # more complex pattern that captures the lemma and token features
 #token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/(?P<Lemma>[^a-z]+))?(?:/(?P<POS>[A-Z]+)\d?)(?:#(?P<FEATS>[\w?-]+))?(?:\[(?P<NER>[A-Z-]+)\])$')
 
-token_re = re.compile(r'^(?:\\\*)?(?P<Token>.+?)(?:\*/)?(?:/.+)?(?:/(?P<POS>[A-Z]+)\d?)(?:#.+)?(?:\[(?P<NER>[A-Z-]+)\])$')
-
-pos_tagset_ud_map = {
-    'ADJ': 'ADJ',
-    'ADV': 'ADV',
-    'CARD': 'NUM',
-    'CJ': 'CCONJ',
-    'CL': 'PRON',
-    'CN': 'NOUN',
-    'DA': 'DET',
-    'DEM': 'PRON',
-    'DFR': 'NUM',
-    'DGT': 'NUM',
-    'DGTR': 'NUM',
-    'DM': 'INTJ',
-    'EOE': 'ADV',
-    'GER': 'VERB',
-    'IA': 'DET',
-    'IND': 'PRON',
-    'INF': 'VERB',
-    'INT': 'PRON',
-    'ITJ': 'INTJ',
-    'LADV': 'ADV',
-    'LCJ': 'CCONJ',
-    'LCN': 'NOUN',
-    'LDEM': 'PRON',
-    'LDFR': 'NUM',
-    'LITJ': 'INTJ',
-    'LPREP': 'ADP',
-    'LPRS': 'PRON',
-    'LREL': 'PRON',
-    'LTR': 'SYM',
-    'MGT': 'NOUN',
-    'MTH': 'NOUN',
-    'ORD': 'ADJ',
-    'PADR': 'NOUN',
-    'PNM': 'PROPN',
-    'PNT': 'PUNCT',
-    'POSS': 'DET',
-    'PP': 'ADV',
-    'PPA': 'ADJ',
-    'PPT': 'VERB',
-    'PREP': 'ADP',
-    'PRS': 'PRON',
-    'QNT': 'DET',
-    'REL': 'PRON',
-    'STT': 'NOUN',
-    'SYB': 'SYM',
-    'UM': 'DET',
-    'V': 'VERB',
-    'VAUX': 'AUX',
-    'WD': 'NOUN'
-}
-
-def normalize_token(token_dict):
-
-    # remove last "_" in tokens that operate as contractions (e.g., por_, de_, em_)
-    if token_dict['Token'][-1] == '_' and len(token_dict['Token']) > 1:
-        token_dict['Token'] = token_dict['Token'][:-1]
-
-    #map POS tags from CINTIL tagset to UD tagset
-    token_pos_cintil = token_dict['POS']
-
-    if token_dict['Token'] == 'sido' and token_pos_cintil == 'PPT':
-        token_pos_ud = 'AUX'
-    # discard tokens with optional gender and number (e.g., (s), (as), etc.)
-    elif token_pos_cintil == 'TERMN':
-        return False
-    else:
-        token_pos_ud = pos_tagset_ud_map[token_pos_cintil] if token_pos_cintil in pos_tagset_ud_map else token_pos_cintil
-
-    token_dict['POS'] = token_pos_ud
-
-    return token_dict
-
-
 def preprocess_text(cintil_text):
-    # delete unnecessary tags: <i>, </i>, <t>, </t>
-    # their function is not fundamental to the creation of POS or NER systems
-    # furthermore some of these tags are opened without being properly closed
+    # delete unnecessary XML tags: <i>, </i>, <t>, </t>
+    # some of these tags are opened without being properly closed
     cintil_text = re.sub(r'</?(i|t)> ', '', cintil_text)
 
     # URL encode '&' symbol - necessary in order to use a XML parser
@@ -121,37 +58,66 @@ def preprocess_text(cintil_text):
 
     return cintil_text
 
-def token_generator(dataset_in_path):
-    # read CINTIL's file contents
-    cintil_text = dataset_in_path.read_text()
+def create_rule(uncontracted, contracted):
+    """
+    Creates a rule composed of multiple uncontracted tokens as input
+    and a single contracted token as output (POS tags are concatenated).
+    """
+    rule_in = [{'Token': token} for token in uncontracted.split()]
+    rule_out = [{'Token': contracted, 'POS': {'CONCAT': '+'}}]
+    rule = {'rule_in': rule_in, 'rule_out': rule_out}
+    
+    return rule
 
-    # preprocess text (required for the XML parser to work)
-    cintil_text = preprocess_text(cintil_text)
+def clitic_rules(clitics):
+    """Creates rules for clitic contractions in Portuguese."""
+    rules = {}
+    for name, contraction in clitics.items():
+        uncontracted, contracted = contraction['uncontracted'], contraction['contracted']
+        rules[name] = create_rule(uncontracted, contracted)
 
-    # parse XML
-    cintil = etree.fromstring(cintil_text)
+    return rules
 
-    # find XML tags which correspond to sentences
-    sents = cintil.xpath('excerpt/text/p/s/text()')
+def contraction_rules(contractions):
+    """Creates rules for contractions in Portuguese."""
+    rules = {}
+    for name, contraction in contractions.items():
+        uncontracted, contracted = contraction['uncontracted'], contraction['contracted']
+        # add three rules for each contraction, a lowercase rule (e.g. de_ o -> do),
+        # a capitalized rule (e.g. De_ o -> Do) and finally an uppercase rule 
+        # (e.g. DE_ O -> DO), since all these three forms occur frequently in the data
+        rules[name] = create_rule(uncontracted, contracted)
+        rules[name.capitalize()] = create_rule(uncontracted.capitalize(),
+                                                    contracted.capitalize())
+        rules[name.upper()] = create_rule(uncontracted.upper(), contracted.upper())
+                                                    
+    return rules
 
-    for sent in sents:
-        for token in sent.strip().split():
-            yield token
-        yield SENT_BOUNDARY
-
-
+# read CINTIL's file contents
 dataset_in_path = dataset_in_dir / 'CINTIL-WRITTEN.txt'
-data_df = read_data(token_generator(dataset_in_path), token_re)
+cintil_text = dataset_in_path.read_text()
 
-# data transformation ops like this should go into a function
-data_df.POS = data_df.POS.map(pos_tagset_ud_map)
-data_df.Token = data_df.Token.str.replace(r'\B_$', '')
+# preprocess text (required for the XML parser to work)
+cintil_text = preprocess_text(cintil_text)
 
-data_splitted = train_test_split(data_df, data_split)
+# parse XML document
+cintil_doc = etree.fromstring(cintil_text)
 
-for dataset_type in ['train', 'dev', 'test']:
-    dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
+# find the text of XML tags that correspond to sentences
+sents = cintil_doc.xpath('excerpt/text/p/s/text()')
 
-    write_data(data_splitted[dataset_type], dataset_out_path, output_separator)
-    print('Created file {}'.format(dataset_out_path))
+# read the sentences into a DataFrame
+data_df = read_data(sents, token_re)
+
+# convert rules to a format the RuleMatcher understands
+contractions = contraction_rules(contractions)
+clitics = clitic_rules(clitics)
+
+# apply contraction, clitic and other rules in sequence
+matcher = SequentialMatcher(fix_contractions, contractions, fix_clitics, clitics, rules)
+data_df, rule_counts = matcher.apply_rules(data_df)
+
+# convert POS tags to UD tagset
+data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
+
 

@@ -1,12 +1,13 @@
+name: CINTIL
+lang: PT
+url: http://cintil.ul.pt
+genre:
+  - newswire
+  - spoken
+
 dataset_in_dir: original_data
 dataset_out_dir: data
-data_split:
-  train: 0.8
-  dev: 0.1
-  test: 0.1
-
-output_separator: ' '
 output_columns:
   - Token
-  - POS
+  - UPOS
   - NER
