@@ -1,9 +1,9 @@
-import numpy as np
-import pandas as pd
-from pandas.api.types import CategoricalDtype
 from dataclasses import dataclass, field, InitVar
 from typing import List, Set, Dict
+from pandas.api.types import CategoricalDtype
 from urlextract import URLExtract
+import numpy as np
+import pandas as pd
 
 class InvalidRuleFormat(Exception):
     '''Raise when rules do not adhere to the expected format.'''
@@ -44,7 +44,8 @@ class Token:
         dict: lambda val: tuple(val.items()),
         tuple: lambda val: val,
         str: lambda val: val,
-        int: lambda val: val
+        int: lambda val: val,
+        bool: lambda val: val
     }
 
     def _parse_val(self, val):
