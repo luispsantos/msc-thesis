@@ -2,7 +2,6 @@ from pathlib import Path
 from lxml import etree
 from html import escape
 import pandas as pd
-import yaml
 import re
 import sys
 import os
@@ -10,32 +9,27 @@ import os
 # change working dir into the directory containing the script
 os.chdir(sys.path[0])
 
-# importing from util/ directory
-sys.path.insert(1, str(Path.cwd().parent / 'util'))
-from rule_matcher import RuleMatcher, SequentialMatcher
+# importing util package from parent directory
+sys.path.insert(1, str(Path.cwd().parent))
 from util import *
 
 # read variables from the configuration file
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
-
+config = load_yaml('config.yml')
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_columns = config['output_columns']
 
 # read dataset-specific rules
-with open('rules.yml', 'r') as f:
-    rules = yaml.load(f)
-
+rules = load_yaml('rules.yml')
 fix_contractions, fix_clitics = rules['fix_contractions'], rules['fix_clitics']
 pos_tagset_ud_map, rules = rules['pos_tagset_ud_map'], rules['rules']
 
-# load contractions for Portuguese
-with open('contractions3.yml', 'r') as f:
-    contractions = yaml.load(f)
+# load contractions and clitics for Portuguese
+contractions, clitics = load_yaml('contractions.yml'), load_yaml('clitics.yml')
 
-# load clitic contractions for Portuguese
-with open('clitics3.yml', 'r') as f:
-    clitics = yaml.load(f)
+# load MWEs and their associated POS tags
+mwe_pos_map, mwe_dir = {}, Path('mwes')
+for mwe_file in mwe_dir.glob('*.yml'):
+    mwe_pos_map.update(load_yaml(mwe_file))
 
 # regex to extract Token, POS and NER tags from raw tokens
 # capturing URLs uses a greedy version in order to match trailing slashes
@@ -117,7 +111,14 @@ clitics = clitic_rules(clitics)
 matcher = SequentialMatcher(fix_contractions, contractions, fix_clitics, clitics, rules)
 data_df, rule_counts = matcher.apply_rules(data_df)
 
+# set POS tags for MWE tokens
+mwe_tags = ['LADV', 'LCJ', 'LDEM', 'LDFR', 'LDM', 'LPRS', 'LPREP', 'LQD', 'LREL']
+set_mwe_tags(data_df, mwe_tags, mwe_pos_map)
+
 # convert POS tags to UD tagset
 data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
 
+# split data into train, dev and test sets and write data to disk
+train_test_dfs = train_test_split(data_df)
+write_data(train_test_dfs, dataset_out_dir, output_columns)
 

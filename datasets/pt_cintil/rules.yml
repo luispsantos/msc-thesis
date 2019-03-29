@@ -1,0 +1,140 @@
+pos_tagset_ud_map:
+  ADJ: ADJ
+  ADV: ADV
+  ADV+CL: ADV
+  CARD: NUM
+  CJ: CCONJ
+  CL: PRON
+  CL+CL: PRON
+  CL+DA: PRON
+  CN: NOUN
+  CN+CL: VERB+PRON
+  DA: DET
+  DEM: PRON
+  DEM+QNT: PRON
+  DL: ADV
+  DFR: NUM
+  DGT: NUM
+  DGTR: NUM
+  DM: INTJ
+  EADR: SYM
+  EMP: ADV
+  EL: INTJ
+  EOE: ADV
+  EXC: SCONJ
+  GER: VERB
+  GER+CL: VERB+PRON
+  GER+CL+CL: VERB+PRON
+  GERAUX: AUX
+  GERAUX+CL: VERB+PRON
+  IA: DET
+  IND: PRON
+  INF: VERB
+  INF+CL: VERB+PRON
+  INF+CL+CL: VERB+PRON
+  INFAUX: AUX
+  INFAUX+CL: VERB+PRON
+  INT: PRON
+  ITJ: INTJ
+  LCN: NOUN
+  LD: ADV
+  LITJ: INTJ
+  LTR: NOUN
+  MGT: NOUN
+  MTH: NOUN
+  NP: PRON
+  ORD: ADJ
+  PADR: NOUN
+  PL: INTJ
+  PNM: PROPN
+  PNM+CL: PROPN
+  PNM+PNM: PROPN
+  PNT: PUNCT
+  POSS: DET
+  PP: ADV
+  PPA: ADJ
+  PPA+CL: VERB+PRON
+  PPT: VERB
+  PREP: ADP
+  PREP+ADJ: ADP+DET
+  PREP+ADV: ADP+ADV
+  PREP+CL: ADP
+  PREP+DA: ADP+DET
+  PREP+DEM: ADP+DET
+  PREP+IA: ADP+DET
+  PREP+IND: ADP+DET
+  PREP+INT: ADP+ADV
+  PREP+PREP: ADP+DET
+  PREP+PRS: ADP+PRON
+  PREP+QNT: ADP+DET
+  PREP+REL: ADP+ADV
+  PREP+UM: ADP+DET
+  PRS: PRON
+  TERMN: PART
+  QNT: DET
+  REL: PRON
+  SC: NOUN
+  STT: NOUN
+  SYB: SYM
+  UM: DET
+  UNIT: NOUN
+  V: VERB
+  V+CL: VERB+PRON
+  V+CL+CL: VERB+PRON
+  V+PREP: VERB
+  VAUX: AUX
+  VAUX+CL: VERB+PRON
+  VAUX+CL+CL: VERB+PRON
+  WD: NOUN
+
+fix_contractions:
+  fix_EM+o:
+    rule_in: [{'Token': 'EM_'}, {'Token': 'o'}]
+    rule_out: [{'Token': 'Em_'}, {'Token': 'o'}]
+
+  fix_EM+a:
+    rule_in: [{'Token': 'EM_'}, {'Token': 'a'}]
+    rule_out: [{'Token': 'Em_'}, {'Token': 'a'}]
+
+  fix_Em+aa:
+    rule_in: [{'Token': 'Em_'}, {'Token': 'aa'}]
+    rule_out: [{'Token': 'Em_'}, {'Token': 'a'}]
+
+  fix_A+À:
+    rule_in: [{'Token': 'A_'}, {'Token': 'À'}]
+    rule_out: [{'Token': 'A_'}, {'Token': 'A'}]
+
+fix_clitics:
+  # remove hashtag on verbs and adverbs before clitics
+  # acordá#-lo, salvá#-la, destruí#-lo, sabê#-lo, ei#-lo, etc.
+  remove-hashtag:
+    rule_in: [{'Token': {'ENDS_WITH': '#'}, 'POS': {'NOT': 'SYB'}}]
+    rule_out: [{'Token': {'DELETE_CHARS': '#'}}]
+
+  # remove -CL- placeholder for when clitics occur inside the verb (mesoclisis)
+  # replace -CL placeholder by the clitic particle that occurs after the verb
+  # Tratar-CL-á -se, juntar-CL-ão -se, dir#-CL-ei -te, fá#-CL-iam -las, etc.
+  remove-CL:
+    rule_in: [{'Token': {'CONTAINS': '-CL-'}, 'POS': 'V'}, {'POS': 'CL'}]
+    rule_out: [{'Token': {'DELETE_CHARS': '#', 'REPLACE': {'-CL': 2}},  # here '-CL': 2 means replace by second token
+                'POS': {'CONCAT': '+'}}]
+
+rules:
+  # concatenate verbs and clitics (juntou_V -se_CL -> juntou-se_V+CL)
+  # remains general on POS tag of first token (e.g. V, GER, AUX, ADV, etc.)
+  # e.g. juntou-se, comeu-a, despegá-los, revolviam-se, roubar-ma, etc.
+  one-clitic:
+    rule_in: [{}, {'Token': {'STARTS_WITH': '-'}, 'POS': 'CL'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'POS': {'CONCAT': '+'}}]
+
+  # e.g. juntou-se-lhe, instalou-se-me, afigura-se-nos, varreu-se-lhe, etc.
+  two-clitics:
+    rule_in: [{}, {'Token': {'STARTS_WITH': '-'}, 'POS': 'CL'}, {'Token': {'STARTS_WITH': '-'}, 'POS': 'CL'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'POS': {'CONCAT': '+'}}]
+
+  # haver verb + de preposition (e.g. há-de, hei-de, hão-de)
+  haver+de:
+    rule_in: [{'POS': 'V'}, {'Token': '-de', 'POS': 'PREP'}]
+    rule_out: [{'Token': {'CONCAT': ''}, 'POS': {'CONCAT': '+'}}]
+
+

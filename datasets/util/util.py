@@ -12,6 +12,10 @@ def load_yaml(yaml_file):
 
     return yaml_parsed
 
+def flatten_list(lst):
+    """Flattens a list of lists into a single list."""
+    return [elem for sublist in lst for elem in sublist]
+
 def replace_values(values, from_column, to_column=None):
     """
     Finds all of values.keys() on from_column and replaces these by their
@@ -31,6 +35,38 @@ def replace_values(values, from_column, to_column=None):
 
     # writes the column elements that were replaced on to_column
     to_column.where(pd.isna(mapped_values), mapped_values, inplace=True)
+
+def set_mwe_tags(data_df, mwe_tags, mwe_pos_map):
+    """
+    Sets POS tags at the MWE-level for a given group of MWE tags.
+    
+    :param data_df: A DataFrame containing MWEs as separate tokens.
+    :param mwe_tags: A list of POS tags that correspond to MWEs.
+    :param mwe_pos_map: A dict that maps MWE tokens to MWE POS tags.
+    """
+    mwe_tags_re = '(' + '|'.join(mwe_tags) + ')'
+    mwe_tags = data_df.POS.astype('category') \
+                      .str.extract(mwe_tags_re, expand=False)
+
+    # extract tokens and POS tags for tokens that are part of a MWE
+    mwe_mask = mwe_tags.notna()
+    data_df['TokenIdx'] = np.arange(len(data_df))
+    mwe_tokens, mwe_pos = data_df[mwe_mask], mwe_tags[mwe_mask]
+
+    # find indexes for tokens that start MWEs
+    is_mwe_start = mwe_tokens.TokenIdx.diff() != 1
+    is_same_pos = mwe_pos != mwe_pos.shift()
+    mwe_start_idxs = np.where(is_mwe_start | is_same_pos)[0][1:]
+
+    # join MWEs in a single token (e.g. através de -> através_de)
+    mwe_tokens = np.split(mwe_tokens.Token.values, mwe_start_idxs)
+    mwe_tokens = pd.Series(mwe_tokens)
+    mwe_tokens = mwe_tokens.str.join('_')
+
+    # map MWE tokens to MWE POS tags and set the mapped POS tags
+    mwe_pos = mwe_tokens.str.lower().map(mwe_pos_map)
+    data_df.loc[mwe_mask, 'POS'] = flatten_list(mwe_pos.str.split('_'))
+    data_df.drop(columns='TokenIdx', inplace=True)
 
 def add_bio_encoding(ner):
     """Converts a NER column without a NER scheme (e.g. O LOC LOC O) to BIO."""
