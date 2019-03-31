@@ -57,42 +57,6 @@ def read_conllu(data_in_path, keep_columns=['ID', 'FORM', 'UPOS']):
 
     return data_df
 
-def extract_multiwords(data_df, multiword_upos_map=None):
-    """
-    Extracts multi-word tokens from a CoNLL-U file. Multi-word tokens are defined in CoNLL-U by range IDs.
-    Removes all tokens that are included in range IDs. The UPOS tags of those tokens are concatenated
-    to derive a UPOS tag for the multi-word token (e.g. de_ADP os_DET -> dos_ADP+DET). If defined,
-    multiword_upos_map provides a mapping between concatenated tags and single tags (e.g. ADP+ADV -> ADV).
-    """
-    # compute tokens with range IDs (e.g. 7-8) which define multi-word tokens
-    ID, UPOS = data_df.ID, data_df.UPOS
-    range_ids = ID[ID.str.contains('-', na=False, regex=False)]
-
-    # split range IDs (7-8 -> 7 8) and compute interval length ((8 - 7) + 1 = 2)
-    range_id_intervals = range_ids.str.split('-', expand=True).astype(int)
-    range_id_len = range_id_intervals[1] - range_id_intervals[0] + 1
-
-    mask = np.zeros(len(data_df), dtype=bool)
-    multiword_mask = np.zeros(len(data_df), dtype=bool)
-
-    for range_len, range_idx in range_id_len.groupby(range_id_len):  # group range IDs by range length
-        mask.fill(False)
-        for start_range in range_idx.index+1: mask[start_range:start_range+range_len] = True
-
-        upos = UPOS[mask]
-        multiword_mask |= mask
-
-        # concatenate UPOS tags of range ID tokens (7-8 -> ADP+DET -> UPOS of token 7 and 8)
-        upos_concat = upos[::range_len].str.cat([upos[start_idx::range_len].values
-                                       for start_idx in range(1, range_len)], sep='+')
-
-        upos_concat = upos_concat.map(multiword_upos_map) if multiword_upos_map is not None else upos_concat
-        UPOS.loc[range_idx.index] = upos_concat.values
-
-    # discard multi-word tokens that belong to range IDs (7-8 -> discard token 7 and 8)
-    data_df = data_df[~multiword_mask]
-    return data_df
-
 def write_data(data_df, data_out_path, output_columns, output_separator='\t'):
     """
     Writes the data to a file in a format similar in scope to CoNLL-2003.
