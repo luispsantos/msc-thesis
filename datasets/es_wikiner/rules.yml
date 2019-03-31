@@ -1,0 +1,80 @@
+pos_tagset_ud_map:
+  ACRNM: PROPN
+  ADJ: ADJ
+  ALFS: NOUN
+  ADV: ADV
+  ART: DET
+  BACKSLASH: PUNCT
+  CARD: NUM
+  CC: CCONJ
+  CCAD: CCONJ
+  CCNEG: CCONJ
+  CM: PUNCT
+  CODE: NUM
+  COLON: PUNCT
+  CQUE: SCONJ
+  CSUBF: SCONJ
+  CSUBI: ADP
+  CSUBX: SCONJ
+  DM: DET
+  DOTS: PUNCT
+  FS: PUNCT
+  INT: PRON
+  LP: PUNCT
+  NC: NOUN
+  NEG: ADV
+  NMEA: NOUN
+  NMON: NOUN
+  NP: PROPN
+  ORD: ADJ
+  PAL: ADP+DET
+  PDEL: ADP+DET
+  PE: NOUN
+  PERCT: SYM
+  PPC: PRON
+  PPO: DET
+  PPX: PRON
+  PREP: ADP
+  QT: PUNCT
+  QU: DET
+  REL: PRON
+  RP: PUNCT
+  SE: PRON
+  SEMICOLON: PUNCT
+  SLASH: PUNCT
+  SYM: SYM
+  UMMX: NOUN
+  VCLIfin: VERB+PRON
+  VCLIger: VERB+PRON
+  VCLIinf: VERB+PRON
+  VEadj: AUX
+  VEfin: AUX
+  VEger: AUX
+  VEinf: AUX
+  VHadj: AUX
+  VHfin: AUX
+  VHger: AUX
+  VHinf: AUX
+  VLadj: ADJ
+  VLfin: VERB
+  VLger: VERB
+  VLinf: VERB
+  VMadj: AUX
+  VMfin: AUX
+  VMger: AUX
+  VMinf: AUX
+  VSadj: AUX
+  VSfin: AUX
+  VSger: AUX
+  VSinf: AUX
+
+rules:
+  a-preposition:
+    rule_in: [{'Token': {'LOWER': 'a'}, 'POS': 'ALFS'}]
+    rule_out: [{'UPOS': 'ADP'}]
+
+  # tag the prepositional pronouns conmigo, contigo, consigo as ADP+PRON
+  prepositional-prons:
+    rule_in: [{'Token': {'IN': ['conmigo', 'contigo', 'consigo']}}]
+    rule_out: [{'UPOS': 'ADP+PRON'}]
+
