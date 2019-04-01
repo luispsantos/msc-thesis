@@ -1,26 +1,23 @@
 from pathlib import Path
-from os.path import join, getmtime
+from os.path import join
 from itertools import chain
 from zipfile import ZipFile
 import subprocess
 import yaml
 
 def process_config(config):
-    # remove keys of dataset directories
+    """Selectively choose the info on config.yml to retain."""
+    # remove keys of dataset input/output directories
     del config['dataset_in_dir']
     del config['dataset_out_dir']
 
-    # rename output_columns to columns
+    # rename output_columns key to columns
     config['columns'] = config.pop('output_columns')
 
     return config
 
-# obtain last modification time of zip file
-zipfile_path = Path('datasets.zip')
-zipfile_mtime = getmtime(zipfile_path) if zipfile_path.exists() else 0.0
-
 # open the datasets zip file
-datasets = ZipFile(zipfile_path, 'w')
+datasets = ZipFile('datasets.zip', 'w')
 cwd = Path.cwd()
 
 # iterate over the Portuguese and Spanish datasets
@@ -28,9 +25,8 @@ for dataset_dir in chain(cwd.glob('pt_*'), cwd.glob('es_*')):
     dataset_name = dataset_dir.name
     data_dir = dataset_dir / 'data'
 
-    # create dataset if it has not been created or
-    # if it has been modified later than the zip file
-    if not data_dir.exists() or getmtime(data_dir) > zipfile_mtime:
+    # create dataset if it has not yet been created
+    if not data_dir.exists():
         print(f'Creating dataset {dataset_name}')
         subprocess.run(['python', 'create_dataset.py'], cwd=dataset_dir)
 
