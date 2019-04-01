@@ -1,31 +1,25 @@
-import pandas as pd
 from pathlib import Path
-import yaml
+from io import StringIO
+import pandas as pd
 import re
 import sys
 import os
-from io import StringIO
 import csv
 
 # change working dir into the directory containing the script
 os.chdir(sys.path[0])
 
-# importing from util/ directory
-sys.path.insert(1, str(Path.cwd().parent / 'util'))
-from historical_dataset import read_text_files, sent_tokenize
+# importing util package from parent directory
+sys.path.insert(1, str(Path.cwd().parent))
 from util import *
 
 # read variables from the configuration file
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
-
+config = load_yaml('config.yml')
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_columns = config['output_columns']
 
 # read dataset-specific rules
-with open('rules.yml', 'r') as f:
-    rules = yaml.load(f)
-
+rules = load_yaml('rules.yml')
 pos_tagset_ud_map = rules['pos_tagset_ud_map']
 
 def preprocess_text(text):

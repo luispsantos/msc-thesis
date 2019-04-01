@@ -1,27 +1,22 @@
 from pathlib import Path
 import pandas as pd
-import yaml
 import sys
 import os
 
 # change working dir into the directory containing the script
 os.chdir(sys.path[0])
 
-# importing from util/ directory
-sys.path.insert(1, str(Path.cwd().parent / 'util'))
+# importing util package from parent directory
+sys.path.insert(1, str(Path.cwd().parent))
 from util import *
 
-#read variables from the configuration file
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
-
+# read variables from the configuration file
+config = load_yaml('config.yml')
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_columns = config['output_columns']
 
 # read dataset-specific rules
-with open('rules.yml', 'r') as f:
-    rules = yaml.load(f)
-
+rules = load_yaml('rules.yml')
 multiword_upos_map = rules['multiword_upos_map']
 
 for dataset_type in ['train', 'dev', 'test']:

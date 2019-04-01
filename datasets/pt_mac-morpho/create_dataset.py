@@ -1,6 +1,5 @@
 from pathlib import Path
 import pandas as pd
-import yaml
 import re
 import sys
 import os
@@ -8,22 +7,17 @@ import os
 # change working dir into the directory containing the script
 os.chdir(sys.path[0])
 
-# importing from util/ directory
-sys.path.insert(1, str(Path.cwd().parent / 'util'))
-from rule_matcher import RuleMatcher
+# importing util package from parent directory
+sys.path.insert(1, str(Path.cwd().parent))
 from util import *
 
 #read variables from the configuration file
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
-
+config = load_yaml('config.yml')
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
 output_columns = config['output_columns']
 
 # read dataset-specific rules
-with open('rules.yml', 'r') as f:
-    rules = yaml.load(f)
-
+rules = load_yaml('rules.yml')
 pos_tagset_ud_map, rules = rules['pos_tagset_ud_map'], rules['rules']
 
 matcher = RuleMatcher(rules)
