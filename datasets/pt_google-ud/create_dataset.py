@@ -1,30 +1,25 @@
-import pandas as pd
 from pathlib import Path
-import yaml
+import pandas as pd
 import sys
 import os
 
 # change working dir into the directory containing the script
 os.chdir(sys.path[0])
 
-# importing from util/ directory
-sys.path.insert(1, str(Path.cwd().parent / 'util'))
-from rule_matcher import RuleMatcher
+# importing util package from parent directory
+sys.path.insert(1, str(Path.cwd().parent))
 from util import *
 
-#read variables from the configuration file
-with open('config.yml', 'r') as f:
-    config = yaml.load(f)
-
+# read variables from the configuration file
+config = load_yaml('config.yml')
 dataset_in_dir, dataset_out_dir = Path(config['dataset_in_dir']), Path(config['dataset_out_dir'])
-output_separator, output_columns  = config['output_separator'], config['output_columns']
+output_columns = config['output_columns']
 
 # read dataset-specific rules
-with open('rules.yml', 'r') as f:
-    rules = yaml.load(f)
-
+rules = load_yaml('rules.yml')
 rules, compound_words = rules['rules'], rules['compound_words']
 hyphen_upos_map, token_upos_map = compound_words['hyphen_upos_map'], compound_words['token_upos_map']
+
 token_upos_map = {token: upos_tag for upos_tag, tokens in token_upos_map.items() for token in tokens}
 
 def create_exception_rules(exceptions):
@@ -50,16 +45,17 @@ matcher = RuleMatcher(rules)
 matcher.add_rules(create_exception_rules(compound_words['exceptions']))
 
 for dataset_type in ['train', 'dev', 'test']:
-    dataset_in_path = dataset_in_dir / 'pt_gsd-ud-{}.conllu'.format(dataset_type)
-    dataset_out_path = dataset_out_dir / '{}.txt'.format(dataset_type)
+    data_in_path = dataset_in_dir / f'pt_gsd-ud-{dataset_type}.conllu'
+    data_out_path = dataset_out_dir / f'{dataset_type}.txt'
 
-    data_df = read_conllu(dataset_in_path)
+    # read CoNLL-U data and extract multi-word tokens
+    data_df = read_conllu(data_in_path)
     data_df = extract_multiwords(data_df)
 
     data_df, rule_counts = matcher.apply_rules(data_df)
     replace_values(hyphen_upos_map, data_df.UPOS)
     replace_values(token_upos_map, data_df.Token, data_df.UPOS)
 
-    write_data(data_df, dataset_out_path, output_separator, output_columns)
-    print('Created file {}'.format(dataset_out_path))
+    # write data to disk
+    write_data(data_df, data_out_path, output_columns)
 
