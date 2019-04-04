@@ -112,7 +112,7 @@ class BiLSTM:
                 continue
 
             feature_input = Input(shape=(None,), dtype='int32', name=featureName+'_input')
-            feature_embedding = Embedding(input_dim=len(self.mappings[featureName]), output_dim=self.params['addFeatureDimensions'], name=featureName+'_emebddings')(feature_input)
+            feature_embedding = Embedding(input_dim=len(self.mappings[featureName]), output_dim=self.params['addFeatureDimensions'], name=featureName+'_embeddings')(feature_input)
 
             inputNodes.append(feature_input)
             mergeInputLayers.append(feature_embedding)
@@ -381,8 +381,8 @@ class BiLSTM:
             self.buildModel()
 
         total_train_time = 0
-        max_dev_score = {modelName:0 for modelName in self.models.keys()}
-        max_test_score = {modelName:0 for modelName in self.models.keys()}
+        self.max_dev_score = {modelName:0 for modelName in self.models.keys()}
+        self.max_test_score = {modelName:0 for modelName in self.models.keys()}
         no_improvement_since = 0
         
         for epoch in range(epochs):      
@@ -402,9 +402,9 @@ class BiLSTM:
                 dev_score, test_score = self.computeScore(modelName, self.data[modelName]['devMatrix'], self.data[modelName]['testMatrix'])
          
                 
-                if dev_score > max_dev_score[modelName]:
-                    max_dev_score[modelName] = dev_score
-                    max_test_score[modelName] = test_score
+                if dev_score > self.max_dev_score[modelName]:
+                    self.max_dev_score[modelName] = dev_score
+                    self.max_test_score[modelName] = test_score
                     no_improvement_since = 0
 
                     #Save the model
@@ -415,11 +415,11 @@ class BiLSTM:
                     
                     
                 if self.resultsSavePath != None:
-                    self.resultsSavePath.write("\t".join(map(str, [epoch + 1, modelName, dev_score, test_score, max_dev_score[modelName], max_test_score[modelName]])))
+                    self.resultsSavePath.write("\t".join(map(str, [epoch + 1, modelName, dev_score, test_score, self.max_dev_score[modelName], self.max_test_score[modelName]])))
                     self.resultsSavePath.write("\n")
                     self.resultsSavePath.flush()
                 
-                logging.info("\nScores from epoch with best dev-scores:\n  Dev-Score: %.4f\n  Test-Score %.4f" % (max_dev_score[modelName], max_test_score[modelName]))
+                logging.info("\nScores from epoch with best dev-scores:\n  Dev-Score: %.4f\n  Test-Score %.4f" % (self.max_dev_score[modelName], self.max_test_score[modelName]))
                 logging.info("")
                 
             logging.info("%.2f sec for evaluation" % (time.time() - start_time))

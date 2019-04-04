@@ -34,7 +34,7 @@ def readCoNLL(inputPath, cols, commentSymbol=None, valTransformation=None):
     newData = False
     
     for line in open(inputPath):
-        line = line.strip()
+        line = line.rstrip()
         if len(line) == 0 or (commentSymbol != None and line.startswith(commentSymbol)):
             if newData:      
                 sentences.append(sentence)
@@ -43,7 +43,7 @@ def readCoNLL(inputPath, cols, commentSymbol=None, valTransformation=None):
                 newData = False
             continue
         
-        splits = line.split()
+        splits = line.split("\t")
         for colIdx, colName in cols.items():
             val = splits[colIdx]
             
@@ -108,7 +108,3 @@ def readCoNLL(inputPath, cols, commentSymbol=None, valTransformation=None):
                    
     return sentences  
 
-
-
-           
-        
