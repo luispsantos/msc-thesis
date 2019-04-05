@@ -1,9 +1,12 @@
 from pathlib import Path
 from pandas.api.types import CategoricalDtype
-from .dataset_io import IS_SENT_BOUNDARY
 import numpy as np
 import pandas as pd
 import yaml
+
+SENT_BOUNDARY = np.nan
+IS_SENT_BOUNDARY = lambda val: pd.isna(val)
+NOT_SENT_BOUNDARY = lambda val: pd.notna(val)
 
 def load_yaml(yaml_file):
     """Loads a specified YAML file."""
@@ -11,6 +14,11 @@ def load_yaml(yaml_file):
         yaml_parsed = yaml.safe_load(f)
 
     return yaml_parsed
+
+def dump_yaml(yaml_file, content):
+    """Writes content to a YAML file."""
+    with open(yaml_file, 'w') as f:
+        yaml.dump(content, f, default_flow_style=False, sort_keys=False)
 
 def flatten_list(lst):
     """Flattens a list of lists into a single list."""

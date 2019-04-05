@@ -1,11 +1,9 @@
 from pathlib import Path
+from .util import SENT_BOUNDARY, dump_yaml
+from .stats import compute_stats
 import numpy as np
 import pandas as pd
 import csv
-
-SENT_BOUNDARY = np.nan
-IS_SENT_BOUNDARY = lambda val: pd.isna(val)
-NOT_SENT_BOUNDARY = lambda val: pd.notna(val)
 
 def read_data(sents, token_re):
     """
@@ -57,29 +55,48 @@ def read_conllu(data_in_path, keep_columns=['ID', 'FORM', 'UPOS']):
 
     return data_df
 
-def write_data(data_df, data_out_path, output_columns, output_separator='\t'):
+def dataset_with_splits(process_dataset, data_in_files, dataset_in_dir, dataset_out_dir, output_columns):
+    """
+    Processes a dataset with pre-made train, dev and test splits. The splits are maintained
+    and the data is not shuffled. The function process_dataset is thus applied to each split
+    independently. The argument data_in_files can be a dict of input files or a str.format instance.
+    """
+    # if data_in_files is a str.format then call it for train, dev and test sets
+    if not isinstance(data_in_files, dict):
+        data_in_files = {dataset_type: data_in_files(dataset_type=dataset_type)
+                         for dataset_type in ['train', 'dev', 'test']}
+    
+    train_test_dfs = {}
+    for dataset_type, data_in_file in data_in_files.items():
+        data_in_path = dataset_in_dir / data_in_file
+
+        data_df = process_dataset(data_in_path)
+        train_test_dfs[dataset_type] = data_df
+
+    # write data to disk
+    write_data(train_test_dfs, dataset_out_dir, output_columns)
+
+def write_data(train_test_dfs, dataset_out_dir, output_columns, output_separator='\t'):
     """
     Writes the data to a file in a format similar in scope to CoNLL-2003.
     The output file will contain one token per line, where empty lines denote
     sentence boundaries. Token attributes are joined by an output separator.
-    This function accepts one of two calling conventions: either data_df is a single
-    DataFrame or a dict of DataFrames, in which case the keys are used as filenames.
 
-    :param data_df: A DataFrame containing the output data or a dict of DataFrames.
-    :param data_out_path: a file path to write the data if a single DataFrame.
-    was given, otherwise on a dict of DataFrames it should be a directory path.
+    :param train_test_df: A dict of DataFrames containing the output data in
+    the form of a train, dev and test sets. The keys will be used as filenames.
+    :param dataset_out_dir: a directory to write the output data files.
     :param output_columns: list of column names to retain on the output file.
     :param output_separator: a delimiter to separate columns (e.g. ' ', '\t').
     """
-    if isinstance(data_df, dict):
-        train_test_dfs, dataset_out_dir = data_df, data_out_path
-        
-        for dataset_type, data_df in train_test_dfs.items():
-            data_out_path = dataset_out_dir / (dataset_type + '.txt')
-            write_data(data_df, data_out_path, output_columns, output_separator)
-    else:        
-        # create output dataset directory if it doesn't yet exist
-        data_out_path.parent.mkdir(exist_ok=True)
+    # create output dataset directory if it does not exist
+    dataset_out_dir.mkdir(exist_ok=True)
+
+    dataset_stats = {}
+    for dataset_type, data_df in train_test_dfs.items():
+        data_out_path = dataset_out_dir / (dataset_type + '.txt')
+
+        # compute some dataset statistics
+        dataset_stats[dataset_type] = compute_stats(data_df)
 
         # keep the columns (and column order) as defined in output_columns
         output_df = data_df[output_columns]
@@ -91,4 +108,7 @@ def write_data(data_df, data_out_path, output_columns, output_separator='\t'):
         # separate tokens by newline characters where NaN rows become empty lines
         output_text = output_rows.str.cat(sep='\n', na_rep='')
         data_out_path.write_text(output_text)
+
+    # write dataset statistics to a YAML file
+    dump_yaml('stats.yml', dataset_stats)
 

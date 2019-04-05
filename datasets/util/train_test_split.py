@@ -1,4 +1,4 @@
-from .dataset_io import IS_SENT_BOUNDARY
+from .util import IS_SENT_BOUNDARY
 import numpy as np
 import pandas as pd
 import random
