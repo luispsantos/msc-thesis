@@ -41,21 +41,23 @@ def create_exception_rules(exceptions):
 
     return exception_rules
 
-matcher = RuleMatcher(rules)
-matcher.add_rules(create_exception_rules(compound_words['exceptions']))
-
-for dataset_type in ['train', 'dev', 'test']:
-    data_in_path = dataset_in_dir / f'pt_gsd-ud-{dataset_type}.conllu'
-    data_out_path = dataset_out_dir / f'{dataset_type}.txt'
-
+def process_dataset(data_in_path):
     # read CoNLL-U data and extract multi-word tokens
     data_df = read_conllu(data_in_path)
     data_df = extract_multiwords(data_df)
 
+    # apply dataset-specific rules
     data_df, rule_counts = matcher.apply_rules(data_df)
+
+    # map compound words to a UPOS tag
     replace_values(hyphen_upos_map, data_df.UPOS)
     replace_values(token_upos_map, data_df.Token, data_df.UPOS)
 
-    # write data to disk
-    write_data(data_df, data_out_path, output_columns)
+    return data_df
 
+matcher = RuleMatcher(rules)
+matcher.add_rules(create_exception_rules(compound_words['exceptions']))
+
+# process dataset with pre-made data splits and write data to disk
+data_in_format = 'pt_gsd-ud-{dataset_type}.conllu'.format
+dataset_with_splits(process_dataset, data_in_format, dataset_in_dir, dataset_out_dir, output_columns)

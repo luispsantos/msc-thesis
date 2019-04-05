@@ -179,12 +179,7 @@ def ents_to_bio(ent_list):
 
     return ent_idx, ent_bio
 
-conll_files = {'train': 'es.train', 'dev': 'es.devel', 'test': 'es.test'}
-
-for dataset_type, conll_file in conll_files.items():
-    data_in_path = dataset_in_dir / conll_file
-    data_out_path = dataset_out_dir / (dataset_type + '.txt')
-
+def process_dataset(data_in_path):
     # read CoNLL-2009 data
     data_df = read_conll09(data_in_path)
 
@@ -220,6 +215,8 @@ for dataset_type, conll_file in conll_files.items():
     data_df.loc[data_df.Ents.notna(), 'NER'] = 'O'
     data_df.loc[ent_idx, 'NER'] = ent_bio
 
-    # write data to disk
-    write_data(data_df, data_out_path, output_columns)
+    return data_df
 
+# process dataset with pre-made data splits and write data to disk
+data_in_files = {'train': 'es.train', 'dev': 'es.devel', 'test': 'es.test'}
+dataset_with_splits(process_dataset, data_in_files, dataset_in_dir, dataset_out_dir, output_columns)

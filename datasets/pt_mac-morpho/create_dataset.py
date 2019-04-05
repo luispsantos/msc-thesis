@@ -23,19 +23,17 @@ pos_tagset_ud_map, rules = rules['pos_tagset_ud_map'], rules['rules']
 matcher = RuleMatcher(rules)
 token_re = re.compile('^(?P<Token>.+?)_(?P<POS>[A-Z+-]+)$')
 
-for dataset_type in ['train', 'dev', 'test']:
-    data_in_path = dataset_in_dir / f'macmorpho-{dataset_type}.txt'
-    data_out_path = dataset_out_dir / f'{dataset_type}.txt'
-
+def process_dataset(data_in_path):
     # read sentences to a DataFrame
-    with data_in_path.open('r') as f:
-        sents = f.readlines()
-        data_df = read_data(sents, token_re)
+    sents = data_in_path.read_text().splitlines()
+    data_df = read_data(sents, token_re)
 
     # convert the POS tagset
     data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
     data_df, rule_counts = matcher.apply_rules(data_df)
 
-    # write data to disk
-    write_data(data_df, data_out_path, output_columns)
+    return data_df
 
+# process dataset with pre-made data splits and write data to disk
+data_in_format = 'macmorpho-{dataset_type}.txt'.format
+dataset_with_splits(process_dataset, data_in_format, dataset_in_dir, dataset_out_dir, output_columns)
