@@ -191,6 +191,9 @@ for dataset_type, conll_file in conll_files.items():
     # remove tokens without available text
     data_df = data_df[data_df.Token != '_']
 
+    # fix erroneous underscore at end of MWEs
+    data_df.Token = data_df.Token.str.rstrip('_')
+
     # obtain the first letter of the initial feature
     # (e.g. postype=article -> a, postype=proper -> p)
     first_feat = data_df.Feat.str.partition('=', False).str[2].str[0]
