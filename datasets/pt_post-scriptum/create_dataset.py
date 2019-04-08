@@ -72,8 +72,8 @@ empty_token_mask = pd.isna(data_df.Token) & pd.notna(data_df.TokenStandard)
 data_df.Token.mask(empty_token_mask, data_df.TokenStandard, inplace=True)
 
 # map POS tagset to UD tagset based on the first and first+second characters of POS tags
-data_df['UPOS'] = data_df['POS_0'].map(pos_tagset_ud_map)
-replace_values(pos_tagset_ud_map, data_df['POS_0+1'], data_df.UPOS)
+data_df['UPOS'] = data_df['POS_0+1'].map(pos_tagset_ud_map)
+replace_values(pos_tagset_ud_map, data_df['POS_0'], data_df.UPOS)
 
 # split data into train, dev and test sets and write data to disk
 train_test_dfs = train_test_split(data_df)

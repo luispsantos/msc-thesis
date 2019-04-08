@@ -70,7 +70,6 @@ pos_tagset_ud_map:
   PREP+REL: ADP+ADV
   PREP+UM: ADP+DET
   PRS: PRON
-  TERMN: PART
   QNT: DET
   REL: PRON
   SC: NOUN
@@ -137,4 +136,8 @@ rules:
     rule_in: [{'POS': 'V'}, {'Token': '-de', 'POS': 'PREP'}]
     rule_out: [{'Token': {'CONCAT': ''}, 'POS': {'CONCAT': '+'}}]
 
+  # remove optional plural markers (e.g. (s), (as))
+  remove-TERMN:
+    rule_in: [{'POS': 'TERMN'}]
+    rule_out: []
 
