@@ -86,6 +86,14 @@ pos_tagset_ud_map:
   VAUX+CL+CL: VERB+PRON
   WD: NOUN
 
+ner_tagset_map:
+  EVT: MISC
+  LOC: LOC
+  MSC: MISC
+  ORG: ORG
+  PER: PER
+  WRK: MISC
+
 fix_contractions:
   fix_EM+o:
     rule_in: [{'Token': 'EM_'}, {'Token': 'o'}]

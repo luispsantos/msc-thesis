@@ -20,8 +20,8 @@ output_columns = config['output_columns']
 
 # read dataset-specific rules
 rules = load_yaml('rules.yml')
-fix_contractions, fix_clitics = rules['fix_contractions'], rules['fix_clitics']
-pos_tagset_ud_map, rules = rules['pos_tagset_ud_map'], rules['rules']
+pos_tagset_ud_map, ner_tagset_map = rules['pos_tagset_ud_map'], rules['ner_tagset_map']
+fix_contractions, fix_clitics, rules = rules['fix_contractions'], rules['fix_clitics'], rules['rules']
 
 # load contractions and clitics for Portuguese
 contractions, clitics = load_yaml('contractions.yml'), load_yaml('clitics.yml')
@@ -117,6 +117,11 @@ set_mwe_tags(data_df, mwe_tags, mwe_pos_map)
 
 # convert POS tags to UD tagset
 data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
+
+# convert NER tags to more standard names
+ner_tagset_map = {prefix+ner_original: prefix+ner_mapped for ner_original, ner_mapped in ner_tagset_map.items()
+                                                         for prefix in ('B-', 'I-')}
+data_df.NER.replace(ner_tagset_map, inplace=True)
 
 # split data into train, dev and test sets and write data to disk
 train_test_dfs = train_test_split(data_df)
