@@ -2,7 +2,7 @@
 # Compund words are converted to a single token, whereas Google UD adopts a
 # tokenization strategy of separating tokens (e.g., ex - presidente -> 3 tokens).
 compound_words:
-  # convert concatenated UPOS tags to a single UPOS tag
+  # convert concatenated UPOS tags to a standardized UPOS tag
   hyphen_upos_map:
     # proper nouns
     PROPN+PUNCT+PROPN: PROPN              # X-Men, Villas-Boas, Romano-Germânico, etc.
@@ -31,10 +31,13 @@ compound_words:
     # verbs
     VERB+PUNCT+PRON: VERB+PRON            # fechá-la, bloquear-lhe, acostumou-se, etc.
     VERB+PUNCT+PART: VERB+PRON            # refere-se, encontrava-se, passando-se, etc.
-    AUX+PUNCT+PRON: AUX+PRON              # tornar-se, deve-se, foi-lhe, tê-lo, etc.
-    AUX+PUNCT+PART: AUX+PRON              # tornou-se, pode-se, fez-se, tendo-se, etc.
+    AUX+PUNCT+PRON: VERB+PRON             # tornar-se, deve-se, foi-lhe, tê-lo, etc.
+    AUX+PUNCT+PART: VERB+PRON             # tornou-se, pode-se, fez-se, tendo-se, etc.
     VERB+PUNCT+NOUN: VERB+PRON            # realizá-las, jogá-las, utilizá-los, etc.
     PART+PUNCT+VERB: VERB                 # auto-proclamava, auto-organizar, etc.
+    # others (no punct)
+    ADP+PROPN: ADP+DET                    # do, nos, nestes, etc.
+    CCONJ+DET: ADP+DET                    # do, da
 
   # Directly map tokens to a UPOS tag. Whenever the concated UPOS tags are too infrequent in the data
   # (e.g., 1-3 token counts), it is more explicit to specify the tokens than the concatenated tags.
@@ -106,12 +109,22 @@ rules:
     rule_out: [{'UPOS': 'ADP+DET'}]
 
   ADP+adverb:
-    rule_in: [{'Token': {'LOWER_IN': ['daí', 'daqui', 'dali', 'donde']}, 'UPOS': 'ADP'}]
+    rule_in: [{'Token': {'LOWER_IN': ['daí', 'daqui', 'dali', 'donde', 'dantes', 'aonde']}, 'UPOS': {'IN': ['ADP', 'ADV']}}]
     rule_out: [{'UPOS': 'ADP+ADV'}]
 
   ADP+pronoun:
     rule_in: [{'Token': {'LOWER_IN': ['dele', 'disso']}, 'UPOS': 'ADP'}]
     rule_out: [{'UPOS': 'ADP+PRON'}]
+  
+  # tag some tokens with PART tags as ADV
+  PART-ADV:
+    rule_in: [{'Token': {'LOWER_IN': ['aí', 'bem', 'lá', 'agora', 'pois']}, 'UPOS': 'PART'}]
+    rule_out: [{'UPOS': 'PRON'}]
+
+  # tag <se> as PRON when it occurs as an indefinite pronoun
+  PART-se:
+    rule_in: [{'Token': {'LOWER': 'se'}, 'UPOS': 'PART'}]
+    rule_out: [{'UPOS': 'PRON'}]
 
   # convert URLs (and emails) tagged as X to SYM
   url-X:

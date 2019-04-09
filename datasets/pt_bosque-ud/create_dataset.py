@@ -24,6 +24,9 @@ def process_dataset(data_in_path):
     data_df = read_conllu(data_in_path)
     data_df = extract_multiwords(data_df, multiword_upos_map)
 
+    # replace PART tags by ADJ
+    data_df.UPOS.replace('PART', 'ADJ', inplace=True)
+
     return data_df
 
 # process dataset with pre-made data splits and write data to disk

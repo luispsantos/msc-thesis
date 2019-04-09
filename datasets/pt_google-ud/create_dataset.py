@@ -17,7 +17,7 @@ output_columns = config['output_columns']
 
 # read dataset-specific rules
 rules = load_yaml('rules.yml')
-rules, compound_words = rules['rules'], rules['compound_words']
+compound_words, rules = rules['compound_words'], rules['rules']
 hyphen_upos_map, token_upos_map = compound_words['hyphen_upos_map'], compound_words['token_upos_map']
 
 token_upos_map = {token: upos_tag for upos_tag, tokens in token_upos_map.items() for token in tokens}
@@ -48,10 +48,17 @@ def process_dataset(data_in_path):
 
     # apply dataset-specific rules
     data_df, rule_counts = matcher.apply_rules(data_df)
+    if 'train' in data_in_path.name:
+        train_df = data_df
+        train_counts = rule_counts
+    globals().update(locals())
 
     # map compound words to a UPOS tag
     replace_values(hyphen_upos_map, data_df.UPOS)
     replace_values(token_upos_map, data_df.Token, data_df.UPOS)
+
+    # map any remaining PART tags to ADJ
+    data_df.UPOS.replace('PART', 'ADJ', inplace=True)
 
     return data_df
 
