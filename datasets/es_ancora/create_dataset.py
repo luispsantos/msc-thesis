@@ -142,7 +142,11 @@ def find_ents(data_df, ner_tagset_map):
             ent_type = ent.strip('()')
             ent_type = ner_tagset_map[ent_type.upper()]
 
-            if prefix == 'B':
+            if ent_type == 'O':
+                # if the entity type is mapped to O then
+                # there is no need to push it into the stack
+                continue
+            elif prefix == 'B':
                 # push entity start into the stack
                 ent_stack.append((idx, ent_type))
             elif prefix == 'E':
