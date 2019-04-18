@@ -23,13 +23,10 @@ import logging
 
 from .keraslayers.ChainCRF import ChainCRF
 
-
-
-
 class BiLSTM:
     def __init__(self, params=None):
         # modelSavePath = Path for storing models, resultsSavePath = Path for storing output labels while training
-        self.models = None
+        self.model = None
         self.modelSavePath = None
         self.resultsSavePath = None
 
@@ -45,8 +42,6 @@ class BiLSTM:
             defaultParams.update(params)
         self.params = defaultParams
 
-
-
     def setMappings(self, mappings, embeddings):
         self.embeddings = embeddings
         self.mappings = mappings
@@ -56,33 +51,36 @@ class BiLSTM:
         self.data = data
 
         # Create some helping variables
-        self.mainModelName = None
+        self.mainDatasetName = None
         self.epoch = 0
         self.learning_rate_updates = {'sgd': {1: 0.1, 3: 0.05, 5: 0.01}}
-        self.modelNames = list(self.datasets.keys())
-        self.evaluateModelNames = []
+        self.datasetNames = list(self.datasets.keys())
+        self.evaluateDatasetNames = []
         self.labelKeys = {}
+        self.tasks = []
         self.idx2Labels = {}
         self.trainMiniBatchRanges = None
         self.trainSentenceLengthRanges = None
 
+        for datasetName in self.datasetNames:
+            labelKeys = self.datasets[datasetName]['label']
+            self.labelKeys[datasetName] = labelKeys
 
-        for modelName in self.modelNames:
-            labelKey = self.datasets[modelName]['label']
-            self.labelKeys[modelName] = labelKey
-            self.idx2Labels[modelName] = {v: k for k, v in self.mappings[labelKey].items()}
+            for labelKey in labelKeys:
+                if labelKey not in self.tasks:
+                    self.tasks.append(labelKey)
+                    self.idx2Labels[labelKey] = {v: k for k, v in self.mappings[labelKey].items()}
             
-            if self.datasets[modelName]['evaluate']:
-                self.evaluateModelNames.append(modelName)
+            if self.datasets[datasetName]['evaluate']:
+                self.evaluateDatasetNames.append(datasetName)
             
-            logging.info("--- %s ---" % modelName)
-            logging.info("%d train sentences" % len(self.data[modelName]['trainMatrix']))
-            logging.info("%d dev sentences" % len(self.data[modelName]['devMatrix']))
-            logging.info("%d test sentences" % len(self.data[modelName]['testMatrix']))
+            logging.info("--- %s ---" % datasetName)
+            logging.info("%d train sentences" % len(self.data[datasetName]['trainMatrix']))
+            logging.info("%d dev sentences" % len(self.data[datasetName]['devMatrix']))
+            logging.info("%d test sentences" % len(self.data[datasetName]['testMatrix']))
             
-        
-        if len(self.evaluateModelNames) == 1:
-            self.mainModelName = self.evaluateModelNames[0]
+        if len(self.evaluateDatasetNames) == 1:
+            self.mainDatasetName = self.evaluateDatasetNames[0]
              
         self.casing2Idx = self.mappings['casing']
 
@@ -99,8 +97,6 @@ class BiLSTM:
 
         
     def buildModel(self):
-        self.models = {}
-
         tokens_input = Input(shape=(None,), dtype='int32', name='words_input')
         tokens = Embedding(input_dim=self.embeddings.shape[0], output_dim=self.embeddings.shape[1], weights=[self.embeddings], trainable=False, name='word_embeddings')(tokens_input)
 
@@ -187,96 +183,73 @@ class BiLSTM:
             
             cnt += 1
             
-            
-        for modelName in self.modelNames:
+        outputs, losses = [], []
+
+        # add softmax or CRF output layer (one classifier per task)
+        for task in self.tasks:
             output = shared_layer
-            
-            modelClassifier = self.params['customClassifier'][modelName] if modelName in self.params['customClassifier'] else self.params['classifier']
+            classifier = self.params['classifier']
+            n_class_labels = len(self.mappings[task])
 
-            if not isinstance(modelClassifier, (tuple, list)):
-                modelClassifier = [modelClassifier]
-            
-            cnt = 1
-            for classifier in modelClassifier:
-                n_class_labels = len(self.mappings[self.labelKeys[modelName]])
+            if classifier == 'Softmax':
+                output = TimeDistributed(Dense(n_class_labels, activation='softmax'), name=task+'_softmax')(output)
+                lossFct = 'sparse_categorical_crossentropy'
+            elif classifier == 'CRF':
+                output = TimeDistributed(Dense(n_class_labels, activation=None),
+                                         name=task+'_hidden_lin_layer')(output)
+                crf = ChainCRF(name=task+'_crf')
+                output = crf(output)
+                lossFct = crf.sparse_loss
+            else:
+                assert(False) #Wrong classifier
 
-                if classifier == 'Softmax':
-                    output = TimeDistributed(Dense(n_class_labels, activation='softmax'), name=modelName+'_softmax')(output)
-                    lossFct = 'sparse_categorical_crossentropy'
-                elif classifier == 'CRF':
-                    output = TimeDistributed(Dense(n_class_labels, activation=None),
-                                             name=modelName + '_hidden_lin_layer')(output)
-                    crf = ChainCRF(name=modelName+'_crf')
-                    output = crf(output)
-                    lossFct = crf.sparse_loss
-                elif isinstance(classifier, (list, tuple)) and classifier[0] == 'LSTM':
-                            
-                    size = classifier[1]
-                    if isinstance(self.params['dropout'], (list, tuple)): 
-                        output = Bidirectional(LSTM(size, return_sequences=True, dropout=self.params['dropout'][0], recurrent_dropout=self.params['dropout'][1]), name=modelName+'_varLSTM_'+str(cnt))(output)
-                    else:
-                        """ Naive dropout """ 
-                        output = Bidirectional(LSTM(size, return_sequences=True), name=modelName+'_LSTM_'+str(cnt))(output) 
-                        if self.params['dropout'] > 0.0:
-                            output = TimeDistributed(Dropout(self.params['dropout']), name=modelName+'_dropout_'+str(self.params['dropout'])+"_"+str(cnt))(output)                    
-                else:
-                    assert(False) #Wrong classifier
-                    
-                cnt += 1
+            outputs.append(output)
+            losses.append(lossFct)
                 
-            # :: Parameters for the optimizer ::
-            optimizerParams = {}
-            if 'clipnorm' in self.params and self.params['clipnorm'] != None and  self.params['clipnorm'] > 0:
-                optimizerParams['clipnorm'] = self.params['clipnorm']
-            
-            if 'clipvalue' in self.params and self.params['clipvalue'] != None and  self.params['clipvalue'] > 0:
-                optimizerParams['clipvalue'] = self.params['clipvalue']
-            
-            if self.params['optimizer'].lower() == 'adam':
-                opt = Adam(**optimizerParams)
-            elif self.params['optimizer'].lower() == 'nadam':
-                opt = Nadam(**optimizerParams)
-            elif self.params['optimizer'].lower() == 'rmsprop': 
-                opt = RMSprop(**optimizerParams)
-            elif self.params['optimizer'].lower() == 'adadelta':
-                opt = Adadelta(**optimizerParams)
-            elif self.params['optimizer'].lower() == 'adagrad':
-                opt = Adagrad(**optimizerParams)
-            elif self.params['optimizer'].lower() == 'sgd':
-                opt = SGD(lr=0.1, **optimizerParams)
-            
-            
-            model = Model(inputs=inputNodes, outputs=[output])
-            model.compile(loss=lossFct, optimizer=opt)
-            
-            model.summary(line_length=125)
-            #logging.info(model.get_config())
-            #logging.info("Optimizer: %s - %s" % (str(type(model.optimizer)), str(model.optimizer.get_config())))
-            
-            self.models[modelName] = model
+        # :: Parameters for the optimizer ::
+        optimizerParams = {}
+        if 'clipnorm' in self.params and self.params['clipnorm'] != None and  self.params['clipnorm'] > 0:
+            optimizerParams['clipnorm'] = self.params['clipnorm']
         
+        if 'clipvalue' in self.params and self.params['clipvalue'] != None and  self.params['clipvalue'] > 0:
+            optimizerParams['clipvalue'] = self.params['clipvalue']
+        
+        if self.params['optimizer'].lower() == 'adam':
+            opt = Adam(**optimizerParams)
+        elif self.params['optimizer'].lower() == 'nadam':
+            opt = Nadam(**optimizerParams)
+        elif self.params['optimizer'].lower() == 'rmsprop': 
+            opt = RMSprop(**optimizerParams)
+        elif self.params['optimizer'].lower() == 'adadelta':
+            opt = Adadelta(**optimizerParams)
+        elif self.params['optimizer'].lower() == 'adagrad':
+            opt = Adagrad(**optimizerParams)
+        elif self.params['optimizer'].lower() == 'sgd':
+            opt = SGD(lr=0.1, **optimizerParams)
 
+        model = Model(inputs=inputNodes, outputs=outputs)
+        model.compile(loss=losses, optimizer=opt)
 
+        model.summary(line_length=125)
+        self.model = model
+
+        #logging.info(model.get_config())
+        #logging.info("Optimizer: %s - %s" % (str(type(model.optimizer)), str(model.optimizer.get_config())))
+        
     def trainModel(self):
         self.epoch += 1
-        
-        if self.params['optimizer'] in self.learning_rate_updates and self.epoch in self.learning_rate_updates[self.params['optimizer']]:       
-            logging.info("Update Learning Rate to %f" % (self.learning_rate_updates[self.params['optimizer']][self.epoch]))
-            for modelName in self.modelNames:            
-                K.set_value(self.models[modelName].optimizer.lr, self.learning_rate_updates[self.params['optimizer']][self.epoch]) 
-                
-            
-        for batch in self.minibatch_iterate_dataset():
-            for modelName in self.modelNames:         
-                nnLabels = batch[modelName][0]
-                nnInput = batch[modelName][1:]
-                self.models[modelName].train_on_batch(nnInput, nnLabels)  
-                
-                               
-            
-          
 
-    def minibatch_iterate_dataset(self, modelNames = None):
+        if self.params['optimizer'] in self.learning_rate_updates and self.epoch in self.learning_rate_updates[self.params['optimizer']]:
+            logging.info("Update Learning Rate to %f" % (self.learning_rate_updates[self.params['optimizer']][self.epoch]))
+            K.set_value(self.model.optimizer.lr, self.learning_rate_updates[self.params['optimizer']][self.epoch])
+
+        # train model a batch at a time (1 epoch sees 1 batch of every dataset)
+        for batch in self.minibatch_iterate_dataset():
+            for datasetName in self.datasetNames:
+                nnInput, nnLabels = batch[datasetName]
+                self.model.train_on_batch(nnInput, nnLabels)
+
+    def minibatch_iterate_dataset(self, datasetNames=None):
         """ Create based on sentence length mini-batches with approx. the same size. Sentences and 
         mini-batch chunks are shuffled and used to the train the model """
         
@@ -284,8 +257,8 @@ class BiLSTM:
             """ Create mini batch ranges """
             self.trainSentenceLengthRanges = {}
             self.trainMiniBatchRanges = {}            
-            for modelName in self.modelNames:
-                trainData = self.data[modelName]['trainMatrix']
+            for datasetName in self.datasetNames:
+                trainData = self.data[datasetName]['trainMatrix']
                 trainData.sort(key=lambda x:len(x['tokens'])) #Sort train matrix by sentence length
                 trainRanges = []
                 oldSentLength = len(trainData[0]['tokens'])            
@@ -318,54 +291,59 @@ class BiLSTM:
                         endIdx = min(batchRange[1],(binNr+1)*binSize+batchRange[0])
                         miniBatchRanges.append((startIdx, endIdx))
                       
-                self.trainSentenceLengthRanges[modelName] = trainRanges
-                self.trainMiniBatchRanges[modelName] = miniBatchRanges
+                self.trainSentenceLengthRanges[datasetName] = trainRanges
+                self.trainMiniBatchRanges[datasetName] = miniBatchRanges
                 
-        if modelNames == None:
-            modelNames = self.modelNames
+        if datasetNames == None:
+            datasetNames = self.datasetNames
             
         #Shuffle training data
-        for modelName in modelNames:      
+        for datasetName in datasetNames:
             #1. Shuffle sentences that have the same length
-            x = self.data[modelName]['trainMatrix']
-            for dataRange in self.trainSentenceLengthRanges[modelName]:
+            x = self.data[datasetName]['trainMatrix']
+            for dataRange in self.trainSentenceLengthRanges[datasetName]:
                 for i in reversed(range(dataRange[0]+1, dataRange[1])):
                     # pick an element in x[:i+1] with which to exchange x[i]
                     j = random.randint(dataRange[0], i)
                     x[i], x[j] = x[j], x[i]
                
             #2. Shuffle the order of the mini batch ranges       
-            random.shuffle(self.trainMiniBatchRanges[modelName])
-     
-        
-        #Iterate over the mini batch ranges
-        if self.mainModelName != None:
-            rangeLength = len(self.trainMiniBatchRanges[self.mainModelName])
-        else:
-            rangeLength = min([len(self.trainMiniBatchRanges[modelName]) for modelName in modelNames])
+            random.shuffle(self.trainMiniBatchRanges[datasetName])
 
-        
+        #Iterate over the mini batch ranges
+        if self.mainDatasetName != None:
+            rangeLength = len(self.trainMiniBatchRanges[self.mainDatasetName])
+        else:
+            rangeLength = min([len(self.trainMiniBatchRanges[datasetName]) for datasetName in datasetNames])
+
         batches = {}
         for idx in range(rangeLength):
             batches.clear()
             
-            for modelName in modelNames:   
-                trainMatrix = self.data[modelName]['trainMatrix']
-                dataRange = self.trainMiniBatchRanges[modelName][idx % len(self.trainMiniBatchRanges[modelName])] 
-                labels = np.asarray([trainMatrix[idx][self.labelKeys[modelName]] for idx in range(dataRange[0], dataRange[1])])
-                labels = np.expand_dims(labels, -1)
-                
-                
-                batches[modelName] = [labels]
-                
+            for datasetName in datasetNames:
+                trainMatrix = self.data[datasetName]['trainMatrix']
+                dataRange = self.trainMiniBatchRanges[datasetName][idx % len(self.trainMiniBatchRanges[datasetName])] 
+                nnInput, nnLabels = [], []
+
+                # features (inputs) of mini-batch per dataset
                 for featureName in self.params['featureNames']:
                     inputData = np.asarray([trainMatrix[idx][featureName] for idx in range(dataRange[0], dataRange[1])])
-                    batches[modelName].append(inputData)
-            
-            yield batches   
-            
+                    nnInput.append(inputData)
 
-        
+                # labels (outputs) of mini-batch per dataset
+                for task in self.tasks:
+                    if task in self.labelKeys[datasetName]:
+                        labels = np.asarray([trainMatrix[idx][task] for idx in range(dataRange[0], dataRange[1])])
+                    else:
+                        labels = np.full_like(nnInput[0], ChainCRF.mask_value)
+
+                    labels = np.expand_dims(labels, -1)
+                    nnLabels.append(labels)
+
+                batches[datasetName] = (nnInput, nnLabels)
+                
+            yield batches   
+
     def storeResults(self, resultsFilepath):
         if resultsFilepath != None:
             directory = os.path.dirname(resultsFilepath)
@@ -375,14 +353,16 @@ class BiLSTM:
             self.resultsSavePath = open(resultsFilepath, 'w')
         else:
             self.resultsSavePath = None
-        
+
     def fit(self, epochs):
-        if self.models is None:
+        if self.model is None:
             self.buildModel()
 
         total_train_time = 0
-        self.max_dev_score = {modelName:0 for modelName in self.models.keys()}
-        self.max_test_score = {modelName:0 for modelName in self.models.keys()}
+        self.max_dev_score = {datasetName: {task: 0 for task in self.labelKeys[datasetName]}
+                              for datasetName in self.evaluateDatasetNames}
+        self.max_test_score = {datasetName: {task: 0 for task in self.labelKeys[datasetName]}
+                              for datasetName in self.evaluateDatasetNames}
         no_improvement_since = 0
         
         for epoch in range(epochs):      
@@ -397,38 +377,50 @@ class BiLSTM:
             
             
             start_time = time.time() 
-            for modelName in self.evaluateModelNames:
-                logging.info("-- %s --" % (modelName))
-                dev_score, test_score = self.computeScore(modelName, self.data[modelName]['devMatrix'], self.data[modelName]['testMatrix'])
-         
-                
-                if dev_score > self.max_dev_score[modelName]:
-                    self.max_dev_score[modelName] = dev_score
-                    self.max_test_score[modelName] = test_score
-                    no_improvement_since = 0
+            for datasetName in self.evaluateDatasetNames:
+                dev_matrix = self.data[datasetName]['devMatrix']
+                test_matrix = self.data[datasetName]['testMatrix']
 
-                    #Save the model
-                    if self.modelSavePath != None:
-                        self.saveModel(modelName, epoch, dev_score, test_score)
-                else:
-                    no_improvement_since += 1
+                dev_pred = self.predictLabels(dev_matrix)
+                test_pred = self.predictLabels(test_matrix)
+
+                dataset_tasks = self.labelKeys[datasetName]
+                for task_idx, task in enumerate(self.tasks):
+                    if task not in dataset_tasks: continue
+                    logging.info("-- %s - %s --" % (datasetName, task))
+
+                    dev_true = [sentence[task] for sentence in dev_matrix]
+                    test_true = [sentence[task] for sentence in test_matrix]
+
+                    dev_score, test_score = self.computeScore(task, dev_pred[task_idx], dev_true,
+                                                              test_pred[task_idx], test_true)
+
+                    if dev_score > self.max_dev_score[datasetName][task]:
+                        self.max_dev_score[datasetName][task] = dev_score
+                        self.max_test_score[datasetName][task] = test_score
+                        no_improvement_since = 0
+
+                        #Save the model
+                        if self.modelSavePath != None:
+                            self.saveModel()
+                    else:
+                        no_improvement_since += 1
+
+                    if self.resultsSavePath != None:
+                        self.resultsSavePath.write("\t".join(map(str, [epoch + 1, datasetName, task, dev_score, test_score, self.max_dev_score[datasetName][task], self.max_test_score[datasetName][task]])))
+                        self.resultsSavePath.write("\n")
+                        self.resultsSavePath.flush()
                     
-                    
-                if self.resultsSavePath != None:
-                    self.resultsSavePath.write("\t".join(map(str, [epoch + 1, modelName, dev_score, test_score, self.max_dev_score[modelName], self.max_test_score[modelName]])))
-                    self.resultsSavePath.write("\n")
-                    self.resultsSavePath.flush()
-                
-                logging.info("\nScores from epoch with best dev-scores:\n  Dev-Score: %.4f\n  Test-Score %.4f" % (self.max_dev_score[modelName], self.max_test_score[modelName]))
-                logging.info("")
+                    logging.info("\nScores from epoch with best dev-scores:\n  Dev-Score: %.4f\n  Test-Score %.4f" % (self.max_dev_score[datasetName][task], self.max_test_score[datasetName][task]))
+                    logging.info("")
                 
             logging.info("%.2f sec for evaluation" % (time.time() - start_time))
             
             if self.params['earlyStopping']  > 0 and no_improvement_since >= self.params['earlyStopping']:
                 logging.info("!!! Early stopping, no improvement after "+str(no_improvement_since)+" epochs !!!")
                 break
-            
-            
+
+
     def tagSentences(self, sentences):
         # Pad characters
         if 'characters' in self.params['featureNames']:
@@ -450,8 +442,7 @@ class BiLSTM:
             labels[modelName] = [[idx2Label[tag] for tag in tagSentence] for tagSentence in predLabels]
 
         return labels
-            
-    
+
     def getSentenceLengths(self, sentences):
         sentenceLengths = {}
         for idx in range(len(sentences)):
@@ -462,66 +453,57 @@ class BiLSTM:
         
         return sentenceLengths
 
-    def predictLabels(self, model, sentences):
-        predLabels = [None]*len(sentences)
+    def predictLabels(self, sentences):
+        predLabels = [[None]*len(sentences) for task in self.tasks]
         sentenceLengths = self.getSentenceLengths(sentences)
         
-        for indices in sentenceLengths.values():   
+        for indices in sentenceLengths.values():
             nnInput = []                  
             for featureName in self.params['featureNames']:
                 inputData = np.asarray([sentences[idx][featureName] for idx in indices])
                 nnInput.append(inputData)
             
-            predictions = model.predict(nnInput, verbose=False)
-            predictions = predictions.argmax(axis=-1) #Predict classes            
+            taskPredictions = self.model.predict(nnInput, verbose=False)
+            for taskIdx, predictions in enumerate(taskPredictions):
+                predictions = predictions.argmax(axis=-1)  # obtain classes from one-hot encoding
            
-            
-            predIdx = 0
-            for idx in indices:
-                predLabels[idx] = predictions[predIdx]    
-                predIdx += 1   
+                predIdx = 0
+                for sentIdx in indices:
+                    predLabels[taskIdx][sentIdx] = predictions[predIdx]
+                    predIdx += 1
         
         return predLabels
-    
-   
-    def computeScore(self, modelName, devMatrix, testMatrix):
-        if self.labelKeys[modelName].endswith('_BIO') or self.labelKeys[modelName].endswith('_IOBES') or self.labelKeys[modelName].endswith('_IOB'):
-            return self.computeF1Scores(modelName, devMatrix, testMatrix)
-        else:
-            return self.computeAccScores(modelName, devMatrix, testMatrix)   
 
-    def computeF1Scores(self, modelName, devMatrix, testMatrix):
-        #train_pre, train_rec, train_f1 = self.computeF1(modelName, self.datasets[modelName]['trainMatrix'])
+    def computeScore(self, task, dev_pred, dev_true, test_pred, test_true):
+        if task.endswith('_BIO') or task.endswith('_IOBES') or task.endswith('_IOB'):
+            return self.computeF1Scores(task, dev_pred, dev_true, test_pred, test_true)
+        else:
+            return self.computeAccScores(task, dev_pred, dev_true, test_pred, test_true)
+
+    def computeF1Scores(self, task, dev_pred, dev_true, test_pred, test_true):
+        #train_pre, train_rec, train_f1 = self.computeF1(datasetName, self.datasets[datasetName]['trainMatrix'])
         #print "Train-Data: Prec: %.3f, Rec: %.3f, F1: %.4f" % (train_pre, train_rec, train_f1)
         
-        dev_pre, dev_rec, dev_f1 = self.computeF1(modelName, devMatrix)
+        dev_pre, dev_rec, dev_f1 = self.computeF1(task, dev_pred, dev_true)
         logging.info("Dev-Data: Prec: %.3f, Rec: %.3f, F1: %.4f" % (dev_pre, dev_rec, dev_f1))
         
-        test_pre, test_rec, test_f1 = self.computeF1(modelName, testMatrix)
+        test_pre, test_rec, test_f1 = self.computeF1(task, test_pred, test_true)
         logging.info("Test-Data: Prec: %.3f, Rec: %.3f, F1: %.4f" % (test_pre, test_rec, test_f1))
         
         return dev_f1, test_f1
-    
-    def computeAccScores(self, modelName, devMatrix, testMatrix):
-        dev_acc = self.computeAcc(modelName, devMatrix)
-        test_acc = self.computeAcc(modelName, testMatrix)
+
+    def computeAccScores(self, task, dev_pred, dev_true, test_pred, test_true):
+        dev_acc = self.computeAcc(task, dev_pred, dev_true)
+        test_acc = self.computeAcc(task, test_pred, test_true)
         
         logging.info("Dev-Data: Accuracy: %.4f" % (dev_acc))
         logging.info("Test-Data: Accuracy: %.4f" % (test_acc))
         
-        return dev_acc, test_acc   
-        
-        
-    def computeF1(self, modelName, sentences):
-        labelKey = self.labelKeys[modelName]
-        model = self.models[modelName]
-        idx2Label = self.idx2Labels[modelName]
-        
-        correctLabels = [sentences[idx][labelKey] for idx in range(len(sentences))]
-        predLabels = self.predictLabels(model, sentences) 
+        return dev_acc, test_acc
 
-        labelKey = self.labelKeys[modelName]
-        encodingScheme = labelKey[labelKey.index('_')+1:]
+    def computeF1(self, task, predLabels, correctLabels):
+        idx2Label = self.idx2Labels[task]
+        encodingScheme = task[task.index('_')+1:]
         
         pre, rec, f1 = BIOF1Validation.compute_f1(predLabels, correctLabels, idx2Label, 'O', encodingScheme)
         pre_b, rec_b, f1_b = BIOF1Validation.compute_f1(predLabels, correctLabels, idx2Label, 'B', encodingScheme)
@@ -531,11 +513,8 @@ class BiLSTM:
             pre, rec, f1 = pre_b, rec_b, f1_b
         
         return pre, rec, f1
-    
-    def computeAcc(self, modelName, sentences):
-        correctLabels = [sentences[idx][self.labelKeys[modelName]] for idx in range(len(sentences))]
-        predLabels = self.predictLabels(self.models[modelName], sentences) 
-        
+
+    def computeAcc(self, task, predLabels, correctLabels):
         numLabels = 0
         numCorrLabels = 0
         for sentenceId in range(len(correctLabels)):
@@ -543,10 +522,9 @@ class BiLSTM:
                 numLabels += 1
                 if correctLabels[sentenceId][tokenId] == predLabels[sentenceId][tokenId]:
                     numCorrLabels += 1
-
   
         return numCorrLabels/float(numLabels)
-    
+
     def padCharacters(self, sentences):
         """ Pads the character representations of the words to the longest word in the dataset """
         #Find the longest word in the dataset
@@ -567,7 +545,7 @@ class BiLSTM:
                     sentences[sentenceIdx]['characters'][tokenIdx] = token[0:maxCharLen]
     
         self.maxCharLen = maxCharLen
-        
+
     def addTaskIdentifier(self):
         """ Adds an identifier to every token, which identifies the task the token stems from """
         taskID = 0
@@ -579,16 +557,14 @@ class BiLSTM:
             
             taskID += 1
 
-
-    def saveModel(self, modelName, epoch, dev_score, test_score):
+    def saveModel(self):
         import json
         import h5py
 
         if self.modelSavePath == None:
             raise ValueError('modelSavePath not specified.')
 
-        savePath = self.modelSavePath.replace("[DevScore]", "%.4f" % dev_score).replace("[TestScore]", "%.4f" % test_score).replace("[Epoch]", str(epoch+1)).replace("[ModelName]", modelName)
-
+        savePath = self.modelSavePath
         directory = os.path.dirname(savePath)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -596,16 +572,12 @@ class BiLSTM:
         if os.path.isfile(savePath):
             logging.info("Model "+savePath+" already exists. Model will be overwritten")
 
-        self.models[modelName].save(savePath, True)
+        self.model.save(savePath, True)
 
         with h5py.File(savePath, 'a') as h5file:
             h5file.attrs['mappings'] = json.dumps(self.mappings)
             h5file.attrs['params'] = json.dumps(self.params)
-            h5file.attrs['modelName'] = modelName
-            h5file.attrs['labelKey'] = self.datasets[modelName]['label']
-
-
-
+            h5file.attrs['labelKeys'] = json.dumps(self.labelKeys)
 
     @staticmethod
     def loadModel(modelPath):
@@ -618,13 +590,12 @@ class BiLSTM:
         with h5py.File(modelPath, 'r') as f:
             mappings = json.loads(f.attrs['mappings'])
             params = json.loads(f.attrs['params'])
-            modelName = f.attrs['modelName']
-            labelKey = f.attrs['labelKey']
+            labelKeys = json.loads(f.attrs['labelKeys'])
 
         bilstm = BiLSTM(params)
         bilstm.setMappings(mappings, None)
-        bilstm.models = {modelName: model}
-        bilstm.labelKeys = {modelName: labelKey}
+        bilstm.model = model
+        bilstm.labelKeys = labelKeys
         bilstm.idx2Labels = {}
-        bilstm.idx2Labels[modelName] = {v: k for k, v in bilstm.mappings[labelKey].items()}
+        #bilstm.idx2Labels[modelName] = {v: k for k, v in bilstm.mappings[labelKey].items()}
         return bilstm
