@@ -34,7 +34,7 @@ def path_energy0(y, x, U, mask=None):
     y_tp1 = y[:, 1:]
     U_flat = K.reshape(U, [-1])
     # Convert 2-dim indices (y_t, y_tp1) of U to 1-dim indices of U_flat:
-    flat_indices = y_t * n_classes + y_tp1
+    flat_indices = K.maximum(0, y_t * n_classes + y_tp1)
     U_y_t_tp1 = K.gather(U_flat, flat_indices)
 
     if mask is not None:
@@ -268,6 +268,7 @@ class ChainCRF(Layer):
                  b_start_constraint=None,
                  b_end_constraint=None,
                  weights=None,
+                 mask_value=None,
                  **kwargs):
         super(ChainCRF, self).__init__(**kwargs)
         self.init = initializers.get(init)
@@ -279,6 +280,7 @@ class ChainCRF(Layer):
         self.b_end_constraint = constraints.get(b_end_constraint)
 
         self.initial_weights = weights
+        self.mask_value = mask_value
 
         self.supports_masking = True
         self.uses_learning_phase = True
@@ -353,7 +355,15 @@ class ChainCRF(Layer):
         y_true = K.cast(y_true, 'int32')
         y_true = K.squeeze(y_true, 2)
         mask = self._fetch_mask()
-        return sparse_chain_crf_loss(y_true, y_pred, self.U, self.b_start, self.b_end, mask)
+
+        # calculate CRF loss
+        loss = sparse_chain_crf_loss(y_true, y_pred, self.U, self.b_start, self.b_end, mask)
+
+        # multiply loss by binary mask
+        loss_mask = K.all(K.not_equal(y_true, self.mask_value), axis=1, keepdims=True)
+        loss = loss * K.cast(loss_mask, K.floatx())
+
+        return loss
 
     def get_config(self):
         config = {
