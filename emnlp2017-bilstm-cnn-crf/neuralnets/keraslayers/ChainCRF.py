@@ -260,6 +260,8 @@ class ChainCRF(Layer):
     that sample weighting in temporal mode.
 
     '''
+    mask_value = -1
+
     def __init__(self, init='glorot_uniform',
                  U_regularizer=None,
                  b_start_regularizer=None,
@@ -268,7 +270,6 @@ class ChainCRF(Layer):
                  b_start_constraint=None,
                  b_end_constraint=None,
                  weights=None,
-                 mask_value=None,
                  **kwargs):
         super(ChainCRF, self).__init__(**kwargs)
         self.init = initializers.get(init)
@@ -280,7 +281,6 @@ class ChainCRF(Layer):
         self.b_end_constraint = constraints.get(b_end_constraint)
 
         self.initial_weights = weights
-        self.mask_value = mask_value
 
         self.supports_masking = True
         self.uses_learning_phase = True
@@ -381,19 +381,24 @@ class ChainCRF(Layer):
 
 def create_custom_objects():
     '''Returns the custom objects, needed for loading a persisted model.'''
-    instanceHolder = {'instance': None}
+    instanceHolder = {}
 
     class ChainCRFClassWrapper(ChainCRF):
         def __init__(self, *args, **kwargs):
-            instanceHolder['instance'] = self
+            crf_name = kwargs['name']
+            instanceHolder[crf_name] = self
             super(ChainCRFClassWrapper, self).__init__(*args, **kwargs)
 
     def loss(*args):
-        method = getattr(instanceHolder['instance'], 'loss')
+        op_name = args[0].name
+        crf_name = op_name[:op_name.index('_crf')+len('_crf')]
+        method = getattr(instanceHolder[crf_name], 'loss')
         return method(*args)
 
     def sparse_loss(*args):
-        method = getattr(instanceHolder['instance'], 'sparse_loss')
+        op_name = args[0].name
+        crf_name = op_name[:op_name.index('_crf')+len('_crf')]
+        method = getattr(instanceHolder[crf_name], 'sparse_loss')
         return method(*args)
 
     return {'ChainCRF': ChainCRFClassWrapper, 'ChainCRFClassWrapper': ChainCRFClassWrapper, 'loss': loss, 'sparse_loss': sparse_loss}
