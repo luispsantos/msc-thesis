@@ -150,23 +150,10 @@ class BiLSTM:
             mergeInputLayers.append(chars)
             inputNodes.append(chars_input)
             
-        # :: Task Identifier :: 
-        if self.params['useTaskIdentifier']:
-            self.addTaskIdentifier()
-            
-            taskID_input = Input(shape=(None,), dtype='int32', name='task_id_input')
-            taskIDMatrix = np.identity(len(self.modelNames), dtype='float32')
-            taskID_outputlayer = Embedding(input_dim=taskIDMatrix.shape[0], output_dim=taskIDMatrix.shape[1], weights=[taskIDMatrix], trainable=False, name='task_id_embedding')(taskID_input)
-        
-            mergeInputLayers.append(taskID_outputlayer)
-            inputNodes.append(taskID_input)
-            self.params['featureNames'].append('taskID')
-
         if len(mergeInputLayers) >= 2:
             merged_input = concatenate(mergeInputLayers)
         else:
             merged_input = mergeInputLayers[0]
-        
         
         # Add LSTMs
         shared_layer = merged_input
@@ -233,9 +220,6 @@ class BiLSTM:
         model.summary(line_length=125)
         self.model = model
 
-        #logging.info(model.get_config())
-        #logging.info("Optimizer: %s - %s" % (str(type(model.optimizer)), str(model.optimizer.get_config())))
-        
     def trainModel(self):
         self.epoch += 1
 
@@ -420,29 +404,6 @@ class BiLSTM:
                 logging.info("!!! Early stopping, no improvement after "+str(no_improvement_since)+" epochs !!!")
                 break
 
-
-    def tagSentences(self, sentences):
-        # Pad characters
-        if 'characters' in self.params['featureNames']:
-            self.padCharacters(sentences)
-
-        labels = {}
-        for modelName, model in self.models.items():
-            paddedPredLabels = self.predictLabels(model, sentences)
-            predLabels = []
-            for idx in range(len(sentences)):
-                unpaddedPredLabels = []
-                for tokenIdx in range(len(sentences[idx]['tokens'])):
-                    if sentences[idx]['tokens'][tokenIdx] != 0:  # Skip padding tokens
-                        unpaddedPredLabels.append(paddedPredLabels[idx][tokenIdx])
-
-                predLabels.append(unpaddedPredLabels)
-
-            idx2Label = self.idx2Labels[modelName]
-            labels[modelName] = [[idx2Label[tag] for tag in tagSentence] for tagSentence in predLabels]
-
-        return labels
-
     def getSentenceLengths(self, sentences):
         sentenceLengths = {}
         for idx in range(len(sentences)):
@@ -547,17 +508,6 @@ class BiLSTM:
                     sentences[sentenceIdx]['characters'][tokenIdx] = token[0:maxCharLen]
     
         self.maxCharLen = maxCharLen
-
-    def addTaskIdentifier(self):
-        """ Adds an identifier to every token, which identifies the task the token stems from """
-        taskID = 0
-        for modelName in self.modelNames:
-            dataset = self.data[modelName]
-            for dataName in ['trainMatrix', 'devMatrix', 'testMatrix']:            
-                for sentenceIdx in range(len(dataset[dataName])):
-                    dataset[dataName][sentenceIdx]['taskID'] = [taskID] * len(dataset[dataName][sentenceIdx]['tokens'])
-            
-            taskID += 1
 
     def saveModel(self):
         import json
