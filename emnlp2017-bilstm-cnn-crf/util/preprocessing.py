@@ -124,28 +124,28 @@ def readEmbeddings(embeddingsPath, datasetFiles, frequencyThresholdUnknownTokens
     word2Idx = {}
     embeddings = []
 
-    embeddingsIn = gzip.open(embeddingsPath, "rt") if embeddingsPath.endswith('.gz') else open(embeddingsPath,
+    embeddingsIn = gzip.open(embeddingsPath, "rt") if embeddingsPath.suffix == '.gz' else open(embeddingsPath,
                                                                                                encoding="utf8")
 
-    initialLine = embeddingsIn.readline()
-    totalWords, embeddingsDimension = map(int, initialLine.split(" "))
+    initial_line = embeddingsIn.readline()
+    total_words, embedding_dim = map(int, initial_line.split(" "))
 
     for line in embeddingsIn:
-        split = line.rstrip().split(" ")
+        split = line.rstrip().rsplit(" ", embedding_dim)
         word = split[0]
 
         if (len(
-                split) - 1) != embeddingsDimension:  # Assure that all lines in the embeddings file are of the same length
+                split) - 1) != embedding_dim:  # Assure that all lines in the embeddings file are of the same length
             print("ERROR: A line in the embeddings file had more or less  dimensions than expected. Skip token.")
             continue
 
         if len(word2Idx) == 0:  # Add padding+unknown
             word2Idx["PADDING_TOKEN"] = len(word2Idx)
-            vector = np.zeros(embeddingsDimension)
+            vector = np.zeros(embedding_dim)
             embeddings.append(vector)
 
             word2Idx["UNKNOWN_TOKEN"] = len(word2Idx)
-            vector = np.random.uniform(-0.25, 0.25, embeddingsDimension)  # Alternativ -sqrt(3/dim) ... sqrt(3/dim)
+            vector = np.random.uniform(-0.25, 0.25, embedding_dim)  # Alternativ -sqrt(3/dim) ... sqrt(3/dim)
             embeddings.append(vector)
 
         vector = np.array([float(num) for num in split[1:]])
