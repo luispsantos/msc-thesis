@@ -464,6 +464,8 @@ class BiLSTM:
                 nnInput.append(inputData)
             
             taskPredictions = self.model.predict(nnInput, verbose=False)
+            taskPredictions = [taskPredictions] if not isinstance(taskPredictions, list) else taskPredictions
+
             for taskIdx, predictions in enumerate(taskPredictions):
                 predictions = predictions.argmax(axis=-1)  # obtain classes from one-hot encoding
            
@@ -570,7 +572,7 @@ class BiLSTM:
             os.makedirs(directory)
 
         if os.path.isfile(savePath):
-            logging.info("Model "+savePath+" already exists. Model will be overwritten")
+            logging.info(f'Model {savePath} already exists. Model will be overwritten')
 
         self.model.save(savePath, True)
 
