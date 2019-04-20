@@ -359,7 +359,6 @@ class BiLSTM:
             total_train_time += time_diff
             logging.info("%.2f sec for training (%.2f total)" % (time_diff, total_train_time))
             
-            
             start_time = time.time() 
             for datasetName in self.evaluateDatasetNames:
                 dev_matrix = self.data[datasetName]['devMatrix']
@@ -369,15 +368,14 @@ class BiLSTM:
                 test_pred = self.predictLabels(test_matrix)
 
                 dataset_tasks = self.labelKeys[datasetName]
-                for task_idx, task in enumerate(self.tasks):
-                    if task not in dataset_tasks: continue
+                for task in dataset_tasks:
                     logging.info("-- %s - %s --" % (datasetName, task))
 
                     dev_true = [sentence[task] for sentence in dev_matrix]
                     test_true = [sentence[task] for sentence in test_matrix]
 
-                    dev_score, test_score = self.computeScore(task, dev_pred[task_idx], dev_true,
-                                                              test_pred[task_idx], test_true)
+                    dev_score, test_score = self.computeScore(task, dev_pred[task], dev_true,
+                                                              test_pred[task], test_true)
 
                     if dev_score > self.max_dev_score[datasetName][task]:
                         self.max_dev_score[datasetName][task] = dev_score
@@ -415,7 +413,7 @@ class BiLSTM:
         return sentenceLengths
 
     def predictLabels(self, sentences):
-        predLabels = [[None]*len(sentences) for task in self.tasks]
+        predLabels = {task: [None]*len(sentences) for task in self.tasks}
         sentenceLengths = self.getSentenceLengths(sentences)
         
         for indices in sentenceLengths.values():
@@ -427,12 +425,13 @@ class BiLSTM:
             taskPredictions = self.model.predict(nnInput, verbose=False)
             taskPredictions = [taskPredictions] if not isinstance(taskPredictions, list) else taskPredictions
 
-            for taskIdx, predictions in enumerate(taskPredictions):
+            for taskIdx, task in enumerate(self.tasks):
+                predictions = taskPredictions[taskIdx]
                 predictions = predictions.argmax(axis=-1)  # obtain classes from one-hot encoding
            
                 predIdx = 0
                 for sentIdx in indices:
-                    predLabels[taskIdx][sentIdx] = predictions[predIdx]
+                    predLabels[task][sentIdx] = predictions[predIdx]
                     predIdx += 1
         
         return predLabels
