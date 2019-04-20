@@ -547,6 +547,5 @@ class BiLSTM:
         bilstm.setMappings(mappings, None)
         bilstm.model = model
         bilstm.labelKeys = labelKeys
-        bilstm.idx2Labels = {}
-        #bilstm.idx2Labels[modelName] = {v: k for k, v in bilstm.mappings[labelKey].items()}
+
         return bilstm
