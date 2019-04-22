@@ -36,6 +36,9 @@ data_df['UPOS'] = data_df.POS.map(pos_tagset_ud_map)
 # convert IOB tagging scheme to BIO
 iob_to_bio(data_df.NER)
 
+# remove MISC entities
+data_df.NER.replace({'B-MISC' : 'O', 'I-MISC': 'O'}, inplace=True)
+
 # split data into train, dev and test sets and write data to disk
 train_test_dfs = train_test_split(data_df)
 write_data(train_test_dfs, dataset_out_dir, output_columns)

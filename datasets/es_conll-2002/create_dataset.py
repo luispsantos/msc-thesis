@@ -31,6 +31,9 @@ def process_dataset(data_in_path):
     data_df['UPOS'] = data_df['POS_0'].map(pos_tagset_ud_map)
     replace_values(pos_tagset_ud_map, data_df['POS_0+1'], data_df.UPOS)
 
+    # remove MISC entities
+    data_df.NER.replace({'B-MISC' : 'O', 'I-MISC': 'O'}, inplace=True)
+
     return data_df
 
 # process dataset with pre-made data splits and write data to disk
