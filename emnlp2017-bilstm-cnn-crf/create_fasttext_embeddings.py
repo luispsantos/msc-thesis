@@ -29,7 +29,7 @@ sorted_tokens = token_counts.index
 model = load_facebook_vectors(embeddings_dir / f'cc.{lang}.300.bin')
 
 # generate embeddings for all tokens (including OOV tokens)
-embeddings = {token: model[token] for token in sorted_tokens if token in model.vocab}
+embeddings = {token: model[token] for token in sorted_tokens if model[token].any()}
 
 # create the embeddings file in Word2Vec format
 with gzip.open(embeddings_dir / f'{lang}.fasttext.oov.vec.gz', 'wt') as embeddings_f:
