@@ -204,6 +204,10 @@ def process_dataset(data_in_path):
     data_df['POS_0'] = data_df['POS_0'].str.upper()
     data_df['POS_0+1'] = data_df['POS_0+1'].str.upper()
 
+    # convert contracted prepositions to SC (ADP+DET) tag
+    contracted_mask = data_df.Feat.str.endswith('contracted=yes', na=False)
+    data_df.loc[(data_df['POS_0+1'] == 'SP') & contracted_mask, 'POS_0+1'] = 'SC'
+
     # map POS tagset to UD tagset based on the first and first+second characters of POS tags
     data_df['UPOS'] = data_df['POS_0'].map(pos_tagset_ud_map)
     replace_values(pos_tagset_ud_map, data_df['POS_0+1'], data_df.UPOS)
