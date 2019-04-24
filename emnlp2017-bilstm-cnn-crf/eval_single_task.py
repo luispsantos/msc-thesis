@@ -2,13 +2,13 @@ from pathlib import Path
 from neuralnets.BiLSTM import BiLSTM
 from util.preprocessing import loadDatasetPickle
 from util.datasets import Dataset
-from evaluate import Evaluate
+from evaluator import Evaluator
 
 # paths for input/output directories
 models_dir, results_dir = Path('models/single_task'), Path('results/single_task')
 pkl_dir, tables_dir = Path('pkl'), Path('tables/single_task')
 
-evaluate = Evaluate()
+evaluator = Evaluator()
 
 for model_path in sorted(models_dir.glob('*.h5')):
     model_name = model_path.stem
@@ -52,8 +52,8 @@ for model_path in sorted(models_dir.glob('*.h5')):
     corr_labels = [[idx2label[idx] for idx in sent] for sent in corr_idxs]
     pred_labels = [[idx2label[idx] for idx in sent] for sent in pred_idxs]
 
-    evaluate.eval(dataset_name, task, corr_labels, pred_labels, train_data, test_data)
+    evaluator.eval(dataset_name, task, corr_labels, pred_labels, train_data, test_data)
     print(f'Evaluated dataset {dataset_id} - {task}')
 
-evaluate.write_tables(tables_dir)
+evaluator.write_tables(tables_dir)
 print(f'Wrote evaluation tables to {tables_dir}/')

@@ -3,7 +3,7 @@ from pathlib import Path
 from io import StringIO
 from seqeval.metrics import accuracy_score, classification_report
 
-class Evaluate:
+class Evaluator:
 
     def __init__(self):
         self.pos_metrics, self.pos_tags_f1 = {}, {}
