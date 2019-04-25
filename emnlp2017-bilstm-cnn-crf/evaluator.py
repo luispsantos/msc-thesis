@@ -120,13 +120,13 @@ class Evaluator:
         # make sure that the tables directory exists
         tables_dir.mkdir(exist_ok=True)
 
-        self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex')
-        self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex')
+        self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex', False)
+        self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', True)
 
-        self._to_latex(self.ner_metrics, tables_dir / 'ner_metrics.tex')
-        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex')
+        self._to_latex(self.ner_metrics, tables_dir / 'ner_metrics.tex', False)
+        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex', False)
 
-    def _to_latex(self, metrics, table_path):
+    def _to_latex(self, metrics, table_path, transpose):
         # deal with the case of having no metrics to write
         if not metrics:
             table_path.write_text('')
@@ -139,6 +139,10 @@ class Evaluator:
         # show the Portuguese datasets at the top and Spanish datasets at the bottom
         metrics_df = metrics_df.reindex(['PT', 'ES'], level='Language')
         metrics_df.index.set_levels(['Portuguese', 'Spanish'], level='Language', inplace=True)
+
+        if transpose:
+            metrics_df = metrics_df.transpose()
+            metrics_df = metrics_df.sort_index()
 
         column_format = 'l' * metrics_df.index.nlevels + 'c' * len(metrics_df.columns)
         metrics_latex = metrics_df.to_latex(na_rep='-', column_format=column_format,
@@ -174,9 +178,9 @@ class Evaluator:
                                         in zip(column_names.split('&'), index_names.split('&'))]
         col_names = '&'.join(col_names)
 
-        lines.remove(column_names); lines.remove(index_names)
-        lines.insert(lines.index(r'\midrule'), col_names)
+        if not transpose:
+            lines.remove(column_names); lines.remove(index_names)
+            lines.insert(lines.index(r'\midrule'), col_names)
 
         # write latex table to file
         table_path.write_text('\n'.join(lines))
-
