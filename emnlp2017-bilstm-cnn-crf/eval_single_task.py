@@ -52,7 +52,7 @@ for model_path in sorted(models_dir.glob('*.h5')):
     corr_labels = [[idx2label[idx] for idx in sent] for sent in corr_idxs]
     pred_labels = [[idx2label[idx] for idx in sent] for sent in pred_idxs]
 
-    evaluator.eval(dataset_name, task, corr_labels, pred_labels, train_data, test_data)
+    evaluator.eval(dataset_name, lang, task, corr_labels, pred_labels, train_data, test_data)
     print(f'Evaluated dataset {dataset_id} - {task}')
 
 evaluator.write_tables(tables_dir)
