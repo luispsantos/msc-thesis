@@ -51,7 +51,6 @@ class BiLSTM:
         self.data = data
 
         # Create some helping variables
-        self.mainDatasetName = None
         self.epoch = 0
         self.learning_rate_updates = {'sgd': {1: 0.1, 3: 0.05, 5: 0.01}}
         self.datasetNames = list(self.datasets.keys())
@@ -59,8 +58,9 @@ class BiLSTM:
         self.labelKeys = {}
         self.tasks = []
         self.idx2Labels = {}
-        self.trainMiniBatchRanges = None
+        self.trainSentences = None
         self.trainSentenceLengthRanges = None
+        self.trainMiniBatchRanges = None
 
         for datasetName in self.datasetNames:
             labelKeys = self.datasets[datasetName]['label']
@@ -79,9 +79,6 @@ class BiLSTM:
             logging.info("%d dev sentences" % len(self.data[datasetName]['devMatrix']))
             logging.info("%d test sentences" % len(self.data[datasetName]['testMatrix']))
             
-        if len(self.evaluateDatasetNames) == 1:
-            self.mainDatasetName = self.evaluateDatasetNames[0]
-             
         self.casing2Idx = self.mappings['casing']
 
         if self.params['charEmbeddings'] not in [None, "None", "none", False, "False", "false"]:
@@ -227,106 +224,93 @@ class BiLSTM:
             logging.info("Update Learning Rate to %f" % (self.learning_rate_updates[self.params['optimizer']][self.epoch]))
             K.set_value(self.model.optimizer.lr, self.learning_rate_updates[self.params['optimizer']][self.epoch])
 
-        # train model a batch at a time (1 epoch sees 1 batch of every dataset)
-        for batch in self.minibatch_iterate_dataset():
-            for datasetName in self.datasetNames:
-                nnInput, nnLabels = batch[datasetName]
-                self.model.train_on_batch(nnInput, nnLabels)
+        # train model a mini-batch at a time (1 epoch sees 1 batch of every dataset)
+        for nnInput, nnLabels in self.minibatch_iterate_dataset():
+            self.model.train_on_batch(nnInput, nnLabels)
 
-    def minibatch_iterate_dataset(self, datasetNames=None):
-        """ Create based on sentence length mini-batches with approx. the same size. Sentences and 
+    def minibatch_iterate_dataset(self):
+        """ Create based on sentence length mini-batches with approx. the same size. Sentences and
         mini-batch chunks are shuffled and used to the train the model """
         
         if self.trainSentenceLengthRanges == None:
             """ Create mini batch ranges """
-            self.trainSentenceLengthRanges = {}
-            self.trainMiniBatchRanges = {}            
+            # concatenate train sentences from all datasets
+            trainSentences = []
             for datasetName in self.datasetNames:
                 trainData = self.data[datasetName]['trainMatrix']
-                trainData.sort(key=lambda x:len(x['tokens'])) #Sort train matrix by sentence length
-                trainRanges = []
-                oldSentLength = len(trainData[0]['tokens'])            
-                idxStart = 0
-                
-                #Find start and end of ranges with sentences with same length
-                for idx in range(len(trainData)):
-                    sentLength = len(trainData[idx]['tokens'])
-                    
-                    if sentLength != oldSentLength:
-                        trainRanges.append((idxStart, idx))
-                        idxStart = idx
-                    
-                    oldSentLength = sentLength
-                
-                #Add last sentence
-                trainRanges.append((idxStart, len(trainData)))
-                
-                
-                #Break up ranges into smaller mini batch sizes
-                miniBatchRanges = []
-                for batchRange in trainRanges:
-                    rangeLen = batchRange[1]-batchRange[0]
+                trainSentences.extend(trainData)
 
-                    bins = int(math.ceil(rangeLen/float(self.params['miniBatchSize'])))
-                    binSize = int(math.ceil(rangeLen / float(bins)))
-                    
-                    for binNr in range(bins):
-                        startIdx = binNr*binSize+batchRange[0]
-                        endIdx = min(batchRange[1],(binNr+1)*binSize+batchRange[0])
-                        miniBatchRanges.append((startIdx, endIdx))
-                      
-                self.trainSentenceLengthRanges[datasetName] = trainRanges
-                self.trainMiniBatchRanges[datasetName] = miniBatchRanges
+            self.trainSentenceLengthRanges = []
+            self.trainMiniBatchRanges = []
+
+            # sort train sentences by sentence length
+            trainSentences.sort(key=lambda sent: len(sent['tokens']))
+
+            trainRanges = []
+            oldSentLength = len(trainSentences[0]['tokens'])
+            idxStart = 0
+
+            #Find start and end of ranges for sentences with same length
+            for idx in range(len(trainSentences)):
+                sentLength = len(trainSentences[idx]['tokens'])
+
+                if sentLength != oldSentLength:
+                    trainRanges.append((idxStart, idx))
+                    idxStart = idx
+
+                oldSentLength = sentLength
+
+            #Add last sentence
+            trainRanges.append((idxStart, len(trainSentences)))
+
+            #Break up ranges into smaller mini batch sizes
+            miniBatchRanges = []
+            for batchRange in trainRanges:
+                rangeLen = batchRange[1]-batchRange[0]
+
+                bins = int(math.ceil(rangeLen/float(self.params['miniBatchSize'])))
+                binSize = int(math.ceil(rangeLen / float(bins)))
                 
-        if datasetNames == None:
-            datasetNames = self.datasetNames
-            
-        #Shuffle training data
-        for datasetName in datasetNames:
-            #1. Shuffle sentences that have the same length
-            x = self.data[datasetName]['trainMatrix']
-            for dataRange in self.trainSentenceLengthRanges[datasetName]:
-                for i in reversed(range(dataRange[0]+1, dataRange[1])):
-                    # pick an element in x[:i+1] with which to exchange x[i]
-                    j = random.randint(dataRange[0], i)
-                    x[i], x[j] = x[j], x[i]
-               
-            #2. Shuffle the order of the mini batch ranges       
-            random.shuffle(self.trainMiniBatchRanges[datasetName])
+                for binNr in range(bins):
+                    startIdx = binNr*binSize+batchRange[0]
+                    endIdx = min(batchRange[1],(binNr+1)*binSize+batchRange[0])
+                    miniBatchRanges.append((startIdx, endIdx))
+
+            self.trainSentences = trainSentences
+            self.trainSentenceLengthRanges = trainRanges
+            self.trainMiniBatchRanges = miniBatchRanges
+
+        #Shuffle sentences that have the same length
+        trainSentences = self.trainSentences
+        for start_idx, end_idx in self.trainSentenceLengthRanges:
+            for i in reversed(range(start_idx+1, end_idx)):
+                # pick an element in x[:i+1] with which to exchange x[i]
+                j = random.randint(start_idx, i)
+                trainSentences[i], trainSentences[j] = trainSentences[j], trainSentences[i]
+
+        #Shuffle the order of the mini batch ranges
+        random.shuffle(self.trainMiniBatchRanges)
 
         #Iterate over the mini batch ranges
-        if self.mainDatasetName != None:
-            rangeLength = len(self.trainMiniBatchRanges[self.mainDatasetName])
-        else:
-            rangeLength = min([len(self.trainMiniBatchRanges[datasetName]) for datasetName in datasetNames])
+        for start_idx, end_idx in self.trainMiniBatchRanges:
+            nnInput, nnLabels = [], []
 
-        batches = {}
-        for idx in range(rangeLength):
-            batches.clear()
-            
-            for datasetName in datasetNames:
-                trainMatrix = self.data[datasetName]['trainMatrix']
-                dataRange = self.trainMiniBatchRanges[datasetName][idx % len(self.trainMiniBatchRanges[datasetName])] 
-                nnInput, nnLabels = [], []
+            # features (inputs) of mini-batch
+            for featureName in self.params['featureNames']:
+                inputData = np.asarray([trainSentences[idx][featureName] for idx in range(start_idx, end_idx)])
+                nnInput.append(inputData)
 
-                # features (inputs) of mini-batch per dataset
-                for featureName in self.params['featureNames']:
-                    inputData = np.asarray([trainMatrix[idx][featureName] for idx in range(dataRange[0], dataRange[1])])
-                    nnInput.append(inputData)
+            # labels (outputs) of mini-batch
+            for task in self.tasks:
+                if task in self.labelKeys[datasetName]:
+                    labels = np.asarray([trainSentences[idx][task] for idx in range(start_idx, end_idx)])
+                else:
+                    labels = np.full_like(nnInput[0], ChainCRF.mask_value)
 
-                # labels (outputs) of mini-batch per dataset
-                for task in self.tasks:
-                    if task in self.labelKeys[datasetName]:
-                        labels = np.asarray([trainMatrix[idx][task] for idx in range(dataRange[0], dataRange[1])])
-                    else:
-                        labels = np.full_like(nnInput[0], ChainCRF.mask_value)
+                labels = np.expand_dims(labels, -1)
+                nnLabels.append(labels)
 
-                    labels = np.expand_dims(labels, -1)
-                    nnLabels.append(labels)
-
-                batches[datasetName] = (nnInput, nnLabels)
-                
-            yield batches   
+            yield nnInput, nnLabels
 
     def storeResults(self, resultsFilepath):
         if resultsFilepath != None:
