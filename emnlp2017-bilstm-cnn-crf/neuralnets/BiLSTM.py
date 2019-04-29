@@ -238,6 +238,12 @@ class BiLSTM:
             trainSentences = []
             for datasetName in self.datasetNames:
                 trainData = self.data[datasetName]['trainMatrix']
+                # add mask labels for the tasks this dataset lacks
+                for task in self.tasks:
+                    if task not in self.labelKeys[datasetName]:
+                        for sent in trainData:
+                            sent[task] = [ChainCRF.mask_value] * len(sent['tokens'])
+
                 trainSentences.extend(trainData)
 
             self.trainSentenceLengthRanges = []
@@ -270,7 +276,7 @@ class BiLSTM:
 
                 bins = int(math.ceil(rangeLen/float(self.params['miniBatchSize'])))
                 binSize = int(math.ceil(rangeLen / float(bins)))
-                
+
                 for binNr in range(bins):
                     startIdx = binNr*binSize+batchRange[0]
                     endIdx = min(batchRange[1],(binNr+1)*binSize+batchRange[0])
@@ -302,11 +308,7 @@ class BiLSTM:
 
             # labels (outputs) of mini-batch
             for task in self.tasks:
-                if task in self.labelKeys[datasetName]:
-                    labels = np.asarray([trainSentences[idx][task] for idx in range(start_idx, end_idx)])
-                else:
-                    labels = np.full_like(nnInput[0], ChainCRF.mask_value)
-
+                labels = np.asarray([trainSentences[idx][task] for idx in range(start_idx, end_idx)])
                 labels = np.expand_dims(labels, -1)
                 nnLabels.append(labels)
 
@@ -331,19 +333,23 @@ class BiLSTM:
                               for datasetName in self.evaluateDatasetNames}
         self.max_test_score = {datasetName: {task: 0 for task in self.labelKeys[datasetName]}
                               for datasetName in self.evaluateDatasetNames}
+
         no_improvement_since = 0
-        
+        max_early_stop_score = 0
+
         for epoch in range(epochs):      
             sys.stdout.flush()           
             logging.info("\n--------- Epoch %d -----------" % (epoch+1))
-            
+
             start_time = time.time() 
             self.trainModel()
             time_diff = time.time() - start_time
             total_train_time += time_diff
             logging.info("%.2f sec for training (%.2f total)" % (time_diff, total_train_time))
-            
-            start_time = time.time() 
+
+            start_time = time.time()
+            early_stop_score = 0
+
             for datasetName in self.evaluateDatasetNames:
                 dev_matrix = self.data[datasetName]['devMatrix']
                 test_matrix = self.data[datasetName]['testMatrix']
@@ -361,27 +367,33 @@ class BiLSTM:
                     dev_score, test_score = self.computeScore(task, dev_pred[task], dev_true,
                                                               test_pred[task], test_true)
 
+                    # add the dev score for each dataset - task pair
+                    early_stop_score += len(dev_true) * dev_score
+
                     if dev_score > self.max_dev_score[datasetName][task]:
                         self.max_dev_score[datasetName][task] = dev_score
                         self.max_test_score[datasetName][task] = test_score
-                        no_improvement_since = 0
-
-                        #Save the model
-                        if self.modelSavePath != None:
-                            self.saveModel()
-                    else:
-                        no_improvement_since += 1
 
                     if self.resultsSavePath != None:
                         self.resultsSavePath.write("\t".join(map(str, [epoch + 1, datasetName, task, dev_score, test_score, self.max_dev_score[datasetName][task], self.max_test_score[datasetName][task]])))
                         self.resultsSavePath.write("\n")
                         self.resultsSavePath.flush()
-                    
+
                     logging.info("\nScores from epoch with best dev-scores:\n  Dev-Score: %.4f\n  Test-Score %.4f" % (self.max_dev_score[datasetName][task], self.max_test_score[datasetName][task]))
                     logging.info("")
-                
+
             logging.info("%.2f sec for evaluation" % (time.time() - start_time))
-            
+
+            if early_stop_score > max_early_stop_score:
+                no_improvement_since = 0
+                max_early_stop_score = early_stop_score
+
+                #Save the model
+                if self.modelSavePath != None:
+                    self.saveModel()
+            else:
+                no_improvement_since += 1
+
             if self.params['earlyStopping']  > 0 and no_improvement_since >= self.params['earlyStopping']:
                 logging.info("!!! Early stopping, no improvement after "+str(no_improvement_since)+" epochs !!!")
                 break
@@ -393,31 +405,31 @@ class BiLSTM:
             if len(sentence) not in sentenceLengths:
                 sentenceLengths[len(sentence)] = []
             sentenceLengths[len(sentence)].append(idx)
-        
+
         return sentenceLengths
 
     def predictLabels(self, sentences):
         predLabels = {task: [None]*len(sentences) for task in self.tasks}
         sentenceLengths = self.getSentenceLengths(sentences)
-        
+
         for indices in sentenceLengths.values():
             nnInput = []                  
             for featureName in self.params['featureNames']:
                 inputData = np.asarray([sentences[idx][featureName] for idx in indices])
                 nnInput.append(inputData)
-            
+
             taskPredictions = self.model.predict(nnInput, verbose=False)
             taskPredictions = [taskPredictions] if not isinstance(taskPredictions, list) else taskPredictions
 
             for taskIdx, task in enumerate(self.tasks):
                 predictions = taskPredictions[taskIdx]
                 predictions = predictions.argmax(axis=-1)  # obtain classes from one-hot encoding
-           
+
                 predIdx = 0
                 for sentIdx in indices:
                     predLabels[task][sentIdx] = predictions[predIdx]
                     predIdx += 1
-        
+
         return predLabels
 
     def computeScore(self, task, dev_pred, dev_true, test_pred, test_true):
@@ -441,23 +453,23 @@ class BiLSTM:
     def computeAccScores(self, task, dev_pred, dev_true, test_pred, test_true):
         dev_acc = self.computeAcc(task, dev_pred, dev_true)
         test_acc = self.computeAcc(task, test_pred, test_true)
-        
+
         logging.info("Dev-Data: Accuracy: %.4f" % (dev_acc))
         logging.info("Test-Data: Accuracy: %.4f" % (test_acc))
-        
+
         return dev_acc, test_acc
 
     def computeF1(self, task, predLabels, correctLabels):
         idx2Label = self.idx2Labels[task]
         encodingScheme = task[task.index('_')+1:]
-        
+
         pre, rec, f1 = BIOF1Validation.compute_f1(predLabels, correctLabels, idx2Label, 'O', encodingScheme)
         pre_b, rec_b, f1_b = BIOF1Validation.compute_f1(predLabels, correctLabels, idx2Label, 'B', encodingScheme)
-        
+
         if f1_b > f1:
             logging.debug("Setting wrong tags to B- improves from %.4f to %.4f" % (f1, f1_b))
             pre, rec, f1 = pre_b, rec_b, f1_b
-        
+
         return pre, rec, f1
 
     def computeAcc(self, task, predLabels, correctLabels):
@@ -479,7 +491,6 @@ class BiLSTM:
             for sentence in sentences:
                 for token in sentence['characters']:
                     maxCharLen = max(maxCharLen, len(token))
-          
 
         for sentenceIdx in range(len(sentences)):
             for tokenIdx in range(len(sentences[sentenceIdx]['characters'])):
@@ -489,7 +500,7 @@ class BiLSTM:
                     sentences[sentenceIdx]['characters'][tokenIdx] = np.pad(token, (0,maxCharLen-len(token)), 'constant')
                 else: #Token longer than maxCharLen -> truncate token
                     sentences[sentenceIdx]['characters'][tokenIdx] = token[0:maxCharLen]
-    
+
         self.maxCharLen = maxCharLen
 
     def saveModel(self):
