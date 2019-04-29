@@ -22,6 +22,7 @@ import random
 import logging
 
 from .keraslayers.ChainCRF import ChainCRF
+from .keraslayers.Pentanh import Pentanh
 
 class BiLSTM:
     def __init__(self, params=None):
@@ -134,13 +135,12 @@ class BiLSTM:
 
             if self.params['charEmbeddings'].lower()=='lstm':  # Use LSTM for char embeddings from Lample et al., 2016
                 charLSTMSize = self.params['charLSTMSize']
-                chars = TimeDistributed(Bidirectional(LSTM(charLSTMSize, return_sequences=False)), name="char_lstm")(
-                    chars)
+                chars = TimeDistributed(Bidirectional(LSTM(charLSTMSize, activation='pentanh', recurrent_activation='pentanh',
+                                                           return_sequences=False)), name="char_lstm")(chars)
             else:  # Use CNNs for character embeddings from Ma and Hovy, 2016
                 charFilterSize = self.params['charFilterSize']
                 charFilterLength = self.params['charFilterLength']
-                chars = TimeDistributed(Conv1D(charFilterSize, charFilterLength, padding='same'), name="char_cnn")(
-                    chars)
+                chars = TimeDistributed(Conv1D(charFilterSize, charFilterLength, padding='same'), name="char_cnn")(chars)
                 chars = TimeDistributed(GlobalMaxPooling1D(), name="char_pooling")(chars)
 
             self.params['featureNames'].append('characters')
@@ -156,12 +156,12 @@ class BiLSTM:
         shared_layer = merged_input
         logging.info("LSTM-Size: %s" % str(self.params['LSTM-Size']))
         cnt = 1
-        for size in self.params['LSTM-Size']:      
-            if isinstance(self.params['dropout'], (list, tuple)):  
-                shared_layer = Bidirectional(LSTM(size, return_sequences=True, dropout=self.params['dropout'][0], recurrent_dropout=self.params['dropout'][1]), name='shared_varLSTM_'+str(cnt))(shared_layer)
+        for size in self.params['LSTM-Size']:
+            if isinstance(self.params['dropout'], (list, tuple)):
+                shared_layer = Bidirectional(LSTM(size, activation='pentanh', recurrent_activation='pentanh', return_sequences=True, dropout=self.params['dropout'][0], recurrent_dropout=self.params['dropout'][1]), name='shared_varLSTM_'+str(cnt))(shared_layer)
             else:
                 """ Naive dropout """
-                shared_layer = Bidirectional(LSTM(size, return_sequences=True), name='shared_LSTM_'+str(cnt))(shared_layer) 
+                shared_layer = Bidirectional(LSTM(size, activation='pentanh', recurrent_activation='pentanh', return_sequences=True), name='shared_LSTM_'+str(cnt))(shared_layer)
                 if self.params['dropout'] > 0.0:
                     shared_layer = TimeDistributed(Dropout(self.params['dropout']), name='shared_dropout_'+str(self.params['dropout'])+"_"+str(cnt))(shared_layer)
             
