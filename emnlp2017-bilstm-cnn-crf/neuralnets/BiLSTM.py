@@ -518,7 +518,7 @@ class BiLSTM:
         if os.path.isfile(savePath):
             logging.info(f'Model {savePath} already exists. Model will be overwritten')
 
-        self.model.save(savePath, True)
+        self.model.save(str(savePath), True)
 
         with h5py.File(savePath, 'a') as h5file:
             h5file.attrs['mappings'] = json.dumps(self.mappings)

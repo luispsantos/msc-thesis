@@ -28,7 +28,7 @@ models_dir, results_dir = Path('models/multi_task'), Path('results/multi_task')
 
 # select network hyperparameters
 network_params = {'charEmbeddings': 'CNN', 'LSTM-Size': [100, 100], 'classifier': 'CRF',
-                  'dropout': (0.5, 0.5), 'earlyStopping': 15, 'miniBatchSize': 32}
+                  'dropout': (0.5, 0.5), 'earlyStopping': 10, 'miniBatchSize': 32}
 
 # number of runs with different random initialization
 max_runs = 1
@@ -62,9 +62,9 @@ def run_experiment(datasets, lang, task, embeddings_path, max_runs):
 
 
 multitask_datasets = [
-    Datasets(exclude=['pt_colonia', 'pt_wikiner'], lang='PT', task='POS'),
-    Datasets(exclude=['pt_wikiner'], lang='PT', task='NER'),
-    Datasets(exclude=['pt_colonia', 'pt_wikiner'], lang='PT')
+    Datasets(exclude=['pt_colonia'], lang='PT', task='POS'),
+    Datasets(lang='PT', task='NER'),
+    Datasets(exclude=['pt_colonia'], lang='PT')
 ]
 
 # iterate through the multiple language and task dataset combinations
