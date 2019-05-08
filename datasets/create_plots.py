@@ -123,6 +123,28 @@ def ner_counts_chart(metrics_df, plot_file):
     create_chart(metrics_df, plot_file, plot_args, legend_args,
                  subplots_args, False, figplot=True, figsize=(12, 6))
 
+def to_latex(metrics_df, table_file):
+    # create latex table from a DataFrame
+    metrics_latex = metrics_df.to_latex(na_rep='-', multicolumn_format='c', multirow=True)
+
+    # split latex table into lines and replace \cline by \midrule
+    lines = metrics_latex.splitlines()
+    lines = [r'\midrule' if line.startswith(r'\cline') else line for line in lines]
+
+    # aggregate index names and column names into the same table line
+    midrule_idx = lines.index(r'\midrule')
+    column_names, index_names = lines[midrule_idx-2:midrule_idx]
+
+    col_names = [index_name if col_name.isspace() else col_name for col_name, index_name
+                                    in zip(column_names.split('&'), index_names.split('&'))]
+    col_names = '&'.join(col_names)
+
+    lines.remove(column_names); lines.remove(index_names)
+    lines.insert(lines.index(r'\midrule'), col_names)
+
+    # write latex table to file
+    table_file.write_text('\n'.join(lines))
+
 plots_dir = Path('plots')
 cwd = Path.cwd()
 
@@ -138,6 +160,8 @@ sent_tokens_chart(sent_tokens, plots_dir / 'sent_tokens.png')
 pos_counts_chart(pos_counts, plots_dir / 'pos_counts.png')
 ner_counts_chart(ner_counts, plots_dir / 'ner_counts.png')
 
-sent_tokens.to_latex(plots_dir / 'sent_tokens.tex', na_rep='-')
-pos_counts.to_latex(plots_dir / 'pos_counts.tex', na_rep='-')
-ner_counts.to_latex(plots_dir / 'ner_counts.tex', na_rep='-')
+sent_tokens.columns = ['Sentences', 'Tokens', 'Words']
+to_latex(sent_tokens, plots_dir / 'sent_tokens.tex')
+
+to_latex(pos_counts, plots_dir / 'pos_counts.tex')
+to_latex(ner_counts, plots_dir / 'ner_counts.tex')
