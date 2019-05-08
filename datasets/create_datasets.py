@@ -34,6 +34,10 @@ for dataset_dir in chain(cwd.glob('pt_*'), cwd.glob('es_*')):
     for data_file in data_dir.iterdir():
         datasets.write(data_file, join(dataset_name, data_file.name))
 
+    # copy YAML file with dataset statistics
+    stats_file = dataset_dir / 'stats.yml'
+    datasets.write(stats_file, join(dataset_name, 'stats.yml'))
+
     # load the dataset's configuration file
     with open(dataset_dir / 'config.yml') as f:
         config = yaml.safe_load(f)
