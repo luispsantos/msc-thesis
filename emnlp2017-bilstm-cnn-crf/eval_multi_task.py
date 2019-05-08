@@ -6,15 +6,17 @@ from evaluator import Evaluator
 
 # paths for input/output directories
 models_dir, results_dir = Path('models/multi_task'), Path('results/multi_task')
-pkl_dir, tables_dir = Path('pkl'), Path('tables/multi_task')
+pkl_dir, tables_dir = Path('pkl'), Path('tables')
 
-evaluator = Evaluator()
+evaluators = {transfer_setting: Evaluator() for transfer_setting
+                                            in ['cross_domain', 'multi_task']}
 
 for model_path in sorted(models_dir.glob('*.h5')):
     model_name = model_path.stem
 
     # load the BiLSTM model
     model = BiLSTM.loadModel(model_path)
+    print(f'Loading model {model_name}')
 
     # extract language and task from model name
     model_parts = model_name.split('_')
@@ -24,12 +26,21 @@ for model_path in sorted(models_dir.glob('*.h5')):
     lang = lang.upper() if lang in ('pt', 'es') else None
     task = task.upper() if task in ('pos', 'ner') else None
 
+    # obtain the evaluator based on the transfer setting
+    if lang is not None and task is not None:
+        transfer_setting = 'cross_domain'
+    elif lang is not None and task is None:
+        transfer_setting = 'multi_task'
+
+    evaluator = evaluators[transfer_setting]
+
     # obtain the IDs of all datasets used in training
     dataset_ids = model.labelKeys.keys()
     dataset_ids_str = '_'.join(dataset_ids)
 
     # filename for fasttext word embeddings
-    embeddings_name = f'{lang.lower()}.fasttext.oov.vec'
+    if lang is not None:
+        embeddings_name = f'{lang.lower()}.fasttext.oov.vec'
 
     # load the datasets
     pkl_file = pkl_dir / f'{dataset_ids_str}_{embeddings_name}.pkl'
@@ -53,9 +64,9 @@ for model_path in sorted(models_dir.glob('*.h5')):
         task_predictions = model.predictLabels(test_data)
 
         # iterate through the available output tasks
-        for task in dataset.tasks:
+        for label in model.labelKeys[dataset_id]:
             # obtain mapping of indices to POS/NER labels
-            label = task + '_BIO' if task == 'NER' else task
+            task = label.replace('_BIO', '')
             idx2label = model.idx2Labels[label]
 
             # obtain correct and predicted sentences
@@ -66,8 +77,9 @@ for model_path in sorted(models_dir.glob('*.h5')):
             corr_labels = [[idx2label[idx] for idx in sent] for sent in corr_idxs]
             pred_labels = [[idx2label[idx] for idx in sent] for sent in pred_idxs]
 
-            evaluator.eval(dataset.name, task, corr_labels, pred_labels, train_data, test_data)
-            print(f'Evaluated dataset {dataset_id} - {task}')
+            evaluator.eval(dataset.name, lang, task, corr_labels, pred_labels, train_data, test_data)
+            print(f'Evaluated {transfer_setting} - {dataset_id} - {task}')
 
-evaluator.write_tables(tables_dir)
-print(f'Wrote evaluation tables to {tables_dir}/')
+# write the evaluation tables
+for transfer_setting, evaluator in evaluators.items():
+    evaluator.write_tables(tables_dir / transfer_setting)

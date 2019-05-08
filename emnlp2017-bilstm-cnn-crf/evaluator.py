@@ -56,12 +56,12 @@ class Evaluator:
         metrics.rename(columns={'precision': 'Prec', 'recall': 'Rec', 'f1-score': 'F1'}, inplace=True)
 
         acc_metrics = pd.Series({'Overall': overall_acc, 'Unseen': unseen_acc, 'Ambiguous': ambiguous_acc})
-        tok_avg = metrics.loc['avg / total'].drop('support')
+        tok_avg = metrics.loc['micro avg'].drop('support')
 
         metrics_avg = pd.concat([acc_metrics, tok_avg], keys=['Accuracy', 'Token'])
         self.pos_metrics[dataset_id] = metrics_avg
 
-        self.pos_tags_f1[dataset_id] = metrics['F1'].drop('avg / total')
+        self.pos_tags_f1[dataset_id] = metrics['F1'].drop(['micro avg', 'macro avg'])
 
     def eval_ner(self, dataset_id, corr_labels, pred_labels, train_data, test_data):
         # compute entity-level metrics
@@ -93,8 +93,8 @@ class Evaluator:
         tok_acc = round(accuracy_score(corr_labels, pred_labels) * 100, 2)
 
         # obtain overall Prec, Rec and F1 for entity- and token-level
-        ent_avg = metrics.loc['avg / total'].drop('support')
-        tok_avg = metrics_t.loc['avg / total'].drop('support')
+        ent_avg = metrics.loc['micro avg'].drop('support')
+        tok_avg = metrics_t.loc['micro avg'].drop('support')
 
         ent_avg = pd.concat([pd.Series({'Acc': ent_acc}), ent_avg])
         tok_avg = pd.concat([pd.Series({'Acc': tok_acc}), tok_avg])
@@ -103,8 +103,8 @@ class Evaluator:
         self.ner_metrics[dataset_id] = metrics_avg
 
         # obtain F1 score at the entity- and token-level per entity type
-        ent_f1 = metrics['F1'].drop('avg / total')
-        tok_f1 = metrics_t['F1'].drop(['O', 'avg / total'])
+        ent_f1 = metrics['F1'].drop(['micro avg', 'macro avg'])
+        tok_f1 = metrics_t['F1'].drop(['O', 'micro avg', 'macro avg'])
 
         metrics_f1 = pd.concat([ent_f1, tok_f1], keys=['Entity', 'Token'])
         self.ent_type_f1[dataset_id] = metrics_f1
@@ -119,6 +119,7 @@ class Evaluator:
     def write_tables(self, tables_dir):
         # make sure that the tables directory exists
         tables_dir.mkdir(exist_ok=True)
+        print(f'Wrote evaluation tables to {tables_dir}/')
 
         self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex', False)
         self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', True)
@@ -129,7 +130,6 @@ class Evaluator:
     def _to_latex(self, metrics, table_path, transpose):
         # deal with the case of having no metrics to write
         if not metrics:
-            table_path.write_text('')
             return
 
         # create DataFrame and set index names

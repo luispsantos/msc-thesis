@@ -6,7 +6,7 @@ from evaluator import Evaluator
 
 # paths for input/output directories
 models_dir, results_dir = Path('models/single_task'), Path('results/single_task')
-pkl_dir, tables_dir = Path('pkl'), Path('tables/single_task')
+pkl_dir, tables_dir = Path('pkl'), Path('tables')
 
 evaluator = Evaluator()
 
@@ -53,7 +53,7 @@ for model_path in sorted(models_dir.glob('*.h5')):
     pred_labels = [[idx2label[idx] for idx in sent] for sent in pred_idxs]
 
     evaluator.eval(dataset_name, lang, task, corr_labels, pred_labels, train_data, test_data)
-    print(f'Evaluated dataset {dataset_id} - {task}')
+    print(f'Evaluated single_task - {dataset_id} - {task}')
 
-evaluator.write_tables(tables_dir)
-print(f'Wrote evaluation tables to {tables_dir}/')
+# write the evaluation tables
+evaluator.write_tables(tables_dir / 'single_task')

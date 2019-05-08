@@ -531,7 +531,7 @@ class BiLSTM:
         import json
         from .keraslayers.ChainCRF import create_custom_objects
 
-        model = keras.models.load_model(modelPath, custom_objects=create_custom_objects())
+        model = keras.models.load_model(str(modelPath), custom_objects=create_custom_objects())
 
         with h5py.File(modelPath, 'r') as f:
             mappings = json.loads(f.attrs['mappings'])
