@@ -51,16 +51,22 @@ def create_dataframe(metrics):
 
     return metrics_df
 
-def create_chart(metrics_df, plot_file, plot_args, legend_args, figsize):
+def create_chart(metrics_df, plot_file, plot_args, legend_args,
+                 subplots_args, column_wise, figplot, figsize):
     # group metrics per language
     lang_metrics = metrics_df.groupby(level='Language')
     num_datasets = lang_metrics.size().tolist()
 
     # create subplots for each language
     num_langs = len(lang_metrics)
-    fig, axes = plt.subplots(nrows=num_langs, sharex=True,
-                            figsize=figsize, gridspec_kw={
-                            'height_ratios': num_datasets})
+    if column_wise:
+        fig, axes = plt.subplots(nrows=num_langs, sharex=True,
+                                figsize=figsize, gridspec_kw={
+                                'height_ratios': num_datasets})
+    else:
+        fig, axes = plt.subplots(ncols=num_langs,
+                                figsize=figsize, gridspec_kw={
+                                'width_ratios': num_datasets})
 
     for ax, (lang, metrics) in zip(axes, lang_metrics):
         metrics = metrics.droplevel('Language')
@@ -72,29 +78,50 @@ def create_chart(metrics_df, plot_file, plot_args, legend_args, figsize):
         ax.invert_yaxis()
         ax.yaxis.set_label_text('')
 
-    axes[0].legend_.set_visible(True)
-    axes[0].legend(**legend_args)
+    if figplot:
+        handles, labels = ax.get_legend_handles_labels()
+        fig.legend(handles, labels, bbox_transform=ax.transAxes, **legend_args)
+    else:
+        axes[0].legend_.set_visible(True)
+        axes[0].legend(**legend_args)
 
     plt.tight_layout()
-    plt.savefig(plot_file); plt.close()
+    plt.subplots_adjust(**subplots_args)
+    
+    plt.savefig(plot_file)
+    plt.close()
 
-def bar_chart(metrics_df, plot_file):
+def sent_tokens_chart(metrics_df, plot_file):
     plot_args = {'kind': 'barh', 'logx': True}
     legend_args = {'loc': 'upper right'}
+    subplots_args = {}
 
-    create_chart(metrics_df, plot_file, plot_args,
-                 legend_args, figsize=(8, 6))
+    create_chart(metrics_df, plot_file, plot_args, legend_args,
+                 subplots_args, True, figplot=False, figsize=(8, 6))
 
-def stacked_bar_chart(metrics_df, plot_file, fontsize):
+def pos_counts_chart(metrics_df, plot_file):
     # convert the counts to percentages that sum to 1.0
     metrics_df = metrics_df.div(metrics_df.sum(axis=1), axis=0)
 
     plot_args = {'kind': 'barh', 'stacked': True}
-    legend_args = {'loc': 'center right', 'bbox_to_anchor': (1.4, 0.5),
-                   'fontsize': fontsize}
+    legend_args = {'loc': 'lower center', 'bbox_to_anchor': (1.2, -0.15),
+                   'fontsize': 12}
+    subplots_args = {'right': 0.75, 'hspace': 0.25}
 
-    create_chart(metrics_df, plot_file, plot_args,
-                 legend_args, figsize=(10, 6))
+    create_chart(metrics_df, plot_file, plot_args, legend_args,
+                 subplots_args, True, figplot=True, figsize=(10, 6))
+
+def ner_counts_chart(metrics_df, plot_file):
+    # convert the counts to percentages that sum to 1.0
+    metrics_df = metrics_df.div(metrics_df.sum(axis=1), axis=0)
+
+    plot_args = {'kind': 'barh', 'stacked': True}
+    legend_args = {'loc': 'lower center', 'bbox_to_anchor': (-0.25, -0.18),
+                   'fontsize': 14, 'ncol': 3, 'shadow': True}
+    subplots_args = {'bottom': 0.15}
+
+    create_chart(metrics_df, plot_file, plot_args, legend_args,
+                 subplots_args, False, figplot=True, figsize=(12, 6))
 
 plots_dir = Path('plots')
 cwd = Path.cwd()
@@ -107,9 +134,9 @@ sent_tokens = create_dataframe(sent_tokens)
 pos_counts = create_dataframe(pos_counts)
 ner_counts = create_dataframe(ner_counts)
 
-bar_chart(sent_tokens, plots_dir / 'sent_tokens.png')
-stacked_bar_chart(pos_counts, plots_dir / 'pos_counts.png', 8)
-stacked_bar_chart(ner_counts, plots_dir / 'ner_counts.png', 12)
+sent_tokens_chart(sent_tokens, plots_dir / 'sent_tokens.png')
+pos_counts_chart(pos_counts, plots_dir / 'pos_counts.png')
+ner_counts_chart(ner_counts, plots_dir / 'ner_counts.png')
 
 sent_tokens.to_latex(plots_dir / 'sent_tokens.tex', na_rep='-')
 pos_counts.to_latex(plots_dir / 'pos_counts.tex', na_rep='-')
