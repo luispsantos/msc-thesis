@@ -10,11 +10,11 @@ import seaborn as sns
 sns.set()
 
 def read_stats(data_dir):
-    sent_tokens = {}
+    sent_tokens, vocab_size = {}, []
     pos_counts, ner_counts = {}, {}
 
     # iterate over the Portuguese and Spanish datasets and collect statistics
-    for dataset_dir in chain(data_dir.glob('pt_*'), data_dir.glob('es_*')):
+    for dataset_dir in chain(sorted(data_dir.glob('pt_*')), sorted(data_dir.glob('es_*'))):
         # load config and stats YAML files
         dataset_config = load_yaml(dataset_dir / 'config.yml')
         dataset_stats = load_yaml(dataset_dir / 'stats.yml')
@@ -23,18 +23,21 @@ def read_stats(data_dir):
         dataset_name = dataset_config['name']
         lang = dataset_config['lang']
 
+        # obtain vocabulary size for this dataset
+        vocab_size.append(dataset_stats.pop('vocab_size'))
+
         # iterate through stats of train, dev and test sets
         for dataset_type, stats in dataset_stats.items():
             dataset_id = (lang, dataset_name, dataset_type)
-            sent_tokens[dataset_id] = {k: stats[k] for k in ('sents', 'tokens', 'words')
-                                                   if k in stats}
+            sent_tokens[dataset_id] = {k: stats[k] for k in ('sents', 'tokens')}
+
             if 'POS' in stats:
                 pos_counts[dataset_id] = stats['POS']
 
             if 'NER' in stats:
                 ner_counts[dataset_id] = stats['NER']
 
-    return sent_tokens, pos_counts, ner_counts
+    return sent_tokens, pos_counts, ner_counts, vocab_size
 
 def create_dataframe(metrics):
     # create DataFrame and set index names
@@ -149,7 +152,7 @@ plots_dir = Path('plots')
 cwd = Path.cwd()
 
 # read dataset statistics
-sent_tokens, pos_counts, ner_counts = read_stats(cwd)
+sent_tokens, pos_counts, ner_counts, vocab_size = read_stats(cwd)
 
 # create DataFrames with stats for all datasets
 sent_tokens = create_dataframe(sent_tokens)
@@ -160,8 +163,9 @@ sent_tokens_chart(sent_tokens, plots_dir / 'sent_tokens.png')
 pos_counts_chart(pos_counts, plots_dir / 'pos_counts.png')
 ner_counts_chart(ner_counts, plots_dir / 'ner_counts.png')
 
-sent_tokens.columns = ['Sentences', 'Tokens', 'Words']
-to_latex(sent_tokens, plots_dir / 'sent_tokens.tex')
+sent_tokens.columns = ['Sentences', 'Tokens']
+sent_tokens['Vocab size'] = vocab_size
 
+to_latex(sent_tokens, plots_dir / 'sent_tokens.tex')
 to_latex(pos_counts, plots_dir / 'pos_counts.tex')
 to_latex(ner_counts, plots_dir / 'ner_counts.tex')
