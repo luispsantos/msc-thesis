@@ -92,6 +92,11 @@ def write_data(train_test_dfs, dataset_out_dir, output_columns, output_separator
     dataset_out_dir.mkdir(exist_ok=True)
 
     dataset_stats = {}
+
+    # compute number of unique tokens - vocabulary size for the dataset
+    dataset_stats['vocab_size'] = len({token for data_df in train_test_dfs.values()
+                                       for token in data_df.Token.dropna()})
+
     for dataset_type, data_df in train_test_dfs.items():
         data_out_path = dataset_out_dir / (dataset_type + '.txt')
 
