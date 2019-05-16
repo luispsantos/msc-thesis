@@ -27,8 +27,8 @@ embeddings_dir = Path('embeddings')
 models_dir, results_dir = Path('models/multi_task'), Path('results/multi_task')
 
 # select network hyperparameters
-network_params = {'charEmbeddings': 'CNN', 'LSTM-Size': [100, 100], 'classifier': 'CRF',
-                  'dropout': (0.5, 0.5), 'earlyStopping': 10, 'miniBatchSize': 32}
+network_params = {'charEmbeddings': 'LSTM', 'charLSTMSize': 25, 'LSTM-Size': [100, 100],
+                  'classifier': 'CRF','dropout': (0.5, 0.5), 'earlyStopping': 10}
 
 # number of runs with different random initialization
 max_runs = 1
