@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 import gzip
 import csv
+import yaml
 
 lang = 'pt'
 data_dir, embeddings_dir = Path('data'), Path('embeddings')
@@ -24,6 +25,10 @@ tokens = pd.concat(tokens)
 # sort tokens by frequency counts
 token_counts = tokens.value_counts()
 sorted_tokens = token_counts.index
+
+# save token counts to a YAML file
+with open(embeddings_dir / f'{lang}.fasttext.counts.yml', 'w') as counts_f:
+    yaml.dump(token_counts.to_dict(), counts_f, allow_unicode=True, sort_keys=False)
 
 # load FastText word vectors for the target language
 model = load_facebook_vectors(embeddings_dir / f'cc.{lang}.300.bin')
