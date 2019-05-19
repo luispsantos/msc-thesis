@@ -324,13 +324,11 @@ class E2E(Model):
 
     def save_best_s2t(self):
         print("Save src to tgt mapping to %s" % self.s2t_save_to)
-        with torch.no_grad():
-            torch.save(self.tgt_flow.W.cpu().numpy(), self.s2t_save_to)
+        torch.save(self.tgt_flow.W.cpu().detach().numpy(), self.s2t_save_to)
 
     def save_best_t2s(self):
         print("Save tgt to src mapping to %s" % self.t2s_save_to)
-        with torch.no_grad():
-            torch.save(self.src_flow.W.cpu().numpy(), self.t2s_save_to)
+        torch.save(self.src_flow.W.cpu().detach().numpy(), self.t2s_save_to)
 
     def export_embeddings(self, src_emb, tgt_emb, exp_path):
         self.load_best_from_both_sides()
