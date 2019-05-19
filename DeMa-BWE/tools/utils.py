@@ -3,6 +3,9 @@ import io
 import re
 import sys
 import numpy as np
+import gzip
+import yaml
+from os.path import join, dirname
 from tools.dictionary import Dictionary
 from torch import optim
 import math
@@ -112,7 +115,7 @@ def load_txt_var(args, source: bool, word2id):
     return var
 
 
-def load_bin_embeddings(args, source: bool):
+def load_embeddings(args, source: bool):
     """
     Reload pretrained embeddings from a fastText binary file.
     """
@@ -122,17 +125,29 @@ def load_bin_embeddings(args, source: bool):
     mf = args.src_train_most_frequent if source else args.tgt_train_most_frequent
     max_vocab = args.max_vocab
 
-    model = load_fasttext_model(args.src_emb_path if source else args.tgt_emb_path)
-    words, freqs = model.get_labels(include_freq=True)
-    assert model.get_dimension() == args.emb_dim
-    print("Loaded binary model. Generating embeddings ...")
-    embeddings = np.concatenate([model.get_word_vector(w)[None] for w in words], 0)
+    emb_path = args.src_emb_path if source else args.tgt_emb_path 
+    if emb_path.endswith('.bin'):
+        model = load_fasttext_model(emb_path)
+        words, freqs = model.get_labels(include_freq=True)
+        assert model.get_dimension() == args.emb_dim
+
+        print("Loaded binary model. Generating embeddings ...")
+        embeddings = np.concatenate([model.get_word_vector(w)[None] for w in words], 0)
+
+    elif emb_path.endswith(('.vec', '.vec.gz')):
+        words, embeddings = read_txt_embeddings(args, source, True)
+        freqs = load_txt_counts(args, source, words)
+
+    else:
+        raise Exception('Unknown embeddings file format: "%s"' % emb_path)
+
     print("Generated embeddings for %i words." % len(words))
     assert embeddings.shape == (len(words), args.emb_dim)
 
     # select a subset of word embeddings (to deal with casing)
     # stop words might have been removed from freqs and train_indexes
     word2id, indexes, freqs = select_subset(words, max_vocab, freqs, lang=lang)
+
     # smooth the frequency
     word_dist = cal_empiral_freqs(np.array(freqs), args.smooth_c)
     embeddings = embeddings[indexes]
@@ -161,18 +176,21 @@ def read_txt_embeddings(args, source, full_vocab):
     # load pretrained embeddings
     lang = args.src_lang if source else args.tgt_lang
     emb_path = args.src_emb_path if source else args.tgt_emb_path
-    _emb_dim_file = args.emb_dim
-    with io.open(emb_path, 'r', encoding='utf-8', newline='\n', errors='ignore') as f:
+    emb_dim = args.emb_dim
+
+    opener = gzip if emb_path.endswith('.gz') else io
+    with opener.open(emb_path, 'rt', encoding='utf-8', newline='\n', errors='ignore') as f:
         for i, line in enumerate(f):
             if i == 0:
                 split = line.split()
                 assert len(split) == 2
-                assert _emb_dim_file == int(split[1])
+                assert emb_dim == int(split[1])
             else:
-                word, vect = line.rstrip().split(' ', 1)
+                split = line.rstrip().rsplit(' ', emb_dim)
+                word = split[0]
                 if not full_vocab:
                     word = word.lower()
-                vect = np.fromstring(vect, sep=' ')
+                vect = np.array([float(num) for num in split[1:]])
                 if np.linalg.norm(vect) == 0:  # avoid to have null embeddings
                     vect[0] = 0.01
                 if word in word2id:
@@ -180,11 +198,11 @@ def read_txt_embeddings(args, source, full_vocab):
                         print("Word '%s' found twice in %s embedding file"
                                        % (word, 'source' if source else 'target'))
                 else:
-                    if not vect.shape == (_emb_dim_file,):
+                    if not vect.shape == (emb_dim,):
                         print("Invalid dimension (%i) for %s word '%s' in line %i."
                                        % (vect.shape[0], 'source' if source else 'target', word, i))
                         continue
-                    assert vect.shape == (_emb_dim_file,), i
+                    assert vect.shape == (emb_dim,), i
                     word2id[word] = len(word2id)
                     vectors.append(vect[None])
             if args.max_vocab > 0 and len(word2id) >= args.max_vocab and not full_vocab:
@@ -193,14 +211,25 @@ def read_txt_embeddings(args, source, full_vocab):
     assert len(word2id) == len(vectors)
     print("Loaded %i pre-trained word embeddings." % len(vectors))
 
-    # compute new vocabulary / embeddings
-    id2word = {v: k for k, v in word2id.items()}
-    dico = Dictionary(id2word, word2id, lang)
+    words = list(word2id.keys())
     embeddings = np.concatenate(vectors, 0)
-    # embeddings = torch.from_numpy(embeddings).float()
 
-    assert embeddings.shape == (len(dico), args.emb_dim)
-    return dico, embeddings
+    return words, embeddings
+
+
+def load_txt_counts(args, source, words):
+    lang = args.src_lang if source else args.tgt_lang
+    emb_path = args.src_emb_path if source else args.tgt_emb_path
+
+    # load token counts
+    with open(join(dirname(emb_path), f'{lang}.fasttext.counts.yml')) as counts_f:
+        word_freqs = yaml.safe_load(counts_f)
+
+    # return frequency counts for each word
+    freqs = [word_freqs[w] for w in words]
+    print("Loaded word frequencies for pre-trained word embeddings.")
+
+    return freqs
 
 
 def normalize_embeddings(emb, types, mean=None):

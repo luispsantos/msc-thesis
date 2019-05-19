@@ -21,8 +21,8 @@ exp_path = get_exp_path("../saved_exps/" + args.model_name + "/")
 log_path = exp_path + "exp.log"
 
 assert args.src_emb_path is not None and args.tgt_emb_path is not None
-args.src_lang = args.src_emb_path.split("/")[-1].split(".")[1]
-args.tgt_lang = args.tgt_emb_path.split("/")[-1].split(".")[1]
+args.src_lang = args.src_emb_path.split("/")[-1].split(".")[0]
+args.tgt_lang = args.tgt_emb_path.split("/")[-1].split(".")[0]
 
 if args.valid_option == "unsup":
     # unsupervised validation metric
@@ -68,9 +68,8 @@ if args.cuda:
     torch.cuda.manual_seed(args.random_seed)
 device = torch.device('cuda') if args.cuda else torch.device("cpu")
 
-assert args.tgt_emb_path.endswith("bin")
-src_dict, np_src_emb, np_src_freqs = load_bin_embeddings(args, True)
-tgt_dict, np_tgt_emb, np_tgt_freqs = load_bin_embeddings(args, False)
+src_dict, np_src_emb, np_src_freqs = load_embeddings(args, True)
+tgt_dict, np_tgt_emb, np_tgt_freqs = load_embeddings(args, False)
 
 gb_size = 1073741824
 print("Size of the src and tgt embedding in Gigabytes: %f, %f" %

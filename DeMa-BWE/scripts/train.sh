@@ -30,8 +30,7 @@ t2s_s_var=0.01
 # but is not a sensitive hyperparameter
 sup_seeds=2000
 
-CUDA_VISIBLE_DEVICES=0 OMP_NUM_THREADS=4 python -u ../main_e2e.py \
-	--cuda \
+CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 python -i -u ../main_e2e.py \
     --model_name ${MODEL_NAME} \
     --export_emb 1 \
     --supervise_id ${sup_seeds} \
@@ -47,10 +46,11 @@ CUDA_VISIBLE_DEVICES=0 OMP_NUM_THREADS=4 python -u ../main_e2e.py \
     --s2t_t_var ${s2t_t_var} \
     --t_var ${t_var} \
     --t2s_s_var ${t2s_s_var} \
-    --src_emb_path $data_path/fasttext/cc.${src_lang}.300.bin \
-    --tgt_emb_path $data_path/fasttext/cc.${tgt_lang}.300.bin \
-    --n_steps 150000 \
+    --src_emb_path $data_path/embeddings/${src_lang}.fasttext.oov.vec.gz \
+    --tgt_emb_path $data_path/embeddings/${tgt_lang}.fasttext.oov.vec.gz \
+    --n_steps 300 \
     --display_steps 100 \
-    --valid_steps 5000 \
+    --valid_steps 200 \
+    --max_vocab -1 \
     --sup_dict_path $data_path/crosslingual/dictionaries/${src_lang}-${tgt_lang}.0-5000.txt \
     --dico_eval $data_path/crosslingual/dictionaries/${src_lang}-${tgt_lang}.5000-6500.txt 2>&1 | tee ${exp_path}/train.log
