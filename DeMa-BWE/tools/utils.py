@@ -117,12 +117,9 @@ def load_txt_var(args, source: bool, word2id):
 
 def load_embeddings(args, source: bool):
     """
-    Reload pretrained embeddings from a fastText binary file.
+    Reload pretrained embeddings from a fastText binary file or word2vec file.
     """
-    # reload fastText binary file
     lang = args.src_lang if source else args.tgt_lang
-    # remove stop words out of these top words
-    mf = args.src_train_most_frequent if source else args.tgt_train_most_frequent
     max_vocab = args.max_vocab
 
     emb_path = args.src_emb_path if source else args.tgt_emb_path 
@@ -148,20 +145,26 @@ def load_embeddings(args, source: bool):
     # stop words might have been removed from freqs and train_indexes
     word2id, indexes, freqs = select_subset(words, max_vocab, freqs, lang=lang)
 
-    # smooth the frequency
-    word_dist = cal_empiral_freqs(np.array(freqs), args.smooth_c)
-    embeddings = embeddings[indexes]
+    word_dist = None
+    if 'smooth_c' in args:
+        # smooth the frequency
+        word_dist = cal_empiral_freqs(np.array(freqs), args.smooth_c)
 
+        # remove stop words out of these top words
+        mf = args.src_train_most_frequent if source else args.tgt_train_most_frequent
+        if mf > 0:
+            word_dist = word_dist[:mf] / word_dist[:mf].sum()
+
+    embeddings = embeddings[indexes]
     id2word = {i: w for w, i in word2id.items()}
 
-    if mf > 0:
-        word_dist = word_dist[:mf] / word_dist[:mf].sum()
-
+    # create the dictionary
     dico = Dictionary(id2word, word2id, lang, word_dist)
 
     assert embeddings.shape == (len(dico), args.emb_dim)
-    print(f"Number of words in {lang} = {len(dico)}", len(word_dist))
-    print("Max frequency = %.7f, min frequency = %.7f" % (max(word_dist), min(word_dist)))
+    print(f"Number of words in {lang} = {len(dico)}")
+    if 'smooth_c' in args:
+        print("Max frequency = %.7f, min frequency = %.7f" % (max(word_dist), min(word_dist)))
 
     return dico, embeddings, word_dist
 

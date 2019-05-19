@@ -2,77 +2,13 @@ import sys
 sys.path.append("../")
 import argparse
 from tools.dictionary import Dictionary
-from tools.utils import normalize_embeddings
+from tools.utils import *
 import torch
 import os
 from tools.lazy_reader import *
 import math
 import io
 
-
-def select_subset(word_list, max_vocab, freqs):
-    """
-    Select a subset of words to consider, to deal with words having embeddings
-    available in different casings. In particular, we select the embeddings of
-    the most frequent words, that are usually of better quality.
-    """
-    # word2id is consistent with the full embedding with the size of ``max_vocab''
-    word2id = {}
-    indexes = []
-    select_freqs = []
-    for i, (word, f) in enumerate(zip(word_list, freqs)):
-        word = word.lower()
-        if word not in word2id:
-            word2id[word] = len(word2id)
-            indexes.append(i)
-            select_freqs.append(f)
-        if max_vocab > 0 and len(word2id) >= max_vocab:
-            break
-    assert len(word2id) == len(indexes)
-    return word2id, indexes, select_freqs
-
-
-def load_fasttext_model(path):
-    """
-    Load a binarized fastText model.
-    """
-    try:
-        import fastText
-    except ImportError:
-        raise Exception("Unable to import fastText. Please install fastText for Python: "
-                        "https://github.com/facebookresearch/fastText")
-    return fastText.load_model(path)
-
-
-def load_bin_embeddings(args, source: bool):
-    """
-    Reload pretrained embeddings from a fastText binary file.
-    """
-    # load fastText binary file
-    lang = args.src_lang if source else args.tgt_lang
-    # remove stop words out of these top words
-    max_vocab = args.vocab_size
-
-    model = load_fasttext_model(args.src_emb_path if source else args.tgt_emb_path)
-    words, freqs = model.get_labels(include_freq=True)
-    assert model.get_dimension() == args.emb_dim
-    print("Loaded binary model. Generating embeddings ...")
-    embeddings = np.concatenate([model.get_word_vector(w)[None] for w in words], 0)
-    print("Generated embeddings for %i words." % len(words))
-    assert embeddings.shape == (len(words), args.emb_dim)
-
-    # select a subset of word embeddings (to deal with casing)
-    # stop words might have been removed from freqs and train_indexes
-    word2id, indexes, freqs = select_subset(words, max_vocab, freqs)
-    embeddings = embeddings[indexes]
-
-    id2word = {i: w for w, i in word2id.items()}
-    dico = Dictionary(id2word, word2id, lang)
-
-    assert embeddings.shape == (len(dico), args.emb_dim)
-    print(f"Number of words in {lang} = {len(dico)}")
-
-    return embeddings, dico
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--src_lang", type=str)
@@ -82,7 +18,7 @@ parser.add_argument("--tgt_emb_path", type=str)
 parser.add_argument("--s2t_map_path", type=str, default=None)
 parser.add_argument("--t2s_map_path", type=str, default=None)
 parser.add_argument("--emb_dim", type=int, default=300)
-parser.add_argument("--vocab_size", type=int, default=50000, help="number of most frequent embeddings to map")
+parser.add_argument("--max_vocab", type=int, default=50000, help="number of most frequent embeddings to map")
 parser.add_argument("--normalize_embeddings", type=str, default="double", choices=['',  'double', 'renorm', 'center', 'rescale'])
 
 args = parser.parse_args()
@@ -92,13 +28,12 @@ if not os.path.exists(save_path):
     os.system("mkdir -p %s" % save_path)
 
 assert args.src_emb_path is not None and args.tgt_emb_path is not None
-assert args.tgt_emb_path.endswith("bin") and args.src_emb_path.endswith("bin")
 
 args.cuda = torch.cuda.is_available()
 device = torch.device('cuda') if args.cuda else torch.device("cpu")
 
-np_src_emb, src_dict = load_bin_embeddings(args, True)
-np_tgt_emb, tgt_dict = load_bin_embeddings(args, False)
+src_dict, np_src_emb, np_src_freqs = load_embeddings(args, True)
+tgt_dict, np_tgt_emb, np_tgt_freqs = load_embeddings(args, False)
 
 gb_size = 1073741824
 print("Size of the src and tgt embedding in Gigabytes: %f, %f" %
