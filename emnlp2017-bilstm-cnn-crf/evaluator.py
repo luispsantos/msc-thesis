@@ -121,13 +121,13 @@ class Evaluator:
         tables_dir.mkdir(exist_ok=True)
         print(f'Wrote evaluation tables to {tables_dir}/')
 
-        self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex', False)
-        self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', True)
+        self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex', True, False)
+        self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', False, True)
 
-        self._to_latex(self.ner_metrics, tables_dir / 'ner_metrics.tex', False)
-        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex', False)
+        self._to_latex(self.ner_metrics, tables_dir / 'ner_metrics.tex', True, False)
+        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex', False, False)
 
-    def _to_latex(self, metrics, table_path, transpose):
+    def _to_latex(self, metrics, table_path, avg_row, transpose):
         # deal with the case of having no metrics to write
         if not metrics:
             return
@@ -139,6 +139,12 @@ class Evaluator:
         # show the Portuguese datasets at the top and Spanish datasets at the bottom
         metrics_df = metrics_df.reindex(['PT', 'ES'], level='Language')
         metrics_df.index.set_levels(['Portuguese', 'Spanish'], level='Language', inplace=True)
+
+        # append a row that computes metric averages over all datasets per language
+        if avg_row:
+            metrics_avg = metrics_df.groupby('Language').mean() \
+                                    .assign(Dataset='Average').set_index('Dataset', append=True)
+            metrics_df = pd.concat([metrics_df, metrics_avg]).sort_values('Language')
 
         if transpose:
             metrics_df = metrics_df.transpose()
