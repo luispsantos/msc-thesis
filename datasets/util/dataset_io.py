@@ -100,11 +100,11 @@ def write_data(train_test_dfs, dataset_out_dir, output_columns, output_separator
     for dataset_type, data_df in train_test_dfs.items():
         data_out_path = dataset_out_dir / (dataset_type + '.txt')
 
-        # compute some dataset statistics
-        dataset_stats[dataset_type] = compute_stats(data_df)
-
         # keep the columns (and column order) as defined in output_columns
         output_df = data_df[output_columns]
+
+        # compute some dataset statistics
+        dataset_stats[dataset_type] = compute_stats(output_df)
 
         # concatenate the Token column with all other columns via an output separator
         output_rows = output_df.Token.str.cat(others=output_df.drop(columns='Token'),
