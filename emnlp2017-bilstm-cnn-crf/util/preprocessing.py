@@ -5,19 +5,15 @@ import gzip
 import os.path
 import nltk
 import logging
+import sys
+import pickle as pkl
 from nltk import FreqDist
 
 from .WordEmbeddings import wordNormalize
 from .CoNLL import readCoNLL
+from .datasets import Datasets
 
-import sys
-if (sys.version_info > (3, 0)):
-    import pickle as pkl
-else: #Python 2.7 imports
-    import cPickle as pkl
-    from io import open
-
-def prepareDataset(embeddingsPath, datasets, frequencyThresholdUnknownTokens=50, reducePretrainedEmbeddings=False, valTransformations=None, padOneTokenSentence=True):
+def prepareDatasets(embeddingsPath, lang, frequencyThresholdUnknownTokens=None, reducePretrainedEmbeddings=False, valTransformations=None, padOneTokenSentence=True):
     """
     Reads in the pre-trained embeddings (in text format) from embeddingsPath and prepares those to be used with the LSTM network.
     Unknown words in the trainDataPath-file are added, if they appear at least frequencyThresholdUnknownTokens times
@@ -30,13 +26,15 @@ def prepareDataset(embeddingsPath, datasets, frequencyThresholdUnknownTokens=50,
         valTransformations: Column specific value transformations
         padOneTokenSentence: True to pad one sentence tokens (needed for CRF classifier)
     """
-    embeddingsName = os.path.splitext(os.path.basename(embeddingsPath))[0]
-    pklName = "_".join(sorted(datasets.keys()) + [embeddingsName])
-    outputPath = 'pkl/' + pklName + '.pkl'
+    datasets = Datasets(lang=lang).to_dict()
+    langPrefix = f'{lang.lower()}_' if lang is not None else ''
 
-    if os.path.isfile(outputPath):
-        logging.info("Using existent pickle file: %s" % outputPath)
-        return outputPath
+    pklName = langPrefix + 'datasets_' + embeddingsPath.stem
+    pklPath = 'pkl/' + pklName + '.pkl'
+
+    if os.path.isfile(pklPath):
+        logging.info("Using existent pickle file: %s" % pklPath)
+        return pklPath
 
     casing2Idx = getCasingVocab()
     embeddings, word2Idx = readEmbeddings(embeddingsPath, datasets, frequencyThresholdUnknownTokens, reducePretrainedEmbeddings)
@@ -56,19 +54,23 @@ def prepareDataset(embeddingsPath, datasets, frequencyThresholdUnknownTokens=50,
         logging.info(":: Transform "+datasetName+" dataset ::")
         pklObjects['data'][datasetName] = createPklFiles(paths, mappings, datasetColumns, commentSymbol, valTransformations, padOneTokenSentence)
 
-    
-    f = open(outputPath, 'wb')
+    f = open(pklPath, 'wb')
     pkl.dump(pklObjects, f, -1)
     f.close()
     
-    logging.info("DONE - Embeddings file saved: %s" % outputPath)
+    logging.info("DONE - Embeddings file saved: %s" % pklPath)
     
-    return outputPath
+    return pklPath
 
 
-def loadDatasetPickle(embeddingsPickle):
+def loadDatasetPickle(embeddingsPath, lang):
     """ Loads the cPickle file, that contains the word embeddings and the datasets """
-    f = open(embeddingsPickle, 'rb')
+    langPrefix = f'{lang.lower()}_' if lang is not None else ''
+
+    pklName = langPrefix + 'datasets_' + embeddingsPath.stem
+    pklPath = 'pkl/' + pklName + '.pkl'
+
+    f = open(pklPath, 'rb')
     pklObjects = pkl.load(f)
     f.close()
 
@@ -101,7 +103,7 @@ def readEmbeddings(embeddingsPath, datasetFiles, frequencyThresholdUnknownTokens
             for line in open(filename):
                 if line.startswith('#'):
                     continue
-                splits = line.strip().split()
+                splits = line.rstrip().split('\t')
                 if len(splits) > 1:
                     word = splits[tokenPos]
                     wordLower = word.lower()
