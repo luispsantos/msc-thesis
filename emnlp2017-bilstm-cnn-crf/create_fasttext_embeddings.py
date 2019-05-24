@@ -21,9 +21,11 @@ for dataset_dir in sorted(data_dir.glob(f'{lang}_*')):
 
 # concatenate tokens from all datasets
 tokens = pd.concat(tokens)
+tokens = tokens.str.lower()
 
 # sort tokens by frequency counts
-token_counts = tokens.value_counts()
+token_counts = tokens.value_counts().sort_index(ascending=False) \
+                                    .sort_values(ascending=False)
 sorted_tokens = token_counts.index
 
 # save token counts to a YAML file
