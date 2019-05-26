@@ -151,9 +151,10 @@ def load_embeddings(args, source: bool):
         word_dist = cal_empiral_freqs(np.array(freqs), args.smooth_c)
 
         # remove stop words out of these top words
-        mf = args.src_train_most_frequent if source else args.tgt_train_most_frequent
-        if mf > 0:
-            word_dist = word_dist[:mf] / word_dist[:mf].sum()
+        if 'src_train_most_frequent' in args and 'tgt_train_most_frequent' in args:
+            mf = args.src_train_most_frequent if source else args.tgt_train_most_frequent
+            if mf > 0:
+                word_dist = word_dist[:mf] / word_dist[:mf].sum()
 
     embeddings = embeddings[indexes]
     id2word = {i: w for w, i in word2id.items()}
