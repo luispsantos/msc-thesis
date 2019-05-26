@@ -4,21 +4,21 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate pytorch
 
-src_lang="pt"
-tgt_lang="es"
+src_lang="es"
+tgt_lang="pt"
 
 MODEL_NAME=eval_${src_lang}_${tgt_lang}
 load_path="../saved_exps/id_${src_lang}_${tgt_lang}"
 data_path="../data"
 
-CUDA_VISIBLE_DEVICES=0 OMP_NUM_THREADS=4 python -u ../evaluation/eval.py \
+CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 python -u ../evaluation/eval.py \
     --load_from_pretrain_s2t ${load_path}/best_s2t_params.bin \
     --load_from_pretrain_t2s ${load_path}/best_t2s_params.bin \
     --model_name ${MODEL_NAME} \
     --export_emb 1 \
     --n_refinement 0 \
-    --src_emb_path $data_path/fasttext/cc.${src_lang}.300.bin \
-    --tgt_emb_path $data_path/fasttext/cc.${tgt_lang}.300.bin \
+    --src_emb_path $data_path/embeddings/${src_lang}.fasttext.oov.vec.gz \
+    --tgt_emb_path $data_path/embeddings/${tgt_lang}.fasttext.oov.vec.gz \
     --s_var 0.01 \
     --s2t_t_var 0.015 \
     --t_var 0.015 \

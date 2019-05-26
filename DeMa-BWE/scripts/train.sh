@@ -4,8 +4,8 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate pytorch
 
-src_lang="pt"
-tgt_lang="es"
+src_lang="es"
+tgt_lang="pt"
 MODEL_NAME=id_${src_lang}_${tgt_lang}
 
 # path to save saved params/setting/logs
@@ -13,10 +13,6 @@ exp_path="../saved_exps/${MODEL_NAME}"
 
 # path to data sets including monolingual embeddings and evaluation data sets
 data_path="../data"
-
-if [[ ! -e $exp_path ]]; then
-    mkdir $exp_path
-fi
 
 mkdir -p ${exp_path}
 cp $0 ${exp_path}/run.sh
@@ -32,7 +28,7 @@ sup_seeds=2000
 
 CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 python -i -u ../main_e2e.py \
     --model_name ${MODEL_NAME} \
-    --export_emb 1 \
+    --export_emb 0 \
     --supervise_id ${sup_seeds} \
     --valid_option unsup \
     --src_train_most_frequent 20000 \
