@@ -88,8 +88,17 @@ def map_embs(src_emb, tgt_emb, s2t=True, t2s=True):
     return src2tgt_emb, tgt2src_emb
 
 
-def identical_word_embedding(word, src_dict, tgt_dict, src_emb, tgt_emb):
-    return tgt_emb
+def identical_word_embedding(word, word_lang, src_idx, tgt_idx, src_dict, tgt_dict,
+                             src_emb, tgt_emb, a=1.75, b=1e-6):
+
+    src_freq, tgt_freq = src_dict.freqs[src_idx], tgt_dict.freqs[tgt_idx]
+    src_emb, tgt_emb = src_emb[src_idx], tgt_emb[tgt_idx]
+
+    use_src_emb = src_freq > a * tgt_freq + b
+    emb = src_emb if use_src_emb else tgt_emb
+    word_lang[word] = src_dict.lang if use_src_emb else tgt_dict.lang
+
+    return emb
 
 
 def export_embeddings(src_emb, tgt_emb, exp_path, src_dict, tgt_dict, s2t=True, t2s=True):
@@ -117,9 +126,10 @@ def export_embeddings(src_emb, tgt_emb, exp_path, src_dict, tgt_dict, s2t=True, 
             with io.TextIOWrapper(io.BufferedWriter(gzip_f, 8*1024*1024), encoding='utf-8') as embeddings_f:
                 embeddings_f.write('{} {}\n'.format(num_words, src_emb.shape[1]))
                 # write first the identical words in the source and target languages
+                word_lang = {}
                 for (word, src_idx), (_, tgt_idx) in zip(src_same_words.items(), tgt_same_words.items()):
-                    emb = identical_word_embedding(word, src_dict, tgt_dict,
-                                                   mapped_src_emb[src_idx], tgt_emb[tgt_idx])
+                    emb = identical_word_embedding(word, word_lang, src_idx, tgt_idx,
+                                                   src_dict, tgt_dict, mapped_src_emb, tgt_emb)
                     embeddings_f.write('{} {}\n'.format(word, ' '.join(f'{e:.4f}' for e in emb)))
 
                 # write the unique words in the mapped source language
@@ -132,16 +142,23 @@ def export_embeddings(src_emb, tgt_emb, exp_path, src_dict, tgt_dict, s2t=True, 
 
     if t2s:
         mapped_tgt_emb = mapped_tgt_emb.numpy()
-        print(f'Writing mapped target to source embeddings to {tgt_path}')
-        with io.open(tgt_path, 'w', encoding='utf-8') as f:
-            f.write(u"%i %i\n" % mapped_tgt_emb.shape)
-            for i in range(len(tgt_dict)):
-                f.write(u"%s %s\n" % (tgt_dict[i], " ".join('%.5f' % x for x in mapped_tgt_emb[i])))
-        print(f'Writing corresponding source embeddings to {pre_src_path}')
-        with io.open(pre_src_path, 'w', encoding='utf-8') as f:
-            f.write(u"%i %i\n" % src_emb.shape)
-            for i in range(len(src_dict)):
-                f.write(u"%s %s\n" % (src_dict[i], " ".join('%.5f' % x for x in src_emb[i])))
+        print(f'Writing mapped target and source embeddings to {tgt_path}')
+        with gzip.open(tgt_path, 'wb') as gzip_f:
+            with io.TextIOWrapper(io.BufferedWriter(gzip_f, 8*1024*1024), encoding='utf-8') as embeddings_f:
+                embeddings_f.write('{} {}\n'.format(num_words, src_emb.shape[1]))
+                # write first the identical words in the source and target languages
+                for (word, src_idx), (_, tgt_idx) in zip(src_same_words.items(), tgt_same_words.items()):
+                    emb = identical_word_embedding(word, src_dict, tgt_dict,
+                                                   src_emb[src_idx], mapped_tgt_emb[tgt_idx])
+                    embeddings_f.write('{} {}\n'.format(word, ' '.join(f'{e:.4f}' for e in emb)))
+
+                # write the unique words in the mapped target language
+                for word, idx in tgt_diff_words.items():
+                    embeddings_f.write('{} {}\n'.format(word, ' '.join(f'{e:.4f}' for e in mapped_tgt_emb[idx])))
+
+                # write the unique words in the source language
+                for word, idx in src_diff_words.items():
+                    embeddings_f.write('{} {}\n'.format(word, ' '.join(f'{e:.4f}' for e in src_emb[idx])))
 
 import time
 start = time.time()
