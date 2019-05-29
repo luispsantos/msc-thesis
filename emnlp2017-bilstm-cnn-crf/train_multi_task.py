@@ -50,9 +50,10 @@ def run_experiment(datasets_dict, lang, task, embeddings, mappings, data):
     model.buildModel()
     model.fit(epochs=500)  # do not limit training by epochs - use early stopping
 
-for lang in ['PT', 'ES']:
+for lang in ['PT', 'ES', None]:
     # select fasttext word embeddings
-    embeddings_path = embeddings_dir / f'{lang.lower()}.fasttext.oov.vec.gz'
+    lang_prefix = lang.lower() if lang is not None else 'es2pt'
+    embeddings_path = embeddings_dir / f'{lang_prefix}.fasttext.oov.vec.gz'
 
     # prepare the datasets to be used with the LSTM network
     prepareDatasets(embeddings_path, lang)
@@ -61,7 +62,8 @@ for lang in ['PT', 'ES']:
     embeddings, mappings, data = loadDatasetPickle(embeddings_path, lang)
 
     # iterate through the multiple dataset combinations of language and task
-    for task in ['POS', 'NER']:
+    for task in ['POS', 'NER', None]:
+        if lang is None and task is not None: continue
         # obtain datasets for the experiment
         datasets = Datasets(exclude=['pt_colonia'], lang=lang, task=task)
         datasets_dict = datasets.to_dict()
