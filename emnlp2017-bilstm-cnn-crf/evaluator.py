@@ -58,7 +58,7 @@ class Evaluator:
         acc_metrics = pd.Series({'Overall': overall_acc, 'Unseen': unseen_acc, 'Ambiguous': ambiguous_acc})
         tok_avg = metrics.loc['micro avg'].drop('support')
 
-        metrics_avg = pd.concat([acc_metrics, tok_avg], keys=['Accuracy', 'Token'])
+        metrics_avg = pd.concat([acc_metrics, tok_avg], keys=['Accuracy', 'NaN'])
         self.pos_metrics[dataset_id] = metrics_avg
 
         self.pos_tags_f1[dataset_id] = metrics['F1'].drop(['micro avg', 'macro avg'])
@@ -99,14 +99,14 @@ class Evaluator:
         ent_avg = pd.concat([pd.Series({'Acc': ent_acc}), ent_avg])
         tok_avg = pd.concat([pd.Series({'Acc': tok_acc}), tok_avg])
 
-        metrics_avg = pd.concat([ent_avg, tok_avg], keys=['Entity', 'Token'])
+        metrics_avg = pd.concat([ent_avg, tok_avg], keys=['Entity Spans', 'Tokens'])
         self.ner_metrics[dataset_id] = metrics_avg
 
         # obtain F1 score at the entity- and token-level per entity type
         ent_f1 = metrics['F1'].drop(['micro avg', 'macro avg'])
         tok_f1 = metrics_t['F1'].drop(['O', 'micro avg', 'macro avg'])
 
-        metrics_f1 = pd.concat([ent_f1, tok_f1], keys=['Entity', 'Token'])
+        metrics_f1 = pd.concat([ent_f1, tok_f1], keys=['Entity Spans', 'Tokens'])
         self.ent_type_f1[dataset_id] = metrics_f1
 
     def eval(self, dataset_name, lang, task, corr_labels, pred_labels, train_data, test_data):
@@ -142,7 +142,7 @@ class Evaluator:
 
         # append a row that computes metric averages over all datasets per language
         if avg_row:
-            metrics_avg = metrics_df.groupby('Language').mean() \
+            metrics_avg = metrics_df.groupby('Language').mean().round(2) \
                                     .assign(Dataset='Average').set_index('Dataset', append=True)
             metrics_df = pd.concat([metrics_df, metrics_avg]).sort_values('Language')
 
@@ -168,12 +168,14 @@ class Evaluator:
                 num_cols = int(header[header.index('{')+1])
                 start_idx, end_idx = idx+1, idx+num_cols
 
-                crule = f'\cmidrule(lr){{{start_idx}-{end_idx}}}'
-                cmidrules.append(crule)
+                if 'NaN' not in header:
+                    crule = f'\cmidrule(lr){{{start_idx}-{end_idx}}}'
+                    cmidrules.append(crule)
 
             idx += num_cols if r'\multicolumn' in header else 1
 
         if cmidrules:
+            lines[toprule_idx+1] = header_line.replace('NaN', '')
             lines.insert(toprule_idx+2, ' '.join(cmidrules))
 
         # aggregate index names and column names into the same table line

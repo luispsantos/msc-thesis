@@ -85,7 +85,8 @@ class BiLSTM:
         if self.params['charEmbeddings'] not in [None, "None", "none", False, "False", "false"]:
             logging.info("Pad words to uniform length for characters embeddings")
             all_sentences = []
-            for dataset in self.data.values():
+            for datasetName in self.datasetNames:
+                dataset = self.data[datasetName]
                 for data in [dataset['trainMatrix'], dataset['devMatrix'], dataset['testMatrix']]:
                     for sentence in data:
                         all_sentences.append(sentence)
