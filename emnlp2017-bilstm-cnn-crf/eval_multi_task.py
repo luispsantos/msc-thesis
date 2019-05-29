@@ -1,56 +1,47 @@
 from pathlib import Path
+from multiprocessing import Process, Manager
+from multiprocessing.managers import BaseManager
 from neuralnets.BiLSTM import BiLSTM
 from util.preprocessing import loadDatasetPickle
 from util.datasets import Datasets
 from evaluator import Evaluator
 
 # paths for input/output directories
-models_dir, results_dir = Path('models/multi_task'), Path('results/multi_task')
+models_dir, embeddings_dir = Path('models/multi_task'), Path('embeddings')
 pkl_dir, tables_dir = Path('pkl'), Path('tables')
 
-evaluators = {transfer_setting: Evaluator() for transfer_setting
-                                            in ['cross_domain', 'multi_task']}
+BaseManager.register('Evaluator', Evaluator)
+manager = BaseManager(); manager.start()
 
-for model_path in sorted(models_dir.glob('*.h5')):
-    model_name = model_path.stem
+loaded_datasets = {}
+evaluators = {transfer_setting: manager.Evaluator() for transfer_setting
+                                in ['cross_domain', 'multi_task', 'cross_lingual']}
+
+def eval_multi_task(model_path, lang, task, evaluators, loaded_datasets):
+    # obtain the embeddings, mappings and datasets
+    embeddings, mappings, data = loaded_datasets[lang]
 
     # load the BiLSTM model
     model = BiLSTM.loadModel(model_path)
-    print(f'Loading model {model_name}')
-
-    # extract language and task from model name
-    model_parts = model_name.split('_')
-    lang, task = model_parts[0], model_parts[-1]
-
-    # obtain the model's language and task
-    lang = lang.upper() if lang in ('pt', 'es') else None
-    task = task.upper() if task in ('pos', 'ner') else None
+    print(f'Loaded model {model_path}')
 
     # obtain the evaluator based on the transfer setting
     if lang is not None and task is not None:
         transfer_setting = 'cross_domain'
     elif lang is not None and task is None:
         transfer_setting = 'multi_task'
+    elif lang is None and task is None:
+        transfer_setting = 'cross_lingual'
+    else:
+        raise ValueError('Unknown transfer setting')
 
     evaluator = evaluators[transfer_setting]
 
-    # obtain the IDs of all datasets used in training
-    dataset_ids = model.labelKeys.keys()
-    dataset_ids_str = '_'.join(dataset_ids)
-
-    # filename for fasttext word embeddings
-    if lang is not None:
-        embeddings_name = f'{lang.lower()}.fasttext.oov.vec'
-
-    # load the datasets
-    pkl_file = pkl_dir / f'{dataset_ids_str}_{embeddings_name}.pkl'
-    embeddings, mappings, data = loadDatasetPickle(pkl_file)
-
     # create datasets dictionary
-    datasets = Datasets(names=dataset_ids, lang=lang, task=task)
+    datasets = Datasets(lang=lang, task=task)
     datasets_dict = datasets.to_dict()
 
-    # set the model mappings and dataset
+    # set the model mappings and datasets
     model.setMappings(mappings, embeddings)
     model.setDataset(datasets_dict, data)
 
@@ -60,7 +51,7 @@ for model_path in sorted(models_dir.glob('*.h5')):
         train_data = data[dataset_id]['trainMatrix']
         test_data = data[dataset_id]['testMatrix']
 
-        # predict labels for POS and NER tasks
+        # predict labels for the POS and NER tasks
         task_predictions = model.predictLabels(test_data)
 
         # iterate through the available output tasks
@@ -79,6 +70,32 @@ for model_path in sorted(models_dir.glob('*.h5')):
 
             evaluator.eval(dataset.name, lang, task, corr_labels, pred_labels, train_data, test_data)
             print(f'Evaluated {transfer_setting} - {dataset_id} - {task}')
+
+# iterate through the saved models
+for model_path in sorted(models_dir.glob('*.h5')):
+    model_name = model_path.stem
+
+    # extract language and task from model name
+    model_parts = model_name.split('_')
+    lang, task = model_parts[0], model_parts[-1]
+
+    # obtain the model's language and task
+    lang = lang.upper() if lang in ('pt', 'es') else None
+    task = task.upper() if task in ('pos', 'ner') else None
+
+    if lang not in loaded_datasets:
+        # select fasttext word embeddings
+        lang_prefix = lang.lower() if lang is not None else 'es2pt'
+        embeddings_path = embeddings_dir / f'{lang_prefix}.fasttext.oov.vec.gz'
+
+        # load and cache the embeddings, mappings and datasets
+        loaded_datasets[lang] = loadDatasetPickle(embeddings_path, lang)
+
+    # evaluate model in a separate process so that memory is released at the end
+    proc_args = (model_path, lang, task, evaluators, loaded_datasets)
+    proc = Process(target=eval_multi_task, args=proc_args)
+
+    proc.start(); proc.join()
 
 # write the evaluation tables
 for transfer_setting, evaluator in evaluators.items():
