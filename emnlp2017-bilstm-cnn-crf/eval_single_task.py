@@ -16,10 +16,7 @@ manager = BaseManager(); manager.start()
 loaded_datasets = {}
 evaluator = manager.Evaluator()
 
-def eval_single_task(model_path, dataset_id, lang, task, evaluator, loaded_datasets):
-    # obtain the embeddings, mappings and datasets
-    embeddings, mappings, data = loaded_datasets[lang]
-
+def eval_single_task(model_path, dataset_id, task, evaluator, embeddings, mappings, data):
     # load the BiLSTM model
     model = BiLSTM.loadModel(model_path)
 
@@ -47,7 +44,8 @@ def eval_single_task(model_path, dataset_id, lang, task, evaluator, loaded_datas
     corr_labels = [[idx2label[idx] for idx in sent] for sent in corr_idxs]
     pred_labels = [[idx2label[idx] for idx in sent] for sent in pred_idxs]
 
-    evaluator.eval(dataset.name, lang, task, corr_labels, pred_labels, train_data, test_data)
+    evaluator.eval(dataset.name, dataset.lang, task, corr_labels,
+                   pred_labels, train_data, test_data)
     print(f'Evaluated single_task - {dataset_id} - {task}')
 
 # iterate through the saved models
@@ -69,8 +67,11 @@ for model_path in sorted(models_dir.glob('*.h5')):
         # load and cache the embeddings, mappings and datasets
         loaded_datasets[lang] = loadDatasetPickle(embeddings_path, lang)
 
+    # unpack the embeddings, mappings and datasets
+    embeddings, mappings, data = loaded_datasets[lang]
+
     # evaluate model in a separate process so that memory is released at the end
-    proc_args = (model_path, dataset_id, lang, task, evaluator, loaded_datasets)
+    proc_args = (model_path, dataset_id, task, evaluator, embeddings, mappings, data)
     proc = Process(target=eval_single_task, args=proc_args)
 
     proc.start(); proc.join()
