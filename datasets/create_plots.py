@@ -149,9 +149,10 @@ def to_latex(metrics_df, table_file):
     table_file.write_text('\n'.join(lines))
 
 plots_dir = Path('plots')
-cwd = Path.cwd()
+plots_dir.mkdir(exist_ok=True)
 
 # read dataset statistics
+cwd = Path.cwd()
 sent_tokens, pos_counts, ner_counts, vocab_size = read_stats(cwd)
 
 # create DataFrames with stats for all datasets
