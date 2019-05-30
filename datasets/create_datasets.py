@@ -5,6 +5,10 @@ from zipfile import ZipFile
 import subprocess
 import yaml
 
+class MyDumper(yaml.Dumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super(MyDumper, self).increase_indent(flow, False)
+
 def process_config(config):
     """Selectively choose the info on config.yml to retain."""
     # remove keys of dataset input/output directories
@@ -43,7 +47,7 @@ for dataset_dir in chain(cwd.glob('pt_*'), cwd.glob('es_*')):
         config = yaml.safe_load(f)
 
     # write the information inside the configuration file
-    config_str = yaml.dump(process_config(config), sort_keys=False)
+    config_str = yaml.dump(process_config(config), Dumper=MyDumper, sort_keys=False)
     datasets.writestr(join(dataset_name, 'config.yml'), config_str)
 
 # copy datasets to the EMNLP BiLSTM-CNN-CRF data folder
