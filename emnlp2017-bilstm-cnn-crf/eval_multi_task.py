@@ -1,4 +1,5 @@
 from pathlib import Path
+from itertools import chain
 from multiprocessing import Process, Manager
 from multiprocessing.managers import BaseManager
 from neuralnets.BiLSTM import BiLSTM
@@ -15,7 +16,7 @@ manager = BaseManager(); manager.start()
 
 loaded_datasets = {}
 evaluators = {transfer_setting: manager.Evaluator() for transfer_setting
-                                in ['cross_domain', 'multi_task', 'cross_lingual']}
+                        in ['no_transfer', 'cross_domain', 'multi_task', 'cross_lingual']}
 
 def eval_multi_task(model_path, lang, task, evaluators, embeddings, mappings, data):
     # load the BiLSTM model
@@ -23,7 +24,9 @@ def eval_multi_task(model_path, lang, task, evaluators, embeddings, mappings, da
     print(f'Loaded model {model_path}')
 
     # obtain the evaluator based on the transfer setting
-    if lang is not None and task is not None:
+    if model_path.parent.name == 'single_task':
+        transfer_setting = 'no_transfer'
+    elif lang is not None and task is not None:
         transfer_setting = 'cross_domain'
     elif lang is not None and task is None:
         transfer_setting = 'multi_task'
@@ -69,8 +72,13 @@ def eval_multi_task(model_path, lang, task, evaluators, embeddings, mappings, da
                            pred_labels, train_data, test_data)
             print(f'Evaluated {transfer_setting} - {dataset_id} - {task}')
 
+# evaluate CINTIL and CoNLL-02 on the remaining datasets
+single_models_dir = Path('models/single_task')
+single_models = [single_models_dir.glob(model_name + '_*.h5')
+                         for model_name in ('pt_cintil', 'es_conll-2002')]
+
 # iterate through the saved models
-for model_path in sorted(models_dir.glob('*.h5')):
+for model_path in sorted(chain(models_dir.glob('*.h5'), *single_models)):
     model_name = model_path.stem
 
     # extract language and task from model name
