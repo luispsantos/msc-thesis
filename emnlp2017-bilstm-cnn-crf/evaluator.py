@@ -56,7 +56,7 @@ class Evaluator:
         metrics.rename(columns={'precision': 'Prec', 'recall': 'Rec', 'f1-score': 'F1'}, inplace=True)
 
         acc_metrics = pd.Series({'Overall': overall_acc, 'Unseen': unseen_acc, 'Ambiguous': ambiguous_acc})
-        tok_avg = metrics.loc['micro avg'].drop('support')
+        tok_avg = metrics.loc['macro avg'].drop('support')
 
         metrics_avg = pd.concat([acc_metrics, tok_avg], keys=['Accuracy', 'NaN'])
         self.pos_metrics[dataset_id] = metrics_avg
@@ -94,7 +94,7 @@ class Evaluator:
 
         # obtain overall Prec, Rec and F1 for entity- and token-level
         ent_avg = metrics.loc['micro avg'].drop('support')
-        tok_avg = metrics_t.loc['micro avg'].drop('support')
+        tok_avg = metrics_t.loc['macro avg'].drop('support')
 
         ent_avg = pd.concat([pd.Series({'Acc': ent_acc}), ent_avg])
         tok_avg = pd.concat([pd.Series({'Acc': tok_acc}), tok_avg])
@@ -125,7 +125,7 @@ class Evaluator:
         self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', False, True)
 
         self._to_latex(self.ner_metrics, tables_dir / 'ner_metrics.tex', True, False)
-        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex', False, False)
+        self._to_latex(self.ent_type_f1, tables_dir / 'ent_type_f1.tex', True, False)
 
     def _to_latex(self, metrics, table_path, avg_row, transpose):
         # deal with the case of having no metrics to write
