@@ -81,6 +81,19 @@ class BiLSTM:
             logging.info("%d test sentences" % len(self.data[datasetName]['testMatrix']))
             
         self.casing2Idx = self.mappings['casing']
+        self.numTrainTokens = {datasetName: sum(len(trainSent['tokens']) for trainSent in
+                               self.data[datasetName]['trainMatrix']) for datasetName in self.datasetNames}
+
+        totalTrainTokens = sum(self.numTrainTokens.values())
+        # include sentence weights inversely proportional to the number
+        # of tokens on each dataset (weights are used during training)
+        for datasetName in self.datasetNames:
+            trainData = self.data[datasetName]['trainMatrix']
+            # function to compute sentence weights per dataset
+            sentWeight = 1.0 - self.numTrainTokens[datasetName] / totalTrainTokens \
+                         if len(self.datasetNames) != 1 else 1.0
+            for trainSent in trainData:
+                trainSent['weight'] = sentWeight
 
         if self.params['charEmbeddings'] not in [None, "None", "none", False, "False", "false"]:
             logging.info("Pad words to uniform length for characters embeddings")
@@ -226,8 +239,8 @@ class BiLSTM:
             K.set_value(self.model.optimizer.lr, self.learning_rate_updates[self.params['optimizer']][self.epoch])
 
         # train model a mini-batch at a time (1 epoch sees 1 batch of every dataset)
-        for nnInput, nnLabels in self.minibatch_iterate_dataset():
-            self.model.train_on_batch(nnInput, nnLabels)
+        for nnInput, nnLabels, nnWeights in self.minibatch_iterate_dataset():
+            self.model.train_on_batch(nnInput, nnLabels, nnWeights)
 
     def minibatch_iterate_dataset(self):
         """ Create based on sentence length mini-batches with approx. the same size. Sentences and
@@ -313,7 +326,10 @@ class BiLSTM:
                 labels = np.expand_dims(labels, -1)
                 nnLabels.append(labels)
 
-            yield nnInput, nnLabels
+            # sentence (instance) weights of mini-batch
+            nnWeights = np.asarray([trainSentences[idx]['weight'] for idx in range(start_idx, end_idx)])
+
+            yield nnInput, nnLabels, nnWeights
 
     def storeResults(self, resultsFilepath):
         if resultsFilepath != None:
