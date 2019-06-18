@@ -178,6 +178,18 @@ class Evaluator:
             lines[toprule_idx+1] = header_line.replace('NaN', '')
             lines.insert(toprule_idx+2, ' '.join(cmidrules))
 
+        # add cmidrules for the average row lines of each language
+        if avg_row:
+            nlevels, ncols = metrics_df.index.nlevels, len(metrics_df.columns)
+            start_idx, end_idx = nlevels, nlevels + ncols
+
+            crule = f'\cmidrule(lr){{{start_idx}-{end_idx}}}'
+            crule = 8 * ' ' + crule  # add initial spaces
+
+            avg_row_idxs = [idx for idx, line in enumerate(lines) if '& Average &' in line]
+            for lang_idx, row_idx in enumerate(avg_row_idxs):
+                lines.insert(row_idx+lang_idx, crule)
+
         # aggregate index names and column names into the same table line
         midrule_idx = lines.index(r'\midrule')
         column_names, index_names = lines[midrule_idx-2:midrule_idx]
