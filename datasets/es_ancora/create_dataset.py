@@ -1,4 +1,6 @@
 from pathlib import Path
+from itertools import groupby
+from operator import itemgetter
 import pandas as pd
 import sys
 import os
@@ -43,80 +45,6 @@ def compute_prefix(ent):
         prefix = ''
 
     return prefix
-
-def expand_mwes(data_df, mwe_upos_map):
-    """
-    Expands all the MWEs, whereas MWEs on the AnCora corpus
-    are represented as a single token (e.g. mayo_del_2002),
-    these MWEs are expanded to span multiple tokens. The POS
-    tags are not available at the token-level but only at the
-    MWE-level. So we map the UPOS tags from the MWEs used by
-    the AnCora UD corpus as AnCora UD contains the same MWEs.
-    """
-    # categorize tokens as either MWEs or non-MWEs
-    mwe_mask = data_df.Token.str.contains('_', na=False)
-    mwes, non_mwes = data_df[mwe_mask], data_df[~mwe_mask]
-
-    # obtain the individual tokens and UPOS tags for each MWE
-    mwe_tokens = mwes.Token.str.split('_')
-    mwe_upos = mwes.Token.map(mwe_upos_map).str.split('_')
-
-    # find number of tokens per MWE and expand MWEs
-    mwe_size = mwe_tokens.str.len()
-    expanded_mwes = mwes.loc[mwes.index.repeat(mwe_size)]
-
-    # assign expanded MWE tokens and UPOS tags
-    expanded_mwes.Token = flatten_list(mwe_tokens)
-    expanded_mwes.UPOS = flatten_list(mwe_upos)
-
-    # assign entity tags to expanded MWEs
-    expanded_mwes.Ents = compute_mwe_ents(mwes, mwe_size)
-
-    # join together MWE and non-MWE tokens
-    data_df = pd.concat([expanded_mwes, non_mwes], axis=0)
-
-    # merge MWE and non-MWE tokens by sorting the index
-    data_df.sort_index(kind='mergesort', inplace=True)
-    data_df.reset_index(drop=True, inplace=True)
-
-    return data_df
-
-def compute_mwe_ents(mwes, mwe_size):
-    """
-    Compute the entities for expanded MWEs. For example,
-    single entities are converted to start and end ents
-    (e.g. 25_años+(num) -> 25+(num años+num) ). Start
-    and end entities only occur at the initial and final
-    token respectively (e.g. Mitsubishi_Corporation+org)
-    -> Mitsubishi+O Corporation+org) ).
-    """
-    mwe_start_ents, mwe_end_ents = [], []
-    for token_ents in mwes.Ents:
-        # find all start and end entities for each MWE
-        start_ents, end_ents = [], []
-        for ent in token_ents.split('|'):
-            prefix = compute_prefix(ent)
-            if prefix == 'B':
-                start_ents.append(ent)
-            elif prefix == 'E':
-                end_ents.append(ent)
-            elif prefix == 'S':
-                start_ents.append(ent.rstrip(')'))
-                end_ents.append(ent.lstrip('('))
-
-        # obtain a string with the start and end entities
-        mwe_start_ents.append('|'.join(start_ents))
-        mwe_end_ents.append('|'.join(end_ents))
-
-    mwe_ents = []
-    for start_ents, end_ents, size in zip(mwe_start_ents, mwe_end_ents, mwe_size):
-        # apply start and end entities at the initial and final tokens
-        # of the expanded MWE, and empty entity (_) everywhere else
-        start_ents = start_ents if start_ents else '_'
-        end_ents = end_ents if end_ents else '_'
-        mwe_ents += [start_ents] + ['_'] * (size-2) + [end_ents]
-
-    return mwe_ents
 
 def find_ents(data_df, ner_tagset_map):
     """
@@ -166,22 +94,74 @@ def find_ents(data_df, ner_tagset_map):
 
     return ent_list
 
-def ents_to_bio(ent_list):
+def create_ner_column(data_df, ent_list):
     """
-    Converts a list of entity types and token spans
-    to BIO-formatted entities.
+    Creates a NER column containing the entity types
+    from a list of nested entity types and token spans.
     """
-    # obtain only the outer entities
-    outer_ents = [(start_idx, end_idx, ent_type)
-                  for start_idx, end_idx, stack_depth, ent_type
-                  in ent_list if stack_depth == 0]
+	# sort entity list by stack depth
+    ent_list = sorted(ent_list, key=itemgetter(2))
 
-    ent_idx, ent_bio = [], []
-    for start_idx, end_idx, ent_type in outer_ents:
-        ent_idx += range(start_idx, end_idx+1)
-        ent_bio += [f'B-{ent_type}'] + [f'I-{ent_type}'] * (end_idx-start_idx)
+    for stack_depth, ents in groupby(ent_list, itemgetter(2)):
+        ent_idxs, ent_types = [], []
+		# populate lists with the token indexes that
+		# make part of entities for each stack level
+        for start_idx, end_idx, _, ent_type in ents:
+            ent_idxs += range(start_idx, end_idx+1)
+            ent_types += [ent_type] * (end_idx+1 - start_idx)
+            
+        # assign entity types to NER column
+        data_df.loc[ent_idxs, 'NER'] = ent_types
 
-    return ent_idx, ent_bio
+    # tokens which are not named entities or proper nouns are tagged as O
+    outside_mask = data_df.NER.isna() | (data_df.UPOS != 'PROPN')
+    data_df.loc[data_df.Token.notna() & outside_mask, 'NER'] = 'O'
+
+def expand_mwes(data_df, mwe_upos_map):
+    """
+    Expands all the MWEs, whereas MWEs on the AnCora corpus
+    are represented as a single token (e.g. mayo_del_2002),
+    these MWEs are expanded to span multiple tokens. The POS
+    tags are not available at the token-level but only at the
+    MWE-level. So we map the UPOS tags from the MWEs used by
+    the AnCora UD corpus as AnCora UD contains the same MWEs.
+    Entity types are mapped to the BIO scheme in the process.
+    """
+    # categorize tokens as either MWEs or non-MWEs
+    mwe_mask = data_df.Token.str.contains('_', na=False)
+    mwes, non_mwes = data_df[mwe_mask], data_df[~mwe_mask].copy()
+
+    # obtain the individual tokens and UPOS tags for each MWE
+    mwe_tokens = mwes.Token.str.split('_')
+    mwe_upos = mwes.Token.map(mwe_upos_map).str.split('_')
+
+    # find number of tokens per MWE and expand MWEs
+    mwe_size = mwe_tokens.str.len()
+    expanded_mwes = mwes.loc[mwes.index.repeat(mwe_size)]
+
+    # assign expanded MWE tokens and UPOS tags
+    expanded_mwes.Token = flatten_list(mwe_tokens)
+    expanded_mwes.UPOS = flatten_list(mwe_upos)
+
+    # compute the entities for expanded MWEs featuring the BIO scheme
+    mwe_ents = [['O'] * ent_size if ent_type == 'O' else
+                [f'B-{ent_type}'] + [f'I-{ent_type}'] * (ent_size-1)
+                for ent_type, ent_size in zip(mwes.NER, mwe_size)]
+
+    # assign entity tags in BIO scheme to expanded MWEs
+    expanded_mwes.NER = flatten_list(mwe_ents)
+
+    # insert the "B-" prefix for non-MWE tokens belonging to a named entity
+    non_mwes.NER.mask(non_mwes.NER != 'O', 'B-' + non_mwes.NER, inplace=True)
+
+    # join together MWE and non-MWE tokens
+    data_df = pd.concat([expanded_mwes, non_mwes], axis=0)
+
+    # merge MWE and non-MWE tokens by sorting the index
+    data_df.sort_index(kind='mergesort', inplace=True)
+    data_df.reset_index(drop=True, inplace=True)
+
+    return data_df
 
 def process_dataset(data_in_path):
     # read CoNLL-2009 data
@@ -189,8 +169,9 @@ def process_dataset(data_in_path):
 
     # remove tokens without available text
     data_df = data_df[data_df.Token != '_']
+    data_df.reset_index(drop=True, inplace=True)
 
-    # fix erroneous underscore at end of MWEs
+    # fix erroneous underscore at the end of MWEs
     data_df.Token = data_df.Token.str.rstrip('_')
 
     # obtain the first letter of the initial feature
@@ -212,16 +193,12 @@ def process_dataset(data_in_path):
     data_df['UPOS'] = data_df['POS_0'].map(pos_tagset_ud_map)
     replace_values(pos_tagset_ud_map, data_df['POS_0+1'], data_df.UPOS)
 
-    # expand MWEs into separate tokens
-    data_df = expand_mwes(data_df, mwe_upos_map)
-
-    # find all entities and convert them to BIO format
+    # find all entities and create a column containing the entity types
     ent_list = find_ents(data_df, ner_tagset_map)
-    ent_idx, ent_bio = ents_to_bio(ent_list)
+    create_ner_column(data_df, ent_list)
 
-    # assign the BIO-formatted entities to the NER column
-    data_df.loc[data_df.Ents.notna(), 'NER'] = 'O'
-    data_df.loc[ent_idx, 'NER'] = ent_bio
+    # expand MWEs into separate tokens featuring BIO-formatted entities
+    data_df = expand_mwes(data_df, mwe_upos_map)
 
     return data_df
 
