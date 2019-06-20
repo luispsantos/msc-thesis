@@ -2,6 +2,7 @@ from gensim.models.fasttext import load_facebook_vectors
 from pathlib import Path
 import pandas as pd
 import gzip
+import io
 import csv
 import yaml
 
@@ -19,7 +20,7 @@ for dataset_dir in sorted(data_dir.glob(f'{lang}_*')):
                                 usecols=[0], squeeze=True, quoting=csv.QUOTE_NONE)
         tokens.append(token_col)
 
-# concatenate tokens from all datasets
+# concatenate tokens from all datasets and lowercase tokens
 tokens = pd.concat(tokens)
 tokens = tokens.str.lower()
 
@@ -38,13 +39,14 @@ model = load_facebook_vectors(embeddings_dir / f'cc.{lang}.300.bin')
 # generate embeddings for all tokens (including OOV tokens)
 embeddings = {token: model[token] for token in sorted_tokens if model[token].any()}
 
-# create the embeddings file in Word2Vec format
-with gzip.open(embeddings_dir / f'{lang}.fasttext.oov.vec.gz', 'wt') as embeddings_f:
-    # write the header line in the first line
-    embeddings_f.write(f'{len(embeddings)} 300\n')
+# create the compressed embeddings file in the word2vec format
+with gzip.open(embeddings_dir / f'{lang}.fasttext.oov.vec.gz', 'wb') as gzip_f:
+    with io.TextIOWrapper(io.BufferedWriter(gzip_f, 8*1024*1024), encoding='utf-8') as embeddings_f:
+        # write the header line in the first line
+        embeddings_f.write(f'{len(embeddings)} 300\n')
 
-    # write the token and the 300 dimensions embedding in each line
-    for token, embedding in embeddings.items():
-        embedding_str = ' '.join(f'{embedding_dim:1.4f}' for embedding_dim in embedding)
-        embeddings_f.write(f'{token} {embedding_str}\n')
+        # write the token and the 300 dimensions embedding in each line
+        for token, embedding in embeddings.items():
+            embedding_str = ' '.join(f'{embedding_dim:1.4f}' for embedding_dim in embedding)
+            embeddings_f.write(f'{token} {embedding_str}\n')
 
