@@ -118,8 +118,9 @@ class Evaluator:
 
     def write_tables(self, tables_dir):
         # make sure that the tables directory exists
-        tables_dir.mkdir(exist_ok=True)
-        print(f'Wrote evaluation tables to {tables_dir}/')
+        if self.pos_metrics or self.ner_metrics:
+            tables_dir.mkdir(exist_ok=True)
+            print(f'Wrote evaluation tables to {tables_dir}/')
 
         self._to_latex(self.pos_metrics, tables_dir / 'pos_metrics.tex', True, False)
         self._to_latex(self.pos_tags_f1, tables_dir / 'pos_tags_f1.tex', False, True)

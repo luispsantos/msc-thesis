@@ -16,7 +16,7 @@ manager = BaseManager(); manager.start()
 
 loaded_datasets = {}
 evaluators = {transfer_setting: manager.Evaluator() for transfer_setting
-                        in ['no_transfer', 'cross_domain', 'multi_task', 'cross_lingual']}
+              in ['out_of_domain', 'cross_domain', 'multi_task', 'cross_lingual']}
 
 def eval_multi_task(model_path, lang, task, evaluators, embeddings, mappings, data):
     # load the BiLSTM model
@@ -25,7 +25,7 @@ def eval_multi_task(model_path, lang, task, evaluators, embeddings, mappings, da
 
     # obtain the evaluator based on the transfer setting
     if model_path.parent.name == 'single_task':
-        transfer_setting = 'no_transfer'
+        transfer_setting = 'out_of_domain'
     elif lang is not None and task is not None:
         transfer_setting = 'cross_domain'
     elif lang is not None and task is None:
