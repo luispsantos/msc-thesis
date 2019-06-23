@@ -327,7 +327,8 @@ class BiLSTM:
                 nnLabels.append(labels)
 
             # sentence (instance) weights of mini-batch
-            nnWeights = np.asarray([trainSentences[idx]['weight'] for idx in range(start_idx, end_idx)])
+            sentWeights = np.asarray([trainSentences[idx]['weight'] for idx in range(start_idx, end_idx)])
+            nnWeights = [sentWeights] * len(self.tasks)
 
             yield nnInput, nnLabels, nnWeights
 
