@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1614. Carta de Luis Álvarez del Águila para Juan Guillén.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name>Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name>Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2015">2015</date> 
+				<availability status="restricted"><p>Copyright 2015, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Madrid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Histórico Nacional</institution>
+							<repository xml:id="U">Universidades</repository>
+							<collection>Pleitos ordinarios</collection>
+							<idno>Legajo 193, Expediente 27</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor avisa a Juan Guillén del envío de un porteador para recoger unas cargas de trigo que precisa para la siembra.</summary>
+							<msItem class="original">
+								<p><locus>112r-113v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un bifolio de papel doblado en folio, escrito por el recto del primer folio y por el verso del segundo folio.
+										<dimensions scope="all" unit="mm">
+											<height>308</height>
+											<width>215</width>
+										</dimensions>
+									</extent>
+									<condition><p>el segundo folio fue recortado y sólo mantiene la parte que contiene el nombre y la dirección del destinatario.</p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>siete líneas en blanco entre la cruz del encabezamiento y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> A Juan guillen benefiçia <lb/> do en san Julia de santo <lb/> lalla <expan>q</expan> dios guarde</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para uso de las imágenes es necesaria la autorización del Archivo Histórico Nacional.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>aviso</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K8"/>
+						<term n="2" key="KW.xml#K41"/>
+						<term n="3" key="KW.xml#K48"/>
+						<term n="4" key="KW.xml#K77"/>
+						<term n="5" key="KW.xml#K172"/>
+						Agricultura,Cereales,Compraventa,Dinero,Precios</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>0</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#LAA1" xml:id="LAA1" cert="high"><name>Luis Álvarez del Águila</name></persName>
+					<placeName confidence="1" type="origin">España, Toledo, Yepes
+						<location>
+							<geo>39.9029172 -3.6255798</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1614-11-06" from="1614" to="1614" when-custom="1614.11.06"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#JG21" cert="high"><name>Juan Guillén</name></persName>
+					<placeName confidence="1" type="destination">España, Toledo, Santa Olalla
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1627 el tribunal rectoral de la Universidad de Alcalá de Henares tuvo que dirimir el fenecimiento de cuentas y pago de las deudas dejadas por el clérigo Juan Guillén, vecino de Santa Olalla y administrador del beneficio perpetuo que don Luis Álvarez del Águila gozaba en la parroquia de San Julián de aquella villa. La heredera de Juan Guillén, su sobrina Isabel Ruiz, tuvo que afrontar las demandas interpuestas por su hermano, el procurador Fernando Ruíz Guillén y por los sobrinos y herederos de Luis Álvarez del Águila: el capitán Juan del Águila Álvarez y Francisco del Águila. Así, el primero reclamaba los 200 ducados de una carta de pago, así como otros veinte ducados de una pollina que le había tomado Juan Guillén; los segundos reclamaban los desfases en las cuentas del beneficio durante el periodo que iba de 1609 a 1625. A todo ello se unían las propias reclamaciones de Isabel Ruíz, quien se consideraba damnificada por la gestión de su tío y reclamaba diversas cantidades de la herencia dejada. Alegaba que, habiendo servido la casa de su tío durante cuarenta años, debiera de haber recibido un salario de unos 30 ducados al año; asimismo, reclamaba el alquiler de la casa que ella había heredado de sus padres y de la que había tomado posesión Juan Guillén a razón de unos 6 ducados al año. Por último estimaba una compensación de más de 500 ducados por la apropiación que su tío había hecho de diversos bienes muebles, su dote y la herencia que ella había recibido de su hermana, María Ruíz. Se defendía, además, de las demandas interpuestas por los herederos de Luis Álvarez del Águila alegando los pagos hechos por su tío a lo largo de los años previos y de los que tenía noticia gracias a la correspondencia que mantuvieron ambos hombres, así como las cartas de pago y cuentas. La presentación de las cartas misivas fue cuestionada por la parte de los herederos de Luis Álvarez del Águila, quienes dudaban de su veracidad. El tribunal dictó sentencia conminando a las partes a reunirse para el fenecimiento de las cuentas y condenaron a Isabel Ruíz, como heredera, a asumir las deudas dejadas por su tío y a pagar a su hermano los 220 ducados que pedía.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2015-02">Elisa García Prieto: Codificación XML y contextualización</change> 
+			<change when="2016-07-20">Gael Vaamonde: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Letter from Luis Álvarez del Águila to Juan Guillén.</p>
+				<p sameAs="summary">The author warns Juan Guillén he has sent a carrier to collect the wheat for the sowing.</p>
+				<p sameAs="settingDesc">In 1627 the rectory tribunal at the University of Alcalá de Henares had to settle the accounts and the debts left by the clergyman Juan Guillén, a resident of Santa Olalla and administrator of Luis Álvarez de Águila´s perpetual benefit in the parish of San Julián. Juan Guillén´s niece, Isabel Ruiz, who was also his heir, had to face the lawsuits brought by her brother, the solicitor Fernando Ruiz Guillén, and by Luis Álvarez del Águila´s nephews and heirs: the captain Juan del Águila Álvarez and Francisco del Águila. Fernando Ruiz Guillén claimed 200 ducats from a payment letter as well as 20 ducats from a foal that Juan Guillén had taken from him. Luis Álvarez del Águila´s heirs claimed the money from the benefit accounts gap between 1609 and 1625. Isabel Ruiz´s claim must be added to all the aforementioned ones, given that she argued she was damaged by her uncle´s management and she claimed certain sums from the heritage. She alleged that having served in his uncle´s house for over forty years, she should have earned 30 ducats per year; likewise, she claimed the payment of the rent from the house she inherited from her parents, in which Juan Guillén had stayed. She calculated the aforementioned rent in 6 ducats per year. Finally, she wanted to be compensated with 500 ducats for his uncle´s appropriation of several properties, her dowry and the heritage that her sister María Ruiz left her. She also defended herself from the litigations brought by Luis Álvarez del Águila´s heirs by alleging the payments made by her uncle throughout the previous years, of which she was aware of from the correspondence the two men kept and also from the accounts and payment letters. The letters were contested by Luis Álvarez del Águila´s heirs, given that they doubted their veracity. The tribunal sentenced that the parties had to meet and settle the accounts and Isabel Ruiz had to bear her uncle´s debts and to pay her brother 220 ducats.</p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="112r" facs="PSCR7367_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute> 
+			</opener>
+			<p>
+				<seg type="harangue">
+				<s>
+					<w><choice><orig>desde</orig><reg>Desde</reg></choice></w> 
+					<w>el</w> 
+					<w>mes</w> 
+					<w>de</w> 
+					<w>abril</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> <add hand="LAA1" place="supralinear">
+					<w rend="me">me</w></add> 
+					<w><choice><orig>hiço</orig><reg>hizo</reg></choice></w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>enbiarme</orig><reg>enviarme</reg></choice></w> <lb break="yes"/> 
+					<w>quinientos</w> 
+					<w><choice><orig>rreales</orig><reg>reales</reg></choice></w> 
+					<w>por</w> 
+					<w><choice><orig>via</orig><reg>vía</reg></choice></w> 
+					<w>de</w> 
+					<w>Roque</w> 
+					<w>del</w> 
+					<w><choice><orig>valle</orig><reg>Valle</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>no</w> <lb break="yes"/> 
+					<w><choice><orig>e</orig><reg>he</reg></choice></w> 
+					<w>sabido</w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w>salud</w> 
+					<w>de</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>la</w> 
+					<w><choice><orig>qual</orig><reg>cual</reg></choice></w> 
+					<w><choice><orig>de</orig><reg>dé</reg></choice></w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> <lb break="yes"/> 
+					<w>como</w> 
+					<w>yo</w> 
+					<w>deseo</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s>
+					<w><choice><orig>el</orig><reg>El</reg></choice></w> 
+					<w>portador</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w><choice><orig>esta</orig><reg>ésta</reg></choice></w> 
+					<w>va</w> 
+					<w>por</w> 
+					<w>dos</w> 
+					<w>cargas</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>trigo</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>me</w> 
+					<w><choice><orig>hara</orig><reg>hará</reg></choice></w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>mandarselas</orig><reg>mandárselas</reg></choice></w> <add hand="LAA1" place="supralinear">
+					<w rend="dar">dar</w></add> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w>es</w> 
+					<w rend="para">pa<lb break="no"/>ra</w> 
+					<w><choice><orig>senbrar</orig><reg>sembrar</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>si</w> 
+					<w><choice><orig>uviere</orig><reg>hubiere</reg></choice></w> 
+					<w>dificultad</w> 
+					<w>de</w> 
+					<w>traer</w> 
+					<w>las</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w rend="esta">es<lb break="no"/>ta</w> 
+					<w>copia</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w>este</w> 
+					<w>año</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>me</w> 
+					<w>la</w> 
+					<w>haga</w> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w>se</w> 
+					<w>venga</w> <lb break="yes"/> 
+					<w>presto</w> 
+					<w>de</w> 
+					<w><choice><orig>darselas</orig><reg>dárselas</reg></choice></w> 
+					<w>de</w> 
+					<w>las</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>tuviere</w> 
+					<w>y</w> 
+					<w>cobrar</w> 
+					<w>todas</w> <lb break="yes"/> 
+					<w>las</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>se</w> 
+					<w><choice><orig>deven</orig><reg>deben</reg></choice></w> 
+					<w>en</w> 
+					<w>la</w> 
+					<w>copia</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>son</w> 
+					<w><choice><orig>quarenta</orig><reg>cuarenta</reg></choice></w> 
+					<w>y</w> 
+					<w>tres</w> <lb break="yes"/> 
+					<w>hanegas</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><abbr>q</abbr><expan>que</expan><reg>Que</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>quitado</w> 
+					<w>un</w> 
+					<w><choice><orig>cahiz</orig><reg>cahíz</reg></choice></w> 
+					<w>de</w> 
+					<w>su</w> 
+					<w>salario</w> 
+					<w>de</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>quedan</w> 
+					<w><choice><orig>treynta</orig><reg>treinta</reg></choice></w> 
+					<w>y</w> 
+					<w>una</w> 
+					<w>hanegas</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>las</w> 
+					<w><choice><orig>quales</orig><reg>cuales</reg></choice></w> 
+					<w rend="querria"><choice><orig>que<lb break="no"/>rria</orig><reg>querría</reg></choice></w> 
+					<w>traer</w> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w><choice><orig>tingo</orig><reg>tengo</reg></choice></w> 
+					<w><choice><orig>neçesidad</orig><reg>necesidad</reg></choice></w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w>ello</w> 
+					<w><choice><orig>oy</orig><reg>hoy</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>si</orig><reg>Si</reg></choice></w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>me</w> <lb break="yes"/> 
+					<w>quiere</w> 
+					<w><choice><orig>haçer</orig><reg>hacer</reg></choice></w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w> 
+					<w>de</w> 
+					<w>su</w> 
+					<w><choice><orig>cahiz</orig><reg>cahíz</reg></choice></w> 
+					<w>y</w> 
+					<w>tomarlo</w> 
+					<w>en</w> 
+					<w>dinero</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w><choice><orig>rrescebire</orig><reg>recibiré</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w> 
+					<w>mucha</w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w> 
+					<w>en</w> 
+					<w>ello</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>me</w> 
+					<w>avise</w> 
+					<w><choice><orig>quando</orig><reg>cuándo</reg></choice></w> <lb break="yes"/> 
+					<w><choice><orig>podran</orig><reg>podrán</reg></choice></w> 
+					<w><choice><orig>yr</orig><reg>ir</reg></choice></w> 
+					<w>por</w> 
+					<w>ello</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w><choice><orig>querria</orig><reg>querría</reg></choice></w> 
+					<w>traerlo</w> 
+					<w>luego</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>o</orig><reg>O</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>si</w> 
+					<w><choice><orig>avra</orig><reg>habrá</reg></choice></w> 
+					<w>alguna</w> 
+					<w>dificultad</w> 
+					<w>de</w> 
+					<w><choice><orig>dexarlo</orig><reg>dejarlo</reg></choice></w> 
+					<w>sacar</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="podra"><choice><orig>po<lb break="no"/>dra</orig><reg>podrá</reg></choice></w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>mudarlo</w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>y</w> 
+					<w>sacarlo</w> 
+					<w>en</w> 
+					<w>de</w> 
+					<w><choice><orig>noshe</orig><reg>noche</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>en</orig><reg>En</reg></choice></w> 
+					<w>todo</w> 
+					<w><choice><orig>rrescebire</orig><reg>recibiré</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w> 
+					<w>y</w> 
+					<w>en</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>cobre</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>se</w> <lb break="yes"/> 
+					<w><choice><orig>deviere</orig><reg>debiere</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w>tengo</w> 
+					<w><choice><orig>neçesidad</orig><reg>necesidad</reg></choice></w> 
+					<w>de</w> 
+					<w>dineros</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> <lb break="yes"/> 
+					<w>me</w> 
+					<w>avise</w> 
+					<w>de</w> 
+					<w>su</w> 
+					<w>salud</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>por</w> 
+					<w><choice><orig>aca</orig><reg>acá</reg></choice></w> 
+					<w>todos</w> 
+					<w>la</w> 
+					<w rend="tenemos">tene<lb break="no"/>mos</w> 
+					<w>a</w> 
+					<w><choice><orig>serviçio</orig><reg>servicio</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s>
+				<seg type="closer" subtype="placeName">
+					<w><choice><orig>de</orig><reg>De</reg></choice></w> 
+					<w><choice><orig>yepes</orig><reg>Yepes</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w>y</w> 
+					<w><choice><orig>novienbre</orig><reg>noviembre</reg></choice></w> 
+					<w>6</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>1614</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+			</p> <lb break="yes"/>
+			<closer>
+				<signed>
+					<w><choice><orig>luis</orig><reg>Luis</reg></choice></w> 
+					<w><choice><orig>alvarez</orig><reg>Álvarez</reg></choice></w> <lb break="yes"/> 
+					<w>el</w> 
+					<w><choice><orig>aguila</orig><reg>Águila</reg></choice></w>
+				</signed>
+			</closer>
+            <postscript>
+			<p>
+				<s>
+					<w><choice><orig>llamase</orig><reg>Llámase</reg></choice></w> 
+					<w>el</w> 
+					<w>portador</w> 
+					<w><choice><abbr>po</abbr><expan>pedro</expan><reg>Pedro</reg></choice></w> 
+					<w><choice><orig>martin</orig><reg>Martín</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/></postscript>
+		</body>
+	</text>
+</TEI>
+

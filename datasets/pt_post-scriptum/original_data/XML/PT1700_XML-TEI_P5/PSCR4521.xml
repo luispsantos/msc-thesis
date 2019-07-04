@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="PT">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1779. Carta de Bartolomeu da Silva e Sousa para o primo Gaspar Francisco de Sousa.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Projeto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordenação</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcrição</resp><name xml:id="MG">Mariana Gomes</name></respStmt> 
+				<respStmt><resp>Anotação POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisão</resp><name xml:id="FP">Fernanda Pratas</name></respStmt> 
+				<respStmt><resp>Edição modernizada</resp><name>Fernanda Pratas</name></respStmt> 
+				<respStmt><resp>Palavras-chave</resp><name>Mariana Gomes</name></respStmt> 
+				<respStmt><resp>Contextualização</resp><name>Mariana Gomes</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2016">2016</date> 
+				<availability status="restricted"><p>Copyright 2016, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>Portugal</country>
+							<settlement>Lisboa</settlement>
+							<institution key="CDD.xml#NatXReg">Arquivo Nacional da Torre do Tombo</institution>
+							<repository xml:id="MR">Ministério do Reino</repository>
+							<collection>Requerimentos</collection>
+							<idno>Maço 918, documento 10, Padre Sebastião Luís da Silveira</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>O autor conta ao primo os últimos acontecimentos relacionados com o requerimento elaborado pelo padre Sebastião.</summary>
+							<msItem class="original">
+								<p><locus>31r-v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>meia folha de papel dobrada escrita nas duas faces do primeiro fólio e no verso do segundo.
+										<dimensions scope="all" unit="mm">
+											<height>206</height>
+											<width>165</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>sem linhas em branco entre a fórmula de endereço e o início do texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="PT">AO <expan>Illmo</expan> <expan>Sr</expan> gaspar <expan>Franco</expan> de Souza <lb/> meu <expan>amo</expan> e <expan>Sr</expan> <expan>gde</expan> <expan>DS</expan> <lb/> <expan>ms</expan> <expan>as</expan> <lb/> <expan>ea</expan> <expan>ea</expan> <lb/> Torre de <expan>S</expan> Joliao</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Reproduções não dispensam licença da DGARQ/TT.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsimile digital guardado como ficheiro JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-PT">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipologia PS</bibl>
+					<category xml:id="pragmatics"><catDesc>notícias</catDesc></category>
+					<category xml:id="type"><catDesc>ami.</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K83"/>
+						<term n="2" key="KW.xml#K60"/>
+						Documentación,Correspondencia</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>0</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="PT"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#BSS1" xml:id="BSS1" cert="high"><name>Bartolomeu da Silva e Sousa</name></persName>
+					<placeName confidence="0" type="origin">S.l.
+						<location>
+							<geo>43.1828396 -3.9878427</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1779-08-02" from="1779" to="1779" when-custom="1779.08.02"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#GFS1" cert="high"><name>Gaspar Francisco de Sousa</name></persName>
+					<placeName confidence="0" type="destination">[Lisboa]
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>A 23 de janeiro de 1779, Gaspar Francisco Mexia Galvão de Sousa foi preso na Torre de São Julião da Barra a pedido do irmão, Lourenço Anastácio Mexia Galvão de Sousa. Passados alguns meses, também a partir de um pedido do irmão, foi interdita a comunicação entre Gaspar e o padre Sebastião Luís da Silveira, seu amigo e procurador. Ao perceber este impedimento, o padre dirigiu um requerimento ao Ministério do Reino para voltar a comunicar com Gaspar. O requerente associa ao processo vários documentos, entre os quais certidões de testemunhas que alegam ser o padre Sebastião uma pessoa de confiança, e também cartas que recebera de Gaspar e de Maria Elena (irmã do prisioneiro), e ainda três cartas enviadas a Gaspar por um primo (Bartolomeu de Sousa Mexia). Estes documentos pretendem provar que todas estas pessoas consideram ter sido Lourenço a planear a detenção do irmão, de modo a ficar com a sua parte da herança. Maria Elena, irmã de ambos, não era ameaça aos planos de Lourenço para vir a ser o único herdeiro dos pais, uma vez que se encontrava reclusa num convento. Gaspar seria liberto ainda esse ano, indo viver para casa do irmão Lourenço.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2016-10-19">Mariana Gomes: Codificação XML</change> 
+			<change when="2017-02">Fernanda Pratas: revisão, modernização, sumário e contexto em inglês</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Family letter from Bartolomeu da Silva e Sousa to his cousin Gaspar Francisco de Sousa.</p>
+				<p sameAs="summary">The author tells his cousin about the latest events related to the request made by father Sebastião.</p>
+				<p sameAs="settingDesc">On January 23, 1779, Gaspar Francisco Mexia Galvão de Sousa was made a prisoner in the Tower of São Julião da Barra at the request of his brother, Lourenço Anastácio Mexia Galvão de Sousa. After a few months, also following a request of his brother, the communication between Gaspar and the priest Sebastião Luís da Silveira, his friend and solicitor, was interdicted. When he knew about this impediment, the priest directed a request to the Ministry of the Kingdom so that he could communicate again with Gaspar. The applicant includes in the process a number of documents, including certificates of witnesses who claim that father Sebastião is a person of trust, and also letters that he received from Gaspar and Maria Elena (a sister of the prisoner), and three letters sent to Gaspar by a cousin (Bartolomeu de Sousa Mexia). These documents are intended to prove that all these people consider that it was Lourenço who planned the detention of his brother, so as to take his share of the inheritance. Maria Elena, sister of both, was not a threat to Lourenço's plans to become the sole heir of their parents, since she lived in a convent as a recluse. Gaspar would be freed later that year, going to live at his brother Lourenço.</p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="31r" facs="PSCR4521_2.JPG"/><lb break="yes"/>
+			<p>
+				<s>
+				<seg type="opener" subtype="salute">
+					<w lemma="amigo"><choice><abbr>Amo</abbr><expan>Amigo</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="senhor"><choice><abbr>Sr</abbr><expan>Senhor</expan><reg>senhor</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc></seg> 
+					<w lemma="agora">agora<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="estar">estou<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="acabar">acabando<fs type="pos"><f name="V"><symbol value="VMG0000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="jantar">jantar<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="receber">recebo<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="um"><choice><orig>hum</orig><reg>um</reg></choice><fs type="pos"><f name="D"><symbol value="DI0MS0"/></f></fs></w> 
+					<w lemma="escrito">escrito<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="seu">seu<fs type="pos"><f name="D"><symbol value="DP3MS0"/></f></fs></w> 
+					<w lemma="em">em<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="pedir">pede<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="lhe">lhe<fs type="pos"><f name="P"><symbol value="PP3CSD00"/></f></fs></w> 
+					<w lemma="mandar">mande<fs type="pos"><f name="V"><symbol value="VMSP0S0"/></f></fs></w> 
+					<w lemma="dizer">dizer<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w><choice><orig>pello</orig><reg>pelo</reg></choice>
+						<w part="I" rend="por" lemma="por"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w rend="miuudo" lemma="miúdo"><choice><orig>miu<lb break="no"/>udo</orig><reg>miúdo</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="o">as<fs type="pos"><f name="D"><symbol value="DA0FP0"/></f></fs></w> 
+					<w lemma="novidade"><choice><abbr>novides</abbr><expan>novidades</expan></choice><fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="haver">há<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="até"><choice><orig>athe</orig><reg>Até</reg></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="agora"><choice><orig>gora</orig><reg>agora</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="não">não<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="haver"><choice><orig>ha</orig><reg>há</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="mais">mais<fs type="pos"><f name="R"><symbol value="RC"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="o">os<fs type="pos"><f name="D"><symbol value="DA0MP0"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="mandar">mandei<fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w lemma="dizer">dizer<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w><choice><orig>pello</orig><reg>pelo</reg></choice>
+						<w part="I" rend="por" lemma="por"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="moço">moço<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="ir">foi<fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="conduzir">conduzir<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="vestido">vestido<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="ontem"><choice><orig>hontem</orig><reg>Ontem</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w rend="falei" lemma="falar">fa<lb break="no"/>lei<fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w>na
+						<w part="I" rend="em" lemma="em"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="a" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w></w> 
+					<w lemma="guarda"><choice><orig>goarda</orig><reg>guarda</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="miguel">Miguel<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="joaquim"><choice><abbr>Joaqm</abbr><expan>Joaquim</expan></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="onde">onde<fs type="pos"><f name="P"><symbol value="PA000000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="estar">esteve<fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="contar">contando<fs type="pos"><f name="V"><symbol value="VMG0000"/></f></fs></w> 
+					<w lemma="o">as<fs type="pos"><f name="D"><symbol value="DA0FP0"/></f></fs></w> 
+					<w lemma="desconfiança"><choice><orig>descomfianças</orig><reg>desconfianças</reg></choice><fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="lhe">lhe<fs type="pos"><f name="P"><symbol value="PP3CSD00"/></f></fs></w> 
+					<w lemma="assistir">assistem<fs type="pos"><f name="V"><symbol value="VMIP3P0"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="ainda"><choice><orig>inda</orig><reg>ainda</reg><sic>inda</sic></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="não">não<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="ter">ter<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="ter">tido<fs type="pos"><f name="V"><symbol value="VMP0000"/></f></fs></w> 
+					<w lemma="quanto"><choice><abbr>qto</abbr><expan>quanto</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="seu">seu<fs type="pos"><f name="D"><symbol value="DP3MS0"/></f></fs></w> 
+					<w lemma="requerimento"><choice><abbr>requerimto</abbr><expan>requerimento</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ele"><choice><orig>elle</orig><reg>ele</reg></choice><fs type="pos"><f name="P"><symbol value="PP3MS000"/></f></fs></w> 
+					<w lemma="julgar">julga<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="ser">ser<fs type="pos"><f name="V"><symbol value="VSN0000"/></f></fs></w> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="causa"><choice><orig>cauza</orig><reg>causa</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w>do
+						<w part="I" rend="de" lemma="de"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="aviso"><choice><orig>avizo</orig><reg>aviso</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="padre"><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="incluir"><choice><orig>incluio</orig><reg>incluiu</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w>ao
+						<w part="I" rend="a" lemma="a"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="dizer"><choice><abbr>do</abbr><expan>dito</expan></choice><fs type="pos"><f name="V"><symbol value="VMP00SM"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="requerimento"><choice><abbr>requerimto</abbr><expan>requerimento</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="deus"><choice><abbr>DS</abbr><expan>DeoS</expan><reg>Deus</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="querer">queira<fs type="pos"><f name="V"><symbol value="VMSP0S0"/></f></fs></w> 
+					<w lemma="não">não<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="ser"><choice><orig>sejão</orig><reg>sejam</reg></choice><fs type="pos"><f name="V"><symbol value="VSSP3P0"/></f></fs></w> 
+					<w rend="sertas" lemma="certo"><choice><orig>ser-<lb break="no"/>tas</orig><reg>certas</reg></choice><fs type="pos"><f name="A"><symbol value="AQ0FP0"/></f></fs></w> 
+					<w lemma="o">as<fs type="pos"><f name="D"><symbol value="DA0FP0"/></f></fs></w> 
+					<w lemma="seu">suas<fs type="pos"><f name="D"><symbol value="DP3FP0"/></f></fs></w> 
+					<w lemma="desconfiança"><choice><orig>descomfianças</orig><reg>desconfianças</reg></choice><fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs></w>
+					<pc type="F" subtype="Fp">.</pc>
+				</s> 
+				<s>
+					<w lemma="o"><choice><orig>a</orig><reg>A</reg></choice><fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w> 
+					<w lemma="carta">carta<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ontem">ontem<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w><choice><orig>pello</orig><reg>pelo</reg></choice>
+						<w part="I" rend="por" lemma="por"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="moço"><choice><orig>mosso</orig><reg>moço</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="eu">eu<fs type="pos"><f name="P"><symbol value="PP1CSN00"/></f></fs></w> 
+					<w lemma="escrever">escrevi<fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w lemma="ser">foi<fs type="pos"><f name="V"><symbol value="VSIS3S0"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="algum">algum<fs type="pos"><f name="D"><symbol value="DI0MS0"/></f></fs></w> 
+					<w lemma="tanto">tanto<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="ser">seria<fs type="pos"><f name="V"><symbol value="VSIC0S0"/></f></fs></w> 
+					<w lemma="porque"><choice><abbr>porq</abbr><expan>porque</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="como">como<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w rend="moço" lemma="moço">mo<lb break="no"/>ço<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="ter">tenha<fs type="pos"><f name="V"><symbol value="VMSP0S0"/></f></fs></w> 
+					<w rend="q" lemma="que"><choice><abbr><del hand="BSS1">a</del>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ir"><choice><orig>hir</orig><reg>ir</reg></choice><fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="benfica"><choice><orig>Bemfica</orig><reg>Benfica</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="recear"><choice><orig>reciei</orig><reg>receei</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs><note type="linguisticNote" subtype="diphthong_and_hiatus"/></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="ir"><choice><orig>foce</orig><reg>fosse</reg></choice><fs type="pos"><f name="V"><symbol value="VMSI0S0"/></f></fs></w> 
+					<w><choice><orig>pella</orig><reg>pela</reg></choice>
+						<w part="I" rend="por" lemma="por"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="a" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w></w> 
+					<w lemma="Porcalhota">Porcalhota<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc">,</pc> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="seu">seu<fs type="pos"><f name="D"><symbol value="DP3MS0"/></f></fs></w> 
+					<w lemma="mano">mano<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="não"><choice><orig>nao</orig><reg>não</reg></choice><fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="ser"><choice><orig>he</orig><reg>é</reg></choice><fs type="pos"><f name="V"><symbol value="VSIP3S0"/></f></fs></w> 
+					<w lemma="seguro"><choice><orig>siguro</orig><reg>seguro</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp">.</pc>
+				</s> 
+				<s>
+					<w lemma="crer"><choice><orig>creio</orig><reg>Creio</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="VSa">VSa<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="haver">havia<fs type="pos"><f name="V"><symbol value="VMII0S0"/></f></fs></w> 
+					<w rend="entender" lemma="entender">en<lb break="no"/>tender<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ser">seria<fs type="pos"><f name="V"><symbol value="VSIC0S0"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="homem">homem<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="apresentar"><choice><orig>aprezentou</orig><reg>apresentou</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="o">as<fs type="pos"><f name="D"><symbol value="DA0FP0"/></f></fs></w> 
+					<w lemma="arma">armas<fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs></w> 
+					<w><choice><orig>nesa</orig><reg>nessa</reg></choice>
+						<w part="I" rend="em" lemma="em"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="essa" lemma="esse"><fs type="pos"><f name="D"><symbol value="DD0FS0"/></f></fs></w></w> 
+					<w lemma="torre"><choice><orig>Torre</orig><reg>torre</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="miguel"><choice><abbr>Migel</abbr><expan>Miguel</expan></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="joaquim"><choice><abbr>Joaqm</abbr><expan>Joaquim</expan></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="ser"><choice><orig>hera</orig><reg>era</reg></choice><fs type="pos"><f name="V"><symbol value="VSII0S0"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="padre"><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="o"><choice><orig>o</orig><reg>O</reg></choice><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="papel">papelinho<fs type="pos"><f name="N"><symbol value="NCMS00D"/></f></fs></w> 
+					<w lemma="em">em<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="lhe">lhe<fs type="pos"><f name="P"><symbol value="PP3CSD00"/></f></fs></w> 
+					<w rend="falei" lemma="falar">fa<lb break="no"/>lei<fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w lemma="ser"><choice><orig>hera</orig><reg>era</reg></choice><fs type="pos"><f name="V"><symbol value="VSII0S0"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> <supplied resp="MG" reason="illegible">
+					<w rend="rascunho" lemma="rascunho">rascunho<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w></supplied> 
+					<w>do
+						<w part="I" rend="de" lemma="de"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="requerimento"><choice><abbr>requerimto</abbr><expan>requerimento</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="padre"><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="mostrar">mostrou<fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="ele"><choice><orig>elle</orig><reg>Ele</reg></choice><fs type="pos"><f name="P"><symbol value="PP3MS000"/></f></fs></w> 
+					<w lemma="ficar">ficou<fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="em">em<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="vir">vir<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> <pb n="31v" facs="PSCR4521_3.JPG"/><lb break="yes"/> 
+					<w lemma="ontem"><choice><orig>Hontem</orig><reg>ontem</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w>
+					<pc type="F" subtype="Fc">,</pc> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="eu">eu<fs type="pos"><f name="P"><symbol value="PP1CSN00"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="depois">depois<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="vir"><choice><orig>Vim</orig><reg>vim</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="estar">estar<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="com"><choice><orig>con</orig><reg>com</reg></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="nosso"><choice><orig>noso</orig><reg>nosso</reg></choice><fs type="pos"><f name="D"><symbol value="DP1MSP"/></f></fs></w> 
+					<w lemma="amigo"><choice><abbr>amo</abbr><expan>amigo</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="vir"><choice><orig>Vin</orig><reg>vim</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="casa"><choice><orig>caza</orig><reg>casa</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w rend="Faustina" lemma="faustina">Faus<lb break="no"/>tina<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="ser"><choice><orig>herão</orig><reg>eram</reg></choice><fs type="pos"><f name="V"><symbol value="VSII3P0"/></f></fs></w> 
+					<w lemma="dar">dadas<fs type="pos"><f name="V"><symbol value="VMP00PF"/></f></fs></w> 
+					<w lemma="10">10<fs type="pos"><f name="Z"><symbol value="Z"/></f></fs></w> 
+					<w lemma="hora">horas<fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="ainda"><choice><orig>inda</orig><reg>ainda</reg><sic>inda</sic></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="não">não<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="ter">tinha<fs type="pos"><f name="V"><symbol value="VAII0S0"/></f></fs></w> 
+					<w lemma="aparecer">aparecido<fs type="pos"><f name="V"><symbol value="VMP0000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="seu"><choice><orig>Seu</orig><reg>Seu</reg></choice><fs type="pos"><f name="D"><symbol value="DP3MS0"/></f></fs></w> 
+					<w lemma="mano">mano<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="não">não<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="tardar">tarda<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="aqui">aqui<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="porque"><choice><abbr>porq</abbr><expan>porque</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="agora">agora<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="chegar">chegou<fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w rend="canarim" lemma="canarim">ca<lb break="no"/>narim<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="dizer"><choice><orig>dice</orig><reg>disse</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ir"><choice><orig>hia</orig><reg>ia</reg></choice><fs type="pos"><f name="V"><symbol value="VMII0S0"/></f></fs></w> 
+					<w lemma="jantar">jantar<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w rend="vinha" lemma="vinha">vi-<lb break="no"/>nha<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="para"><choice><abbr>pa</abbr><expan>para</expan></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="lhe">lhe<fs type="pos"><f name="P"><symbol value="PP3CSD00"/></f></fs></w> 
+					<w lemma="falar">falar<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="porque"><choice><abbr>porq</abbr><expan>porque</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ainda"><choice><orig>inda</orig><reg>ainda</reg><sic>inda</sic></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="depois"><choice><orig>depoes</orig><reg>depois</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="haver"><choice><orig>ha</orig><reg>há</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="voltar"><choice><orig>Voltar</orig><reg>voltar</reg></choice><fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="lisboa">Lxa<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="o"><choice><orig>o</orig><reg>O</reg></choice><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="que"><choice><abbr>q</abbr><expan>que</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> 
+					<w lemma="ele"><choice><orig>elle</orig><reg>ele</reg></choice><fs type="pos"><f name="P"><symbol value="PP3MS000"/></f></fs></w> 
+					<w lemma="contar">contar<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="novo">novo<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="avisar"><choice><orig>avizarei</orig><reg>avisarei</reg></choice><fs type="pos"><f name="V"><symbol value="VMIF1S0"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="VSa">VSa<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> <supplied resp="MG" reason="illegible">
+					<w rend="ou" lemma="ou">ou<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w></supplied> 
+					<w lemma="o">o<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="padre"><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="logo">Logo<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w lemma="porque"><choice><abbr>porq</abbr><expan>porque</expan></choice><fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="hoje">hoje<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="fazer">farei<fs type="pos"><f name="V"><symbol value="VMIF1S0"/></f></fs></w> 
+					<w lemma="o">a<fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w> 
+					<w lemma="diligência"><choice><abbr>deliga</abbr><expan>deligencia</expan><reg>diligência</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="lhe">lhe<fs type="pos"><f name="P"><symbol value="PP3CSD00"/></f></fs></w> 
+					<w lemma="falar">falar<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w lemma="ficar">Fico<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="para"><choice><abbr>pa</abbr><expan>para</expan></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="servir">servir<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="VSa">VSa<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="quem"><choice><abbr>qm</abbr><expan>quem</expan></choice><fs type="pos"><f name="P"><symbol value="PR0CN000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="desejar"><choice><abbr>dezo</abbr><expan>dezejo</expan><reg>desejo</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="o">as<fs type="pos"><f name="D"><symbol value="DA0FP0"/></f></fs></w> 
+					<w lemma="maiores">maiores<fs type="pos"><f name="A"><symbol value="AQ0CP0"/></f></fs></w> 
+					<w lemma="felicidade"><choice><abbr>flecides</abbr><expan>felecidades</expan><reg>felicidades</reg></choice><fs type="pos"><f name="N"><symbol value="NCFP000"/></f></fs><note type="linguisticNote" subtype="unstressed_vowels"/></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="deus"><choice><abbr>DS</abbr><expan>DeoS</expan><reg>Deus</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="guardar"><choice><abbr>Ge</abbr><expan>Guarde</expan><reg>guarde</reg></choice><fs type="pos"><f name="V"><symbol value="VMSP0S0"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="VSa">VSa<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="como">como<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="desejo"><choice><abbr>dezo</abbr><expan>dezejo</expan><reg>desejo</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+				<seg type="closer" subtype="placeName">
+					<w rend="Caza" lemma="casa"><choice><orig>Caza</orig><reg>Casa</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w lemma="em">em<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="2">2<fs type="pos"><f name="Z"><symbol value="Z"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="agosto"><choice><orig>Agosto</orig><reg>agosto</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="1779">1779<fs type="pos"><f name="Z"><symbol value="Z"/></f></fs></w></seg>
+				</s>
+			</p> <lb break="yes"/>
+			<closer>
+				<salute>
+					<w lemma="seu">Seu<fs type="pos"><f name="D"><symbol value="DP3MS0"/></f></fs></w> 
+					<w lemma="venerador"><choice><orig>Venerador</orig><reg>venerador</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="amigo"><choice><abbr>amo</abbr><expan>amigo</expan></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w>do
+						<w part="I" rend="de" lemma="de"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="o" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w></w> 
+					<w lemma="coração"><choice><abbr>C</abbr><expan>Coracao</expan><reg>coração</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<signed>
+					<w lemma="bartolomeu"><choice><abbr>Bmeu</abbr><expan>Bartholomeu</expan><reg>Bartolomeu</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w>da
+						<w part="I" rend="de" lemma="de"><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w>
+						<w part="F" rend="a" lemma="o"><fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w></w> 
+					<w lemma="silva"><choice><abbr>Sa</abbr><expan>Silva</expan></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="e">e<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="sousa"><choice><orig>Souza</orig><reg>Sousa</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+				</signed>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

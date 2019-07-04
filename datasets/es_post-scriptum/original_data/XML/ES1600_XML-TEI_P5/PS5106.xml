@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1627. Carta de Francisco Cantos, estudiante, para Bartolomé de las Peñas, beneficiado parroquial.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name>Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2014">2014</date> 
+				<availability status="restricted"><p>Copyright 2014, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Madrid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Histórico Nacional</institution>
+							<repository xml:id="U">Universidades</repository>
+							<collection>Pleitos ordinarios</collection>
+							<idno>Legajo 192,Expediente 33</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor informa a Bartolomé de las Peñas de sus circunstancias presentes y le encarga que vele por su familia y por María de Castrillo.</summary>
+							<msItem class="original">
+								<p><locus>21r-[21a]v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un bifolio de papel doblado en folio, escrito por el recto del primer folio y por el verso del segundo folio.
+										<dimensions scope="all" unit="mm">
+											<height>314</height>
+											<width>208</width>
+										</dimensions>
+									</extent>
+									<condition><p>el estado de conservación dificulta la lectura de aquellas líneas próximas a los bordes de la carta.</p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>tres líneas en blanco entre la cruz del encabezamiento y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> Al <expan>lldo</expan> Bartolome de la peñas <lb/> cura i beneficiado en el lugar <lb/> de penilla <expan>nro</expan> guarde <expan>eta</expan> <lb/> en <lb/> penilla</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo Histórico Nacional.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>noticias</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K92"/>
+						<term n="2" key="KW.xml#K110"/>
+						<term n="3" key="KW.xml#K218"/>
+						<term n="4" key="KW.xml#K215"/>
+						Enfermedad,Ganado,Viajes,Transportes</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>0</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#FC15" xml:id="FC15" cert="high"><name>Francisco Cantos</name></persName>
+					<placeName confidence="1" type="origin">España, Madrid, Alcalá de Henares
+						<location>
+							<geo>40.4819791 -3.3635421</geo>
+						</location>
+					</placeName>
+					<date confidence="0" when="1627-10-28" from="1627" to="1627" when-custom="1627.10.28"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#BP4" cert="high"><name>Bartolomé de las Peñas</name></persName>
+					<placeName confidence="1" type="destination">España, Burgos, Pinilla Trasmonte
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>El 2 de mayo de 1628 Francisco de Cantos, estudiante graduado y matriculado de la Universidad de Alcalá de Henares, pidió la inhibición del alcalde ordinario de Santo Domingo de Silos (Burgos) en una causa matrimonial interpuesta por María de Castrillo, alegando que sus privilegios le permitían ser juzgado por el tribunal de la universidad. Francisco de Cantos fue imputado de un delito de estupro a instancias de Alonso de Castrillo, padre de María de Castrillo. Éste aseguraba que su hija -de quien alababa sus buenas prendas y virtud de doncella- había cedido a los ruegos amorosos de Francisco de Cantos bajo la promesa de matrimonio y, a resultas de la relación, había quedado embarazada. Francisco, quien partía a Alcalá de Henares para entrar en la universidad, se había comprometido a encargarse de la madre y la criatura mediante la expedición de una cédula que había firmado tres veces. Asimismo, encargó a Bartolomé de las Peñas, teniente de párroco y a quien le unía una relación de dependencia, que velara por María y así lo expresó en dos cartas. Tanto la cédula como las cartas fueron adjuntadas al proceso y objeto de reconocimiento por parte de Francisco de Cantos. Éste negó que las firmas de la cédula fueran suyas, pero no así las de las cartas. No obstante, cada una de las partes trató de argumentar la justicia de su causa mediante la presentación de testigos. El estudiante Francisco de Cantos trató que estos corroborasen las dudas sobre la buena virtud de María de Castrillo, así como las anteriores tentativas matrimoniales de la muchacha con otros solteros de la zona. El pleito se halla incompleto por lo que no contamos con una sentencia.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2014-04">Elisa García Prieto: Codificación XML y contextualización</change> 
+			<change when="2015-07-02">Gael Vaamonde: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Letter from Francisco Cantos, a student, to Bartolomé de las Peñas, a beneficiary priest. </p>
+				<p sameAs="summary">The author informs Bartolomé de las Peña about his present situation and asks him to watch over his family and María de Castrillo.</p>
+				<p sameAs="settingDesc">The second of May, 1628, Francisco de Cantos, a graduate student enrolled in the University of Alcalá de Henares, asked not to be judged by the ordinary mayor of Santo Domingo de Silos (Burgos) in a matrimonial cause brought against him by the family of María de Castrillo, claiming that, due to his position, he had the right to be judged by tribunal of the University. Francisco de Cantos was accused of rape by Alonso de Castrillo, father of María de Castrillo, who declared that his daughter, of whom he praised the virtue, had been seduced by Francisco de Cantos, who had promised to marry her. Because of their relationship, she was pregnant. Francisco, however, had committed himself to look after the mother and the child, by means of a document which he had signed three times.
+Moreover, he had written two letters to ask Bartolomé de las Peñas, a deputy parish priest, to watch over María de Castrillo. The document and the two letters were presented to the tribunal. Francisco de Cantos confirmed that he had written the letters, but refused to recognise the signatures on the document. He also presented witnesses to try to corroborate the doubts on the virtue of María de Castrillo and to demonstrate that she had already tried to marry other single men. The proceedings are not complete, so we cannot know the sentence. </p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="21r" facs="PS5106_2.JPG"/><lb break="yes"/>
+			<opener>
+				<seg type="sign">cruz</seg> 
+			</opener>
+			<p>
+				<seg type="harangue">
+				<s>
+					<w><choice><orig>Alle</orig><reg>Halle</reg></choice></w> 
+					<w><choice><orig>esta</orig><reg>ésta</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>con</w> 
+					<w>tanta</w> 
+					<w>salud</w> 
+					<w>y</w> 
+					<w rend="contento">con<lb break="no"/>tento</w> 
+					<w>como</w> 
+					<w>este</w> 
+					<w>su</w> 
+					<w>criado</w> 
+					<w>y</w> 
+					<w>amigo</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>le</w> 
+					<w>desea</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<seg type="harangue">
+				<s>
+					<w><choice><orig>yo</orig><reg>Yo</reg></choice></w> 
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w>mis</w> 
+					<w><choice><orig>conpañeros</orig><reg>compañeros</reg></choice></w> <lb break="yes"/> 
+					<w>quedamos</w> 
+					<w>con</w> 
+					<w>ella</w> 
+					<w>para</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> <lb break="yes"/> 
+					<w>nos</w> 
+					<w>quisiere</w> 
+					<w>mandar</w> 
+					<w><choice><orig>em</orig><reg>en</reg></choice></w> 
+					<w>su</w> 
+					<w rend="servicio">servi<lb break="no"/>cio</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</s></seg> 
+				<s>
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w><choice><orig>io</orig><reg>yo</reg></choice></w> 
+					<w>particularmente</w> 
+					<w>con</w> 
+					<w>tantas</w> <lb break="yes"/> 
+					<w>obligaciones</w> 
+					<w>como</w> 
+					<w>tengo</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>aunque</w> <lb break="yes"/> 
+					<w><choice><orig>berdad</orig><reg>verdad</reg></choice></w> 
+					<w>que</w> 
+					<w><choice><orig>io</orig><reg>yo</reg></choice></w> 
+					<w><choice><orig>quede</orig><reg>quedé</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>huna</orig><reg>una</reg></choice></w> 
+					<w>pierna</w> 
+					<w rend="algo">al<lb break="no"/>go</w> 
+					<w>malo</w> 
+					<w>por</w> 
+					<w><choice><orig>ocasion</orig><reg>ocasión</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>aber</orig><reg>haber</reg></choice></w> 
+					<w rend="benido"><choice><orig>beni<lb break="no"/>do</orig><reg>venido</reg></choice></w> 
+					<w>a</w> 
+					<w>pie</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>porque</w> 
+					<w>la</w> 
+					<w>mula</w> 
+					<w>de</w> 
+					<w><choice><orig>arrand</orig><reg>Arrand</reg></choice></w> <lb break="yes"/> 
+					<w>no</w> 
+					<w>me</w> 
+					<w>la</w> 
+					<w>quiso</w> 
+					<w>dar</w> 
+					<w>el</w> 
+					<w><choice><orig>dueno</orig><reg>dueño</reg></choice></w> 
+					<w>por</w> 
+					<w rend="tensela"><choice><orig>ten<lb break="no"/>sela</orig><reg>tiénesela</reg></choice><note type="linguisticNote" subtype="diphthong_and_hiatus"/></w> 
+					<w>el</w> 
+					<w>corregidor</w> 
+					<w><choice><orig>enbargada</orig><reg>embargada</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w rend="quando"><choice><orig>quan<lb break="no"/>do</orig><reg>Cuando</reg></choice></w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>quisiere</w> 
+					<w>escribir</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>en</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>de</w> 
+					<w rend="esteban"><choice><orig>es<lb break="no"/>teban</orig><reg>Esteban</reg></choice></w> 
+					<w><choice><orig>camino</orig><reg>Camino</reg></choice></w> 
+					<w>posamos</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>detras</orig><reg>detrás</reg></choice></w> 
+					<w>de</w> <lb break="yes"/> 
+					<w><choice><orig>san</orig><reg>San</reg></choice></w> 
+					<w><choice><abbr>franco</abbr><expan>francisco</expan><reg>Francisco</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>junto</w> 
+					<w>a</w> 
+					<w>la</w> 
+					<w><choice><orig>trinidad</orig><reg>Trinidad</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w rend="recado"><choice><orig>re<lb break="no"/>cado</orig><reg>Recado</reg></choice></w> 
+					<w>a</w> 
+					<w>mi</w> 
+					<w>padre</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>madre</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>tios</orig><reg>tíos</reg></choice></w> 
+					<w><choice><orig>hi</orig><reg>y</reg></choice></w> 
+					<w rend="ermanos"><choice><orig>er<lb break="no"/>manos</orig><reg>hermanos</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>me</w> 
+					<w><choice><orig>dara</orig><reg>dará</reg></choice></w> 
+					<w>un</w> 
+					<w>recado</w> 
+					<w>de</w> 
+					<w>ca</w> <lb break="yes"/> 
+					<w>quedo</w> 
+					<w>con</w> 
+					<w>salud</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>i</orig><reg>Y</reg></choice></w> 
+					<w>de</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w><choice><orig>v</orig><reg>vuestra</reg></choice></w> 
+					<w><choice><orig>md</orig><reg>merced</reg></choice></w> 
+					<w rend="queda">que<lb break="no"/>da</w> 
+					<w>encargado</w> 
+					<w>me</w> 
+					<w><choice><orig>ara</orig><reg>hará</reg></choice></w> 
+					<w><choice><orig>grandisima</orig><reg>grandísima</reg></choice></w> <lb break="yes"/> 
+					<w><choice><orig>merçed</orig><reg>merced</reg></choice></w> 
+					<w>de</w> 
+					<w>cuidar</w> 
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w><choice><orig>abisarme</orig><reg>avisarme</reg></choice></w> 
+					<w>de</w> 
+					<w>lo</w> 
+					<w>que</w> <lb break="yes"/> 
+					<w>hubiere</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>a</orig><reg>A</reg></choice></w> 
+					<w><choice><orig>maria</orig><reg>María</reg></choice></w> 
+					<w><choice><orig>encargara</orig><reg>encargará</reg></choice></w> 
+					<w>que</w> 
+					<w>no</w> <lb break="yes"/> 
+					<w>se</w> 
+					<w><choice><orig>afliga</orig><reg>aflija</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w><choice><orig>io</orig><reg>yo</reg></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>are</orig><reg>haré</reg></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>megor</orig><reg>mejor</reg></choice></w> 
+					<w>que</w> 
+					<w rend="pudiere">pu<lb break="no"/>diere</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>i</orig><reg>Y</reg></choice></w> 
+					<w>con</w> 
+					<w>esto</w> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w> 
+					<w>me</w> 
+					<w><choice><orig>ara</orig><reg>hará</reg></choice></w> 
+					<w><choice><abbr>md</abbr><expan>merced</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</s> <lb break="yes" rend="verticalText"/> 
+				<seg type="peroration">
+				<s>
+					<w>a</w> 
+					<w>quien</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w><choice><orig>nuestro</orig><reg>Nuestro</reg></choice></w> 
+					<w><choice><orig>señor</orig><reg>Señor</reg></choice></w> 
+					<w><choice><orig>mui</orig><reg>muy</reg></choice></w> 
+					<w>largos</w> 
+					<w>me</w> 
+					<w>guarde</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s><lb break="yes" rend="verticalText"/> 
+				<seg type="closer" subtype="placeName">
+					<w><choice><orig>de</orig><reg>De</reg></choice></w> 
+					<w><choice><orig>alcala</orig><reg>Alcalá</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>henares</orig><reg>Henares</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w>a</w> 
+					<w>28</w> 
+					<w>de</w> 
+					<w><choice><orig>otubre</orig><reg>octubre</reg></choice></w> 
+					<w>de</w> 
+					<w>1627</w> 
+					<w><choice><orig>anños</orig><reg>años</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+			</p><lb break="yes"/>
+			<closer>
+				<signed>
+					<w><choice><abbr>franco</abbr><expan>francisco</expan><reg>Francisco</reg></choice></w> 
+					<w rend="cantos"><choice><orig>can<lb break="no"/>tos</orig><reg>Cantos</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</signed>
+				<salute>
+					<w>amigo</w> 
+					<w>de</w> <lb break="yes"/> 
+					<w><choice><orig>vmd</orig><reg>VM</reg></choice></w>
+				</salute>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="PT">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1717. Carta de Mariana Teresa para destinatário anónimo.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>FCT, Fundação para a Ciência e a Tecnologia PTDC/LIN/64472/2006; ERC, European Research Council ‒ 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Projeto</resp><name xml:id="CARDS">CARDS, Cartas Desconhecidas</name></respStmt> 
+				<respStmt><resp>Coordenação</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcrição</resp><name xml:id="LT">Leonor Tavares</name><name xml:id="MSC">Marisa Sousa Cruz</name></respStmt> 
+				<respStmt><resp>Anotação POS</resp><name>Clara Pinto, Catarina Carvalheiro</name></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisão</resp><name>Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Contextualização</resp><name>Leonor Tavares</name><name>Marisa Sousa Cruz</name></respStmt> 
+				<respStmt><resp>Edição modernizada</resp><name xml:id="CDC">Catarina Carvalheiro</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2007">2007</date> 
+				<availability status="restricted"><p>Copyright 2007, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>Portugal</country>
+							<settlement>Lisboa</settlement>
+							<institution key="CDD.xml#NatXReg">Arquivo Nacional da Torre do Tombo</institution>
+							<repository xml:id="TSO">Tribunal do Santo Ofício</repository>
+							<collection>Inquisição de Coimbra, Caderno do Promotor n.º 43</collection>
+							<idno>Livro 340</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>Mariana e sua sobrinha denunciam Manuel da Fonseca por fazer curas com o seu sangue.</summary>
+							<msItem class="original">
+								<p><locus>352r</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>
+										<dimensions scope="all" unit="mm">
+											<height></height>
+											<width></width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout></layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat/>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Reproduções não dispensam licença da DGARQ/TT.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsimile digital guardado como ficheiro JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-PT">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipologia PS</bibl>
+					<category xml:id="pragmatics"><catDesc>denúncia</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc></catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="PT"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#MT5" xml:id="MT5" cert="high"><name>Mariana Teresa</name></persName>
+					<placeName confidence="1" type="origin">Portugal, Lamego, Sanfins, Travanca do Douro
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+					<date confidence="0" when="1717" from="1717" to="1717" when-custom="1717.--.--"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#AN326" cert="unknown"><name>Anónimo326</name></persName>
+					<placeName confidence="0" type="destination">Portugal, Coimbra
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>Dentro do fundo do Tribunal do Santo Ofício existem as coleções de Cadernos do Promotor das inquisições de Lisboa, Évora e Coimbra. O seu âmbito é principalmente o da recolha de acusações de heresia. A partir de tais acusações, o promotor do Santo Ofício decidia proceder ou não a mais diligências, no sentido de mover processos a alguns dos acusados. Denúncias, confissões, cartas de comissários e familiares e instrução de processos são algumas das tipologias documentais que se podem encontrar nestes Cadernos. Quanto ao crime nefando e à solicitação, são culpas que não estão normalmente referidas nestes livros.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2010-07">José Pedro Ferreira: Script de conversão automática (MS Access para XML)</change> 
+			<change when="2011-05">Rita Marquilhas: Revisão da leitura</change> 
+			<change when="2014-08">Catarina Carvalheiro: Modernização em EDICTOR</change>
+			<change xml:lang="EN">
+				<p sameAs="title"></p>
+				<p sameAs="summary"></p>
+				<p sameAs="settingDesc"></p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body>
+            <pb n="39r" facs="CARDS9013_1.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+					<w><choice><orig>mandou</orig><reg>Mandou</reg></choice></w> 
+					<w>Me.</w> 
+					<w>de</w> 
+					<w><choice><orig>Deos</orig><reg>Deus</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</salute>
+			</opener>
+			<p>
+				<s>
+					<w rend="Quinta fra"><choice><orig>Quinta fra</orig><reg>Quinta-feira</reg></choice></w> 
+					<w><choice><orig>pasada</orig><reg>passada</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>aos</w>
+					<w>vinte</w> 
+					<w>e</w> 
+					<w>seis</w> 
+					<w>de</w> 
+					<w><choice><orig>Agosto</orig><reg>agosto</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>fuoi</orig><reg>fui</reg></choice><note type="linguisticNote" subtype="diphthong_and_hiatus"/></w> 
+					<w rend="veizitar"><choice><orig>vei<lb break="no"/>zitar</orig><reg>visitar</reg></choice><note type="linguisticNote" subtype="diphthong_and_hiatus"/></w> 
+					<w>a</w> 
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w> 
+					<w><choice><abbr>D</abbr><expan>Dona</expan><reg>dona</reg></choice></w> 
+					<w><choice><abbr>Ma</abbr><expan>Maria</expan></choice></w> 
+					<w><choice><orig>Roza</orig><reg>Rosa</reg></choice></w> 
+					<w><choice><orig>Souza</orig><reg>Sousa</reg></choice></w>
+					<pc>,</pc>
+					<w><choice><orig>Moradora</orig><reg>moradora</reg></choice></w> 
+					<w>em</w> 
+					<w>a</w> <lb break="yes"/> 
+					<w><choice><orig>sidade</orig><reg>cidade</reg></choice></w> 
+					<w>do</w> 
+					<w><choice><orig>porto</orig><reg>Porto</reg></choice></w>
+					<pc>,</pc> 
+					<w>e</w> 
+					<w>em</w> 
+					<w>minha</w> 
+					<w><choice><abbr>compa</abbr><expan>companhia</expan></choice></w> 
+					<w>foi</w> 
+					<w><choice><orig>tãobem</orig><reg>também</reg></choice></w> 
+					<w><choice><orig>huã</orig><reg>uma</reg></choice></w> <lb break="yes"/> 
+					<w>sobrinha</w>
+					<w>minha</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>por</w> 
+					<w>nome</w> 
+					<w><choice><orig>Anna</orig><reg>Ana</reg></choice></w> 
+					<w><choice><abbr>Ma</abbr><expan>Maria</expan></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>Jezus</orig><reg>Jesus</reg></choice></w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>e</orig><reg>E</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><orig>caza</orig><reg>casa</reg></choice></w> 
+					<w>desta</w> 
+					<w rend="sobre dita"><choice><orig>sobre dita</orig><reg>sobredita</reg></choice></w> 
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>estando</w> 
+					<w>em</w> 
+					<w><choice><orig>la</orig><reg>lá</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="chegou">che<lb break="no"/>gou</w> 
+					<w><choice><orig>hu</orig><reg>um</reg></choice></w> 
+					<w><choice><orig>homen</orig><reg>homem</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>por</w> 
+					<w>nome</w> 
+					<w><choice><abbr>Mel</abbr><expan>Manuel</expan></choice></w> 
+					<w>da</w> 
+					<w><choice><orig>fonseca</orig><reg>Fonseca</reg></choice></w>
+					<pc>,</pc> 
+					<w>a</w> 
+					<w rend="coal"><choice><orig>co<lb break="no"/>al</orig><reg>qual</reg></choice></w> 
+					<w><choice><orig>dise</orig><reg>disse</reg></choice></w> 
+					<w>de</w> 
+					<w>si</w> 
+					<w><choice><abbr>mtos</abbr><expan>muitos</expan></choice></w> 
+					<w><choice><orig>prodigios</orig><reg>prodígios</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>e</w> 
+					<w>maravilhas</w>
+					<w>que</w> 
+					<w>tinha</w> <lb break="yes"/> 
+					<w><choice><orig>resebido</orig><reg>recebido</reg></choice></w> 
+					<w>da</w> 
+					<w>mão</w> 
+					<w>de</w> 
+					<w><choice><abbr>ds</abbr><expan>deos</expan><reg>Deus</reg></choice></w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>e</orig><reg>E</reg></choice></w> 
+					<w>em</w> 
+					<w>como</w> 
+					<w><choice><abbr>mto</abbr><expan>muito</expan></choice></w> 
+					<w>má</w> 
+					<w>não</w> 
+					<w>dei</w> <lb break="yes"/> 
+					<w><choice><abbr>mta</abbr><expan>muita</expan></choice></w> 
+					<w><choice><orig>atensão</orig><reg>atenção</reg></choice></w> 
+					<w>ao</w> 
+					<w>que</w>
+					<w>ele</w> 
+					<w><choice><orig>dise</orig><reg>disse</reg></choice></w> 
+					<w>por</w> 
+					<w>me</w> 
+					<w>parecer</w> 
+					<w>que</w> 
+					<w rend="aquelas">a<lb break="no"/>quelas</w> 
+					<w><choice><orig>coizas</orig><reg>coisas</reg></choice></w> 
+					<w>se</w> 
+					<w>não</w> 
+					<w>dizem</w> 
+					<w><choice><abbr>publicamte</abbr><expan>publicamente</expan></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w>com</w> 
+					<w>que</w> <lb break="yes"/> 
+					<w>não</w> 
+					<w>dei</w>
+					<w><choice><orig>atensão</orig><reg>atenção</reg></choice></w> 
+					<w>a</w> 
+					<w>tudo</w> 
+					<w>o</w> 
+					<w>que</w> 
+					<w><choice><orig>he</orig><reg>aí</reg></choice></w> 
+					<w>ouvi</w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>so</orig><reg>Só</reg></choice></w> 
+					<w><choice><orig>fis</orig><reg>fiz</reg></choice></w> 
+					<w rend="Reparo"><choice><orig>Re<lb break="no"/>paro</orig><reg>reparo</reg></choice></w> 
+					<w>em</w> 
+					<w>ele</w> 
+					<w>dizer</w> 
+					<w>que</w> 
+					<w>devia</w> 
+					<w><choice><abbr>mto</abbr><expan>muito</expan></choice></w> 
+					<w>a</w>
+					<w><choice><abbr>ds</abbr><expan>deos</expan><reg>Deus</reg></choice></w> 
+					<w>pelo</w> 
+					<w><choice><abbr>mto</abbr><expan>muito</expan></choice></w> <lb break="yes"/> 
+					<w>que</w> 
+					<w>o</w> 
+					<w>fizera</w> 
+					<w>firme</w> 
+					<w>na</w> 
+					<w><choice><orig>fe</orig><reg>fé</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>mas</w> 
+					<w>que</w> 
+					<w><choice><abbr>ds</abbr><expan>deos</expan><reg>Deus</reg></choice></w> 
+					<w>que</w> 
+					<w>lhe<note type="linguisticNote" subtype="clitic_doubling"/></w> 
+					<w rend="devia">de<lb break="no"/>via</w> 
+					<w>a</w> 
+					<w>ele</w> 
+					<w><choice><abbr>mto</abbr><expan>muito</expan></choice></w>
+					<w><choice><orig>maes</orig><reg>mais</reg></choice></w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>e</orig><reg>E</reg></choice></w> 
+					<w><choice><orig>tãobem</orig><reg>também</reg></choice></w> 
+					<w><choice><orig>dise</orig><reg>disse</reg></choice></w> 
+					<w>que</w> 
+					<w>curava</w> <lb break="yes"/> 
+					<w><choice><abbr>mta</abbr><expan>mta</expan></choice></w> 
+					<w><choice><orig>jente</orig><reg>gente</reg></choice></w> 
+					<w>ou</w> 
+					<w>tinha</w> 
+					<w>curado</w> 
+					<w>com</w> 
+					<w>seu</w> 
+					<w><choice><orig>proprio</orig><reg>próprio</reg></choice></w> 
+					<w rend="sangue"><choice><orig>san-<lb break="no"/>gue</orig><reg>sangue</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+					<w><choice><orig>sangrandose</orig><reg>sangrando-se</reg></choice></w> 
+					<w><choice><abbr>pa</abbr><expan>para</expan></choice></w> 
+					<w><choice><orig>ese</orig><reg>esse</reg></choice></w> 
+					<w>efeito</w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>maes</orig><reg>Mais</reg></choice></w> 
+					<w><choice><orig>dise</orig><reg>disse</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w rend="tinha">ti<lb break="no"/>nha</w> 
+					<w><choice><orig>espesial</orig><reg>especial</reg></choice></w> 
+					<w><choice><orig>lus</orig><reg>luz</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>ds</abbr><expan>deos</expan><reg>Deus</reg></choice></w> 
+					<w><choice><abbr>pa</abbr><expan>para</expan></choice></w> 
+					<w><choice><orig>conheser</orig><reg>conhecer</reg></choice></w>
+					<w>os</w> 
+					<w>interiores</w> <lb break="yes"/> 
+					<w>das</w> 
+					<w>criaturas</w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>a</orig><reg>A</reg></choice></w> 
+					<w>isto</w> 
+					<w>que</w> 
+					<w>digo</w> 
+					<w>se</w> 
+					<w>achou</w> 
+					<w><choice><orig>prezente</orig><reg>presente</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w> 
+					<w><choice><abbr>D</abbr><expan>Dona</expan><reg>dona</reg></choice></w> 
+					<w><choice><abbr>Ma</abbr><expan>Maria</expan></choice></w> 
+					<w><choice><orig>Roza</orig><reg>Rosa</reg></choice></w>
+					<w>e</w> 
+					<w><choice><orig>souza</orig><reg>Sousa</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>e</w> 
+					<w>a</w> 
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w> 
+					<w>sua</w> 
+					<w>irmã</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>D</abbr><expan>Dona</expan><reg>dona</reg></choice></w> <lb break="yes"/> 
+					<w>Margarida</w>
+					<pc>,</pc> 
+					<w>e</w> 
+					<w>a</w> 
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w> 
+					<w><choice><abbr>D</abbr><expan>Dona</expan><reg>dona</reg></choice></w> 
+					<w><choice><orig>Antonia</orig><reg>Antónia</reg></choice></w> 
+					<w><choice><abbr>Frca</abbr><expan>Francisca</expan></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>e</w> 
+					<w>a</w>
+					<w><choice><abbr>sra</abbr><expan>senhora</expan></choice></w> 
+					<w><choice><abbr>D</abbr><expan>Dona</expan><reg>dona</reg></choice></w> 
+					<w rend="Margarida">Mar<lb break="no"/>garida</w> 
+					<w>de</w> 
+					<w><choice><orig>Magalhanis</orig><reg>Magalhães</reg></choice></w>
+					<pc>,</pc> 
+					<w>todas</w> 
+					<w>da</w> 
+					<w><choice><orig>sidade</orig><reg>cidade</reg></choice></w> 
+					<w>do</w> 
+					<w><choice><abbr>pto</abbr><expan>porto</expan><reg>Porto</reg></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>e</w> 
+					<w>eu</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>e</w> 
+					<w>minha</w> 
+					<w>sobrinha</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+					<w>da</w> 
+					<w><choice><abbr>frga</abbr><expan>freguesia</expan></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>sta</abbr><expan>santa</expan><reg>Santa</reg></choice></w> 
+					<w><choice><orig>Leocadia</orig><reg>Leocádia</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><orig>travanca</orig><reg>Travanca</reg></choice></w> 
+					<w>do</w> 
+					<w><choice><orig>douro</orig><reg>Douro</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>Conselho</orig><reg>concelho</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>sãofins</orig><reg>Sanfins</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>e</w> <lb break="yes"/> 
+					<w><choice><orig>Bispado</orig><reg>bispado</reg></choice></w> 
+					<w>de</w> 
+					<w>Lamego</w>
+					<pc>.</pc>
+				</s>
+			</p><lb break="yes"/>
+			<closer>
+				<signed>
+					<w><choice><orig>Marianna</orig><reg>Mariana</reg></choice></w> 
+					<w><choice><orig>thereza</orig><reg>Teresa</reg></choice></w>
+				</signed> <lb break="yes"/>
+			</closer>
+        	<postscript>
+			<p>
+				<s>
+					<w><choice><orig>contado</orig><reg>Contado</reg></choice></w> 
+					<w>o</w> 
+					<w>que</w> 
+					<w>se</w> 
+					<w><choice><orig>dis</orig><reg>diz</reg></choice></w>
+					<pc>,</pc> 
+					<w><choice><orig>Jezus</orig><reg>Jesus</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/>
+					<w><choice><orig>prezente</orig><reg>presente</reg></choice></w> 
+					<w><choice><orig>Anna</orig><reg>Ana</reg></choice></w> 
+					<w><choice><abbr>Ma</abbr><expan>Maria</expan></choice></w> 
+					<w>de</w>
+					<w><choice><orig>jezus</orig><reg>Jesus</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p><lb break="yes"/></postscript>
+		</body>
+	</text>
+</TEI>
+

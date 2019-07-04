@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1803. Carta no autógrafa de fray Antonio Sánchez Ornero para Francisco Romero Salazar.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2015">2015</date> 
+				<availability status="restricted"><p>Copyright 2015, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Toledo</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Histórico Provincial de Toledo</institution>
+							<repository xml:id="CO">Corregimiento de Orgaz</repository>
+							<collection>Corregimiento</collection>
+							<idno>Legajo 53820</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor pide a Francisco Romero que le envíe más chocolate para las celebraciones de la Cuaresma tras haber recibido correctamente su último envío.</summary>
+							<msItem class="original">
+								<p><locus>[18]r-v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un folio de papel doblado en cuarto, escrito por el recto del primer cuarto y el recto del segundo.
+										<dimensions scope="all" unit="mm">
+											<height>214</height>
+											<width>159</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>sin cambio de línea entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> A <expan>Franco</expan> Romero <lb/> Salazar <expan>gde</expan> Dios <expan>ms</expan> <expan>as</expan> <lb/> en la Villa de <lb/> Orgaz</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo Histórico Provincial de Toledo.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>petición</catDesc></category>
+					<category xml:id="type"><catDesc>familiar</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K92"/>
+						<term n="2" key="KW.xml#K201"/>
+						<term n="3" key="KW.xml#K165"/>
+						<term n="4" key="KW.xml#K197"/>
+						<term n="5" key="KW.xml#K13"/>
+						Enfermedad,Salud,Fiesta religiosa,Ropa,Alimentos</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>0</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#ASO2" xml:id="ASO2" cert="high"><name>Antonio Sánchez Ornero</name></persName>
+					<placeName confidence="1" type="origin">España, Toledo, Mazarambroz
+						<location>
+							<geo>39.6945960 -4.0197425</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1803-02-18" from="1803" to="1803" when-custom="1803.02.18"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#FRS2" cert="high"><name>Francisco Romero Salazar</name></persName>
+					<placeName confidence="1" type="destination">España, Toledo, Orgaz
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1804 Paula Ceciaga interpuso pleito contra Juana Sánchez Ornero, monja profesa en Alcalá de Henares, por la sucesión en un vínculo. La demandante alegaba que la condición religiosa de sor Juana la invalidaba para la sucesión. Al hilo del proceso, Francisco Romero Salazar presentó las cuentas que como apoderado de sor Juana había llevado en la villa de Orgaz. Además de las mismas y de los distintos recibos, aportó un conjunto de misivas que reflejaban algunos de los gastos computados. Las cartas de fray Antonio Sánchez Ornero fueron escritas desde el convento de Santa María del Castañar, hoy destruido y sito en la localidad de Mazarambroz.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2015-06-12">Elisa García Prieto: Codificación XML y contextualización</change> 
+			<change when="2016-11-16">Gael Vaamonde: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title"></p>
+				<p sameAs="summary"></p>
+				<p sameAs="settingDesc"></p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="[18]r" facs="PSCR7842_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute> <lb break="yes"/> 
+				<placeName>
+					<w rend="Castañar">Castañar</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</placeName>
+				<date>
+					<w>y</w> 
+					<w><choice><orig>Febrero</orig><reg>febrero</reg></choice></w> 
+					<w>18</w> 
+					<w>de</w> 
+					<w>1803</w>
+					<pc><choice><orig>.</orig><reg/></choice></pc>
+				</date>
+			</opener>
+			<p>
+				<s>
+				<seg type="opener" subtype="salute">
+					<w>Mi</w> 
+					<w><choice><orig>estima</orig><reg>estimado</reg></choice></w> 
+					<w><choice><abbr>Franco</abbr><expan>Francisco</expan></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+				<seg type="harangue">
+				<s> 
+					<w><choice><orig>celevrare</orig><reg>Celebraré</reg></choice></w> 
+					<w>el</w> 
+					<w><choice><abbr>qe</abbr><expan>que</expan></choice></w> 
+					<w rend="esta"><choice><orig>es<lb break="no"/>ta</orig><reg>ésta</reg></choice></w> 
+					<w>te</w> 
+					<w><choice><orig>alle</orig><reg>halle</reg></choice></w> 
+					<w><choice><abbr>completamte</abbr><expan>completamente</expan></choice></w> 
+					<w>restablecido</w> 
+					<w>e</w> 
+					<w><choice><abbr>igualmte</abbr><expan>igualmente</expan></choice></w> 
+					<w>a</w> <lb break="yes"/> 
+					<w>toda</w> 
+					<w>la</w> 
+					<w>familia</w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s>
+					<w><choice><orig>senti</orig><reg>Sentí</reg></choice></w> 
+					<w>mucho</w> 
+					<w>vuestras</w> 
+					<w rend="indisposiciones">indispo<lb break="no"/>siciones</w> 
+					<w>y</w> 
+					<w>me</w> 
+					<w>alegro</w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w><choice><orig>mejoria</orig><reg>mejoría</reg></choice></w>
+					<pc>.</pc>
+				</s> 
+				<s>
+					<w>Yo</w> 
+					<w><choice><orig>boy</orig><reg>voy</reg></choice></w> 
+					<w rend="pasando">pa<lb break="no"/>sando</w> 
+					<w>muy</w> 
+					<w>bien</w>
+					<pc>,</pc> 
+					<w>a</w> 
+					<w>Dios</w> 
+					<w>gracias</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w><choice><orig>Recivi</orig><reg>Recibí</reg></choice></w> 
+					<w><choice><abbr>pr</abbr><expan>por</expan></choice></w> 
+					<w><choice><abbr>Ho</abbr><expan>Hermano</expan><reg>hermano</reg></choice></w> 
+					<w>Casiano</w> 
+					<w>la</w> 
+					<w><choice><orig>Camisa</orig><reg>camisa</reg></choice></w> 
+					<w>y</w> 
+					<w>los</w> 
+					<w rend="Calzoncillos"><choice><orig>Calzon<lb break="no"/>cillos</orig><reg>calzoncillos</reg></choice></w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w>Dios</w> 
+					<w>os</w> 
+					<w><choice><orig>premiara</orig><reg>permiará</reg></choice></w> 
+					<w>la</w> 
+					<w><choice><orig>Caridad</orig><reg>caridad</reg></choice></w> 
+					<w><choice><abbr>qe</abbr><expan>que</expan></choice></w> 
+					<w rend="exercitais"><choice><orig>exercita<lb break="no"/>is</orig><reg>ejercitáis</reg></choice></w> 
+					<w>conmigo</w>
+					<pc>.</pc>
+				</s> 
+				<s>
+					<w><choice><orig>Aora</orig><reg>Ahora</reg></choice></w> 
+					<w><choice><abbr>pa</abbr><expan>para</expan></choice></w> 
+					<w>principiar</w> 
+					<w>la</w> 
+					<w><choice><abbr>Sta</abbr><expan>Santa</expan></choice></w> 
+					<w rend="Cuaresma">Cua<lb break="no"/>resma</w> 
+					<w>me</w> 
+					<w><choice><orig>enbiaras</orig><reg>enviarás</reg></choice></w> 
+					<w>dos</w> 
+					<w><choice><orig>livras</orig><reg>libras</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>Chocolate</orig><reg>chocolate</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>perdonar</w> 
+					<w>las</w> 
+					<w>molestias</w> 
+					<w><choice><abbr>qe</abbr><expan>que</expan></choice></w> 
+					<w>os</w> 
+					<w>ocasiono</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w rend="recive"><choice><orig>re<lb break="no"/>cive</orig><reg>Recibe</reg></choice></w> 
+					<w>mis</w> 
+					<w>expresiones</w> 
+					<w>y</w> 
+					<w><choice><orig>darselas</orig><reg>dárselas</reg></choice></w> 
+					<w>a</w> 
+					<w>tu</w> 
+					<w><choice><orig>Parienta</orig><reg>parienta</reg></choice></w> <lb break="yes"/> 
+					<w>y</w> 
+					<w>familia</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w>a</w> 
+					<w>todos</w> 
+					<w><choice><abbr>ec</abbr><expan>etc</expan></choice></w>
+					<pc>.</pc>
+				</s> 
+				<s>
+				<seg type="closer" subtype="salute">
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>manda</w> 
+					<w>a</w> 
+					<w>este</w> 
+					<w>tu</w> <lb break="yes"/> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w>afecto</w> 
+					<w>y</w> 
+					<w><choice><abbr>sego</abbr><expan>seguro</expan></choice></w> 
+					<w>servidor</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+			</p> <lb break="yes"/>
+			<closer>
+				<signed>
+					<w><choice><abbr>Fr</abbr><expan>Fray</expan></choice></w> 
+					<w>Antonio</w> 
+					<w><choice><abbr>Shez</abbr><expan>Sanchez</expan><reg>Sánchez</reg></choice></w> <lb break="yes"/> <handShift resp="ASO2"/> 
+					<w>Ornero</w>
+				</signed>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

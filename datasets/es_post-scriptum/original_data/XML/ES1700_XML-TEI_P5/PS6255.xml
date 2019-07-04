@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1709. Carta de Francisco Vitorino para Manuel Suárez.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name/></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2014">2014</date> 
+				<availability status="restricted"><p>Copyright 2014, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Valladolid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo de la Real Chancillería de Valladolid</institution>
+							<repository xml:id="SC">Sala de lo criminal</repository>
+							<collection>Pleitos criminales</collection>
+							<idno>Caja 978, Expediente 5</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor se lamenta a Manuel Suárez por no haber recibido ninguna carta suya.</summary>
+							<msItem class="original">
+								<p><locus>[7a]r-[7b]v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un folio de papel doblado en cuarto, escrito por el recto del primer cuarto y por el verso del segundo cuarto.
+										<dimensions scope="all" unit="mm">
+											<height>211</height>
+											<width>152</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>sin cambio de línea entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES">A Manuel a <expan>qn</expan> <lb/> <expan>gde</expan> Dios <expan>m</expan> <lb/> <expan>a</expan> que puede y d ello <lb/> Bilvestre</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo de la Real Chancillería de Valladolid.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>queja</catDesc></category>
+					<category xml:id="type"><catDesc>ami.</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K230"/>
+						<term n="2" key="KW.xml#K60"/>
+						<term n="3" key="KW.xml#K123"/>
+						<term n="4" key="KW.xml#K193"/>
+						<term n="5" key="KW.xml#K47"/>
+						Prueba,Correspondencia,Incautación,Reproches,Comercio</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>0</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#FV12" xml:id="FV12" cert="high"><name>Francisco Vitorino</name></persName>
+					<placeName confidence="1" type="origin">España, Huelva, Acebuche
+						<location>
+							<geo>37.8885093 -6.8128270</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1709-07-02" from="1709" to="1709" when-custom="1709.07.02"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#M19" cert="high"><name>Manuel Suárez</name></persName>
+					<placeName confidence="1" type="destination">España, Salamanca, Vilvestre
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1709 don José Federico de Tovar, teniente de corregidor de Salamanca, procedió contra Pedro López Cañedo, Juan Fernández Conde (difunto), Antonio Fernández Conde, Manuel Suárez, Ambrosio García y Pedro Barreda, vecinos de Vilvestre (Salamanca), por introducción ilícita de granos, ganado y caballerías en el reino de Portugal. Por parte de la justicia del corregimiento se alegó que ese comercio se había llevado a cabo en tiempo de guerra con Portugal, por lo que se procedió a investigar a los distintos acusados. En el caso de Manuel Suárez, la justicia no pudo prenderle porque abandonó la villa de Vilvestre pero sí que se hizo inspección de su vivienda. Al entrar en la misma, los jueces pesquisidores hicieron relación de los objetos que en ella se hallaron y notificaron el hallazgo de papeles diversos, entre los cuales había cuentas y anotaciones así como varias misivas. Además de una carta sin firmar, se incautaron otras dos cartas dirigidas a Manuel Suárez por Francisco Vitorino (con fecha de 3 de mayo y 27 de julio de 1709, respectivamente) así como una carta escrita desde Braganza por Bernardo López a su hermano Gerónimo López. Hubo varios testigos que aportaron información sobre Manuel Suárez y declararon que era de nación portuguesa y que en virtud de la misma mantenía tratos con el reino vecino. No obstante, ese trato se hacía con el conocimiento y licencia de los gobernadores de Ciudad Rodrigo en calidad de espía. Fue declarado reo en rebeldía al igual que otros de los acusados: Ambrosio García y Pedro Barreda. Sí se pudo prender a Antonio Fernández Conde, quien alegó que en ningún caso había cometido infracción en su comercio con el reino portugués, ya que siempre lo había hecho en tiempo de paz, y que el trato con ellos se sostenía por su matrimonio con una mujer portuguesa.</p> <p>En 1717 el fiscal de la Chancillería de Valladolid corrigió una disposición anterior que había declarado nula la sentencia contra los culpados y condenó con diez mil maravedíes a Antonio Fernández Conde y a Pedro López Cañedo. Ambos debían presentarse en la Chancillería de Valladolid y se decretó el embargo de sus bienes; asimismo, se pidió la remisión de los autos originales.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2014-05">Gael Vaamonde: Codificación XML</change> 
+			<change when="2014-07-09">Gael Vaamonde: Edición modernizada</change> 
+			<change when="2015-10-28">Elisa García Prieto: Contextualización</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Letter from Francisco Vitorino to Manuel Suárez</p>
+				<p sameAs="summary">The author laments for not having received any letter from the addressee.</p>
+				<p sameAs="settingDesc"> In 1709 José Federico de Tovar, a Corregidor’s lieutenant of Salamanca, proceeded against Pedro López Cañedo, Juan Fernández Conde (who had already deceased), Antonio Fernández Conde, Manuel Suárez, Ambrosio García and Pedro Barreda, all of them residents of Vilvestre (Salamanca). They were accused of introducing grain, livestock and horses in Portugal. Corregimiento´s Justice determined they had conducted this trade during wartime against Portugal and therefore they were investigated. In the case of Manuel Suárez, he fled the village and Justice was unable to apprehend him, however, his house was searched and several documents were seized. Among these documents there were accounts, annotations and some letters. Besides an unsigned letter, there were also seized  two other letters addressed to Manuel Suárez from Francisco Vitorio (dated from May the 3rd and July the 27th 1709) and a letter written in Braganza by Bernardo López to his brother Gerónimo López. Several witnesses declared that Manuel Suárez was a Portuguese national and he maintained dealings with the realm. Nevertheless, governors of Ciudad Rodrigo knew about those dealings and about the fact they were made for espionage porpoises. Manuel Suárez was treated as a defaulting defendant, as well as Ambrosio García and Pedro Barreda. Antonio Fernández Conde, by contrast, was arrested and argued he had not offended whatsoever, since he had always traded with the Portuguese realm in peacetime and he continued doing so because he was married to a Portuguese woman.</p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="[7a]r" facs="PS6255_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute>
+			</opener>
+			<p>
+				<s>
+				<seg type="opener" subtype="salute">
+					<w lemma="manuel">Manuel<fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+				<s> 
+					<w lemma="extrañar"><choice><orig>estraño</orig><reg>Extraño</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="mucho">mucho<fs type="pos"><f name="R"><symbol value="RQ"/></f></fs></w> 
+					<w lemma="no">no<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="haber"><choice><orig>aver</orig><reg>haber</reg></choice><fs type="pos"><f name="V"><symbol value="VAN0000"/></f></fs></w> 
+					<w lemma="tener">tenido<fs type="pos"><f name="V"><symbol value="VMP0000"/></f></fs></w> 
+					<w lemma="carta">carta<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="tuyo"><choice><orig>tuia</orig><reg>tuya</reg></choice><fs type="pos"><f name="P"><symbol value="PX2FS0S0"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="pro" lemma="pero"><choice><abbr>pro</abbr><expan>pero</expan></choice><fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w rend="muertos" lemma="morir">mu<lb break="no"/>ertos<fs type="pos"><f name="V"><symbol value="VMP00PM"/></f></fs></w> 
+					<w lemma="y"><choice><orig>i</orig><reg>y</reg></choice><fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="ido">idos<fs type="pos"><f name="N"><symbol value="NCMP000"/></f></fs></w> 
+					<w lemma="haber"><choice><orig>ai</orig><reg>hay</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="uno">un<fs type="pos"><f name="D"><symbol value="DI0MS0"/></f></fs></w> 
+					<w lemma="refrán"><choice><orig>rrefran</orig><reg>refrán</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="que">que<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="decir">dice<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="que">que<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="no">no<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="haber"><choice><orig>ai</orig><reg>hay</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="amigo">amigos<fs type="pos"><f name="N"><symbol value="NCMP000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="esto"><choice><orig>esto</orig><reg>Esto</reg></choice><fs type="pos"><f name="P"><symbol value="PD0NN000"/></f></fs></w> 
+					<w lemma="lo">lo<fs type="pos"><f name="P"><symbol value="PP3CNA00"/></f></fs></w> 
+					<w rend="veo" lemma="ver">ve<lb break="no"/>o<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="mucho">muchos<fs type="pos"><f name="D"><symbol value="DI0MP0"/></f></fs></w> 
+					<w lemma="camino">caminos<fs type="pos"><f name="N"><symbol value="NCMP000"/></f></fs></w> 
+					<w lemma="y"><choice><orig>i</orig><reg>y</reg></choice><fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="mí"><choice><orig>mi</orig><reg>mí</reg></choice><fs type="pos"><f name="P"><symbol value="PP1CSO00"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="nunca">nunca<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="engañar"><choice><orig>engaño</orig><reg>engañó</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS3S0"/></f></fs></w> 
+					<w lemma="el">el<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="corazón"><choice><orig>corason</orig><reg>corazón</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs><note type="linguisticNote" subtype="consonant_system"/></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w lemma="pues">pues<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="tener"><choice><orig>tube</orig><reg>tuve</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w rend="creido" lemma="creer"><choice><orig><supplied resp="GV" reason="illegible">creido</supplied></orig><reg>creído</reg></choice><fs type="pos"><f name="V"><symbol value="VMP00SM"/></f></fs></w> 
+					<w lemma="esto">esto<fs type="pos"><f name="P"><symbol value="PD0NN000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="creer"><choice><orig>creo</orig><reg>Creo</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w rend="abra" lemma="haber"><choice><orig>a<lb break="no"/>bra</orig><reg>habrá</reg></choice><fs type="pos"><f name="V"><symbol value="VAIF3S0"/></f></fs></w> 
+					<w lemma="borrar">borrado<fs type="pos"><f name="V"><symbol value="VMP0000"/></f></fs></w> 
+					<w lemma="el">el<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="regimiento"><choice><orig>rrejimiento</orig><reg>regimiento</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="el">la<fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w> 
+					<w lemma="estrella">estrella<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="todo">toda<fs type="pos"><f name="D"><symbol value="DI0FS0"/></f></fs></w> 
+					<w lemma="bueno">buena<fs type="pos"><f name="A"><symbol value="AQ0FS0"/></f></fs></w> 
+					<w rend="memoria" lemma="memoria">me<lb break="no"/>moria<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="y">y<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="aun"><choice><orig>aun</orig><reg>aún</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="yo"><choice><orig>io</orig><reg>yo</reg></choice><fs type="pos"><f name="P"><symbol value="PP1CSN00"/></f></fs></w> 
+					<w lemma="saber"><choice><orig>ce</orig><reg>sé</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs><note type="linguisticNote" subtype="consonant_system"/></w> 
+					<w lemma="algo">algo<fs type="pos"><f name="R"><symbol value="RQ"/></f></fs></w> 
+					<w lemma="tu">tu<fs type="pos"><f name="D"><symbol value="DP2CSS"/></f></fs></w> 
+					<w rend="bida" lemma="vida"><choice><orig>bi<lb break="no"/>da</orig><reg>vida</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="me"><choice><orig>me</orig><reg>Me</reg></choice><fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="entender">entiendes<fs type="pos"><f name="V"><symbol value="VMIP2S0"/></f></fs></w> 
+					<w lemma="y">y<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="esto">esto<fs type="pos"><f name="P"><symbol value="PD0NN000"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="no">no<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="te">te<fs type="pos"><f name="P"><symbol value="PP2CS000"/></f></fs></w> 
+					<w lemma="hablar"><choice><orig>ablo</orig><reg>hablo</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="más"><choice><orig>mas</orig><reg>más</reg></choice><fs type="pos"><f name="R"><symbol value="RC"/></f></fs></w> 
+					<w lemma="claro">claro<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="bien"><choice><orig>bien</orig><reg>Bien</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="creer"><choice><orig>crei</orig><reg>creí</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="que">que<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="nos">nos<fs type="pos"><f name="P"><symbol value="PP1CP000"/></f></fs></w> 
+					<w lemma="ver"><choice><orig>biecemos</orig><reg>viésemos</reg></choice><fs type="pos"><f name="V"><symbol value="VMSI1P0"/></f></fs><note type="linguisticNote" subtype="consonant_system"/></w> 
+					<w lemma="este">este<fs type="pos"><f name="D"><symbol value="DD0MS0"/></f></fs></w> 
+					<w lemma="verano"><choice><orig>berano</orig><reg>verano</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w lemma="pues">pues<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w> 
+					<w lemma="ya"><choice><orig>ia</orig><reg>ya</reg></choice><fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w lemma="tener"><choice><orig>tube</orig><reg>tuve</reg></choice><fs type="pos"><f name="V"><symbol value="VMIS1S0"/></f></fs></w> 
+					<w lemma="el">la<fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w> 
+					<w lemma="orden">orden<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w rend="executar" lemma="ejecutar"><choice><orig>execu<lb break="no"/>tar</orig><reg>ejecutar</reg></choice><fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="el">el<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> <gap reason="illegible" extent="1 word"/> 
+					<w lemma="compañía"><choice><orig>compañia</orig><reg>compañía</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="y"><choice><orig>y</orig><reg>Y</reg></choice><fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> <supplied resp="GV" reason="illegible">
+					<w rend="aunque" lemma="aunque">a<lb break="no"/>unque<fs type="pos"><f name="C"><symbol value="CS"/></f></fs></w></supplied> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="uno">una<fs type="pos"><f name="D"><symbol value="DI0FS0"/></f></fs></w> 
+					<w lemma="parte">parte<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> 
+					<w lemma="lo">lo<fs type="pos"><f name="P"><symbol value="PP3CNA00"/></f></fs></w> 
+					<w rend="siento" lemma="sentir">sien<lb break="no"/>to<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="me">me<fs type="pos"><f name="P"><symbol value="PP1CS000"/></f></fs></w> 
+					<w lemma="deber"><choice><orig>devo</orig><reg>debo</reg></choice><fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="alegrar">alegrar<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w lemma="por">por<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="otro">otra<fs type="pos"><f name="D"><symbol value="DI0FS0"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="y"><choice><orig>i</orig><reg>Y</reg></choice><fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w rend="mucho" lemma="mucho"><supplied resp="GV" reason="illegible">mu<lb break="no"/>cho</supplied><fs type="pos"><f name="R"><symbol value="RQ"/></f></fs></w> 
+					<w lemma="más"><choice><orig>mas</orig><reg>más</reg></choice><fs type="pos"><f name="R"><symbol value="RC"/></f></fs></w> 
+					<w lemma="decir">dijera<fs type="pos"><f name="V"><symbol value="VMSI0S0"/></f></fs></w> 
+					<w lemma="sobre">sobre<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="esto">esto<fs type="pos"><f name="P"><symbol value="PD0NN000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+					<w lemma="pero">pero<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="lo">lo<fs type="pos"><f name="P"><symbol value="PP3CNA00"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="dejar">dejo<fs type="pos"><f name="V"><symbol value="VMIP1S0"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="el">el<fs type="pos"><f name="D"><symbol value="DA0MS0"/></f></fs></w> 
+					<w lemma="tiempo">tiempo<fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="el">la<fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w> 
+					<w lemma="ocasión"><choice><orig>ocazion</orig><reg>ocasión</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w> <lb break="yes"/> <gap reason="damage" extent="3 words"/> 
+					<w lemma="pasar">pasada<fs type="pos"><f name="V"><symbol value="VMP00SF"/></f></fs></w> 
+					<w rend="la" lemma="el">la<fs type="pos"><f name="D"><symbol value="DA0FS0"/></f></fs></w><pb n="[7a]v" facs="PS6255_3.JPG"/><lb break="yes"/> 
+					<w lemma="campaña"><choice><orig>campana</orig><reg>campaña</reg></choice><fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w lemma="no"><choice><orig>no</orig><reg>No</reg></choice><fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="ser"><choice><orig>soi</orig><reg>soy</reg></choice><fs type="pos"><f name="V"><symbol value="VSIP1S0"/></f></fs></w> 
+					<w lemma="más"><choice><orig>mas</orig><reg>más</reg></choice><fs type="pos"><f name="R"><symbol value="RC"/></f></fs></w> 
+					<w lemma="largo">largo<fs type="pos"><f name="R"><symbol value="RG"/></f></fs></w> 
+					<w rend="pr" lemma="por"><choice><abbr>pr</abbr><expan>por</expan></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="no">no<fs type="pos"><f name="R"><symbol value="RN"/></f></fs></w> 
+					<w lemma="ser"><choice><orig>cer</orig><reg>ser</reg></choice><fs type="pos"><f name="V"><symbol value="VSN0000"/></f></fs><note type="linguisticNote" subtype="consonant_system"/></w> <lb break="yes"/> 
+					<w lemma="violento">violento<fs type="pos"><f name="A"><symbol value="AQ0MS0"/></f></fs></w> 
+					<w lemma="a">a<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="quien">quien<fs type="pos"><f name="P"><symbol value="PR0CS000"/></f></fs></w> 
+					<w lemma="poder">pudiera<fs type="pos"><f name="V"><symbol value="VMSI0S0"/></f></fs></w> 
+					<w lemma="parecer">parecer<fs type="pos"><f name="V"><symbol value="VMN0000"/></f></fs></w> 
+					<w rend="otra" lemma="otro">o<lb break="no"/>tra<fs type="pos"><f name="D"><symbol value="DI0FS0"/></f></fs></w> 
+					<w lemma="cosa">cosa<fs type="pos"><f name="N"><symbol value="NCFS000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w lemma="nuestro"><choice><orig>nuestro</orig><reg>Nuestro</reg></choice><fs type="pos"><f name="D"><symbol value="DP1MSP"/></f></fs></w> 
+					<w rend="sr" lemma="señor"><choice><abbr>sr</abbr><expan>señor</expan><reg>Señor</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="te">te<fs type="pos"><f name="P"><symbol value="PP2CS000"/></f></fs></w> 
+					<w rend="gde" lemma="guardar"><choice><abbr>gde</abbr><expan>guarde</expan></choice><fs type="pos"><f name="V"><symbol value="VMSP0S0"/></f></fs></w> 
+					<w rend="ms" lemma="mucho"><choice><abbr>ms</abbr><expan>muchos</expan></choice><fs type="pos"><f name="D"><symbol value="DI0MP0"/></f></fs></w> 
+					<w rend="as" lemma="año"><choice><abbr>as</abbr><expan>años</expan></choice><fs type="pos"><f name="N"><symbol value="NCMP000"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w lemma="poder">puede<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w> 
+					<w lemma="y">y<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w rend="d" lemma="de"><choice><orig>d</orig><reg>de</reg></choice><fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w rend="ello" lemma="ello"><choice><orig>ello</orig><reg>ello</reg></choice><fs type="pos"><f name="P"><symbol value="PD0NN000"/></f></fs></w>
+					<pc type="F" subtype="Fp"><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s>
+				<seg type="closer" subtype="placeName"><supplied resp="GV" reason="illegible">
+					<w lemma="acebuche"><choice><orig>azabuche</orig><reg>Acebuche</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs><note type="linguisticNote" subtype="unstressed_vowels"/></w></supplied></seg>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc> 
+				<seg type="closer" subtype="date">
+					<w lemma="y">y<fs type="pos"><f name="C"><symbol value="CC"/></f></fs></w> 
+					<w lemma="julio"><choice><orig>jullio</orig><reg>julio</reg></choice><fs type="pos"><f name="N"><symbol value="NCMS000"/></f></fs></w> 
+					<w lemma="2">2<fs type="pos"><f name="Z"><symbol value="Z"/></f></fs></w> <lb break="yes"/> 
+					<w lemma="de">de<fs type="pos"><f name="S"><symbol value="SPS00"/></f></fs></w> 
+					<w lemma="1709">1709<fs type="pos"><f name="Z"><symbol value="Z"/></f></fs></w>
+					<pc type="F" subtype="Fp">.</pc></seg>
+				</s>
+			</p><lb break="yes"/>
+			<closer>
+				<salute>
+					<w lemma="quien"><choice><orig>quien</orig><reg>Quien</reg></choice><fs type="pos"><f name="P"><symbol value="PR0CS000"/></f></fs></w> 
+					<w lemma="más"><choice><orig>mas</orig><reg>más</reg></choice><fs type="pos"><f name="R"><symbol value="RC"/></f></fs></w> 
+					<w lemma="te">te<fs type="pos"><f name="P"><symbol value="PP2CS000"/></f></fs></w> 
+					<w lemma="estimar">estima<fs type="pos"><f name="V"><symbol value="VMIP3S0"/></f></fs></w>
+					<pc type="F" subtype="Fc"><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<signed>
+					<w rend="franco" lemma="francisco"><choice><abbr>franco</abbr><expan>francisco</expan><reg>Francisco</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w> 
+					<w lemma="vitorino"><choice><orig>vitorino</orig><reg>Vitorino</reg></choice><fs type="pos"><f name="N"><symbol value="NP00000"/></f></fs></w>
+				</signed>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

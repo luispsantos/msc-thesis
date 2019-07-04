@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1692. Carta de María de Moya para su marido Francisco de Velasco, cubero.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="LMM">Laura Martínez Martín</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name/></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Laura Martínez Martín</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2014">2014</date> 
+				<availability status="restricted"><p>Copyright 2013, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Cuenca</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Diocesano de Cuenca</institution>
+							<repository xml:id="INQ">Inquisición</repository>
+							<collection>Procesos de delitos</collection>
+							<idno>Legajo 556, Expediente 6948bis</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>La autora le ruega a su marido Francisco de Velasco que regrese a casa lo antes posible, lamenta su ausencia y está preocupada porque varias personas están difundiendo el rumor de que no va a volver.</summary>
+							<msItem class="original">
+								<p><locus>47r</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un folio de papel escrito por el recto.
+										<dimensions scope="all" unit="mm">
+											<height>297</height>
+											<width>200</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>dos líneas en blanco entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"></quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo Diocesano de Cuenca.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>petición</catDesc></category>
+					<category xml:id="type"><catDesc>amor</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K59"/>
+						<term n="2" key="KW.xml#K141"/>
+						Correo,Matrimonio</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#MM15" xml:id="MM15" cert="high"><name>María de Moya</name></persName>
+					<placeName confidence="1" type="origin">España, Valencia, Utiel
+						<location>
+							<geo>39.5694342 -1.2037220</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1692-06-11" from="1692" to="1692" when-custom="1692.06.11"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#FV11" cert="low"><name>Francisco de Velasco</name></persName>
+					<placeName confidence="0" type="destination">S.l.
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>El proceso se abrió por bigamia en 1694 contra Francisco de Velasco, destinatario de la carta, siendo el reo finalmente penitenciado. Francisco de Velasco, preso en las cárceles, reconoció una carta de María de Moya, su segunda mujer, con la que se casó en agosto de 1692. Con su primera mujer, María de la Cruz, se casó en Udalla (de donde es natural) y él la daba por muerta por lo que contrajo segundas nupcias.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2014-02">Laura Martínez Martín: Codificación XML y contexto situacional</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Letter from María de Moya to her husband Francisco de Velasco, a cooper. </p>
+				<p sameAs="summary">The author begs her husband to come back home as soon as possible, expresses her sorrow for his absence and her worries for the rumours he heard about the fact that he will not come back. </p>
+				<p sameAs="settingDesc">In 1694, Francisco de Velasco was accused of bigamy, and was eventually found guilty. While he was arrested, he admitted to be the addressee of a letter sent by his second wife, María de Moya, with whom he had got married in 1692. He claimed that he thought that his first wife María de la Cruz, which he had married in Udalla (where he was borne), was dead, and so he got married again. </p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="47r" facs="PS8099_1.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute>
+				<salute>
+					<w>Hermano</w> 
+					<w><choice><orig>mio</orig><reg>mío</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</salute>
+			</opener>
+			<p>
+				<s>
+					<w>Con</w> 
+					<w><choice><orig>grandisimo</orig><reg>grandísimo</reg></choice></w> 
+					<w>cuidado</w> 
+					<w>me</w> 
+					<w>tiene</w> 
+					<w>el</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w><choice><orig>aigas</orig><reg>hayas</reg><sic>haigas</sic></choice></w> 
+					<w rend="escrito">es<lb break="no"/>crito</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>abiendome</orig><reg>habiéndome</reg></choice></w> 
+					<w>dicho</w> 
+					<w><choice><orig>escribirias</orig><reg>escribirías</reg></choice></w> 
+					<w>de</w> 
+					<w>contado</w> 
+					<w>como</w> <lb break="yes"/> 
+					<w><choice><orig>estubieras</orig><reg>estuvieras</reg></choice></w> 
+					<w>cerca</w> 
+					<w>de</w> 
+					<w>tu</w> 
+					<w>lugar</w>
+					<pc><choice><orig/><reg>;</reg></choice></pc>
+				</s> 
+				<s>
+					<w>ya</w> 
+					<w>me</w> 
+					<w>parece</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>quince</w> 
+					<w><choice><orig>dias</orig><reg>días</reg></choice></w> 
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w>no</w> 
+					<w><choice><orig>e</orig><reg>he</reg></choice></w> 
+					<w>tenido</w> 
+					<w>letra</w> 
+					<w><choice><orig>tuia</orig><reg>tuya</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>asi</orig><reg>así</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>por</w> 
+					<w>amor</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>te</w> 
+					<w>suplico</w> 
+					<w>no</w> 
+					<w><choice><orig>dexes</orig><reg>dejes</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>benir</orig><reg>venir</reg></choice></w> 
+					<w>con</w> 
+					<w>la</w> 
+					<w rend="puntualidad">puntua<lb break="no"/>lidad</w> 
+					<w>posible</w> 
+					<w>por</w> 
+					<w>sacar</w> 
+					<w>a</w> 
+					<w>muchos</w> 
+					<w>mentirosos</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="porque">por<lb break="no"/>que</w> 
+					<w>dicen</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w><choice><orig>as</orig><reg>has</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>bolber</orig><reg>volver</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>de</w> 
+					<w>lo</w> 
+					<w>cual</w> 
+					<w>no</w> 
+					<w>tengo</w> <lb break="yes"/> 
+					<w><choice><orig>io</orig><reg>yo</reg></choice></w> 
+					<w>esas</w> 
+					<w><choice><orig>confiancas</orig><reg>confianzas</reg></choice></w> 
+					<w>de</w> 
+					<w>ti</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>el</w> 
+					<w><choice><orig>dotor</orig><reg>doctor</reg></choice></w> 
+					<w><choice><orig>bides</orig><reg>Vides</reg></choice></w> 
+					<w>y</w> 
+					<w><choice><orig>martin</orig><reg>Martín</reg></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><orig>comas</orig><reg>Comas</reg></choice></w> 
+					<w><choice><orig>an</orig><reg>han</reg></choice></w> 
+					<w><choice><orig>benido</orig><reg>venido</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>llebarse</orig><reg>llevarse</reg></choice></w> 
+					<w>los</w> 
+					<w>trastos</w> 
+					<w>del</w> <lb break="yes"/> 
+					<w>oficio</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>porque</w> 
+					<w>dicen</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w><choice><orig>bolberas</orig><reg>volverás</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>martin</orig><reg>Martín</reg></choice></w> 
+					<w>de</w> 
+					<w rend="comas"><choice><orig>co<lb break="no"/>mas</orig><reg>Comas</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w>la</w> 
+					<w>escopeta</w> 
+					<pc><choice><orig/><reg>(</reg></choice></pc>
+					<w>que</w> 
+					<w>no</w> 
+					<w>te</w> 
+					<w>la</w> 
+					<w><choice><orig>abias</orig><reg>habías</reg></choice></w> 
+					<w><choice><orig>llebado</orig><reg>llevado</reg></choice></w>
+					<pc><choice><orig/><reg>)</reg></choice></pc> 
+					<w>que</w> <lb break="yes"/> 
+					<w><choice><orig>trataramos</orig><reg>tratáramos</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>darsela</orig><reg>dársela</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>asi</orig><reg>así</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>por</w> 
+					<w>amor</w> 
+					<w>de</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>te</w> 
+					<w rend="suplico">su<lb break="no"/>plico</w> 
+					<w>no</w> 
+					<w><choice><orig>dexes</orig><reg>dejes</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>benir</orig><reg>venir</reg></choice></w> 
+					<w>con</w> 
+					<w>la</w> 
+					<w><choice><orig>brebedad</orig><reg>brevedad</reg></choice></w> 
+					<w>posible</w> <lb break="yes"/> 
+					<w>por</w> 
+					<w>sacar</w> 
+					<w>a</w> 
+					<w>muchos</w> 
+					<w>mentirosos</w> 
+					<w>y</w> 
+					<w>cumplir</w> 
+					<w><choice><orig>tu</orig><reg>tú</reg></choice></w> 
+					<w>como</w> <lb break="yes"/> 
+					<w><choice><orig>ombre</orig><reg>hombre</reg></choice></w> 
+					<w>de</w> 
+					<w>bien</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w>te</w> 
+					<w>tengo</w> 
+					<w>por</w> 
+					<w>tal</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>echa</w> 
+					<w>de</w> 
+					<w><choice><orig>ber</orig><reg>ver</reg></choice></w> 
+					<w>que</w> <lb break="yes"/> 
+					<w>aquello</w> 
+					<w>que</w> 
+					<w>estaba</w> 
+					<w>en</w> 
+					<w>duda</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>salido</w> 
+					<w>de</w> 
+					<w><choice><orig>beras</orig><reg>veras</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w rend="aquellas">aque<lb break="no"/>llas</w> 
+					<w>personas</w> 
+					<w>que</w> 
+					<w><choice><orig>tu</orig><reg>tú</reg></choice></w> 
+					<w><choice><orig>Referias</orig><reg>referías</reg></choice></w> 
+					<w>ya</w> 
+					<w><choice><orig>ban</orig><reg>van</reg></choice></w> 
+					<w>diciendo</w> 
+					<w>por</w> <lb break="yes"/> 
+					<w>ese</w> 
+					<w>lugar</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>les</w> 
+					<w>parece</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>por</w> 
+					<w>sacar</w> 
+					<w>los</w> 
+					<w>mentirosos</w> <lb break="yes"/> 
+					<w>te</w> 
+					<w>suplico</w> 
+					<w><choice><orig>bengas</orig><reg>vengas</reg></choice></w> 
+					<w>con</w> 
+					<w>la</w> 
+					<w>puntualidad</w> 
+					<w>posible</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w><choice><orig>pues</orig><reg>puedes</reg></choice><note type="linguisticNote" subtype="consonant_system-verb_paradigm"/></w> <lb break="yes"/> 
+					<w>creer</w> 
+					<w>que</w> 
+					<w>en</w> 
+					<w>quince</w> 
+					<w><choice><orig>dias</orig><reg>días</reg></choice></w> 
+					<w>que</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>que</w> 
+					<w>faltas</w> <gap reason="damage" extent="1 word"/> <lb break="yes"/> 
+					<w>me</w> 
+					<w><choice><orig>pareçe</orig><reg>parece</reg></choice></w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>quince</w> 
+					<w>años</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>si</w> 
+					<w>me</w> 
+					<w><choice><orig>allara</orig><reg>hallara</reg></choice></w> 
+					<w>con</w> 
+					<w><choice><orig>fuerças</orig><reg>fuerzas</reg></choice></w> 
+					<w rend="para">pa<lb break="no"/>ra</w> 
+					<w>poder</w> 
+					<w>ir</w> 
+					<w>me</w> 
+					<w><choice><orig>ubiera</orig><reg>hubiera</reg></choice></w> 
+					<w>ido</w> 
+					<w>contigo</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>mi</w> 
+					<w>madre</w> 
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w>mi</w> <lb break="yes"/> 
+					<w><choice><orig>ermano</orig><reg>hermano</reg></choice></w> 
+					<w>Juan</w> 
+					<w>y</w> 
+					<w>mi</w> 
+					<w>padre</w> 
+					<w>te</w> 
+					<w>lo</w> 
+					<w>encargan</w> 
+					<w>mucho</w> <lb break="yes"/> 
+					<w>que</w> 
+					<w>cuanto</w> 
+					<w>antes</w> 
+					<w>sea</w> 
+					<w>la</w> 
+					<w><choice><orig>benida</orig><reg>venida</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>por</w> 
+					<w>no</w> 
+					<w>dar</w> 
+					<w>que</w> 
+					<w><choice><orig>ablar</orig><reg>hablar</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><orig>badaxos</orig><reg>badajos</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>los</orig><reg>Los</reg></choice></w> 
+					<w>barberos</w> 
+					<w>que</w> 
+					<w><choice><orig>tu</orig><reg>tú</reg></choice></w> 
+					<w>encontraste</w> 
+					<w rend="estuvieron">estuvie<lb break="no"/>ron</w> 
+					<w>en</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>y</w> 
+					<w>el</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w>pequeño</w> 
+					<w>se</w> 
+					<w><choice><orig>acomodo</orig><reg>acomodó</reg></choice></w> 
+					<w>con</w> 
+					<w rend="antonio"><choice><orig>anto<lb break="no"/>nio</orig><reg>Antonio</reg></choice></w> 
+					<w><choice><orig>fernandez</orig><reg>Fernández</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>i</orig><reg>Y</reg></choice></w> 
+					<w>el</w> 
+					<w rend="dho"><choice><abbr>dho</abbr><expan>dicho</expan></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>alle</orig><reg>hallé</reg></choice></w> 
+					<w rend="mitido"><choice><orig><supplied resp="LMM" reason="illegible">mitido</supplied></orig><reg>metido</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w> 
+					<w>a</w> 
+					<w><choice><orig>nabaxas</orig><reg>navajas</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>a</orig><reg>A</reg></choice></w> <lb break="yes"/> 
+					<w><choice><orig>ber</orig><reg>ver</reg></choice></w> 
+					<w>si</w> 
+					<w>se</w> 
+					<w>puede</w> 
+					<w>acomodar</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>el</w> 
+					<w>que</w> 
+					<w>se</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>quedado</w> 
+					<w><choice><orig>aqui</orig><reg>aquí</reg></choice></w> <lb break="yes"/> 
+					<w>tiene</w> 
+					<w>grande</w> 
+					<w>gana</w> 
+					<w>de</w> 
+					<w>que</w> 
+					<w><choice><orig>bengas</orig><reg>vengas</reg></choice></w> 
+					<w>porque</w> 
+					<w>le</w> 
+					<w>mandes</w> 
+					<w rend="en"><lb break="no" rend="verticalText"/>en</w> 
+					<w>que</w> 
+					<w><choice><orig>el</orig><reg>él</reg></choice></w> 
+					<w>te</w> 
+					<w>pueda</w> 
+					<w><choice><orig>serbir</orig><reg>servir</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w><choice><orig>bino</orig><reg>vino</reg></choice></w> 
+					<w><choice><orig>mui</orig><reg>muy</reg></choice></w> 
+					<w>agradecido</w> 
+					<w>el</w> 
+					<w>uno</w> 
+					<w><choice><orig>i</orig><reg>y</reg></choice></w> 
+					<w>el</w> 
+					<w>otro</w> 
+					<w>por</w> 
+					<w><choice><orig>aberlos</orig><reg>haberlos</reg></choice></w> 
+					<w>encaminado</w> 
+					<w>a</w> <lb break="yes" rend="verticalText"/> 
+					<w>mi</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>io</orig><reg>yo</reg></choice></w> 
+					<w><choice><orig>recibi</orig><reg>recibí</reg></choice></w> 
+					<w><choice><orig>garande</orig><reg>grande</reg></choice><note type="linguisticNote" subtype="complex_syllable"/></w> 
+					<w>contento</w> 
+					<w>por</w> 
+					<w>las</w> 
+					<w>noticias</w> 
+					<w>que</w> 
+					<w>me</w> 
+					<w>dieron</w> 
+					<w>de</w> 
+					<w>ti</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>en</orig><reg>En</reg></choice></w> 
+					<w>cuanto</w> 
+					<w>a</w> 
+					<w>la</w> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>no</w> 
+					<w><choice><orig>dexes</orig><reg>dejes</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>benir</orig><reg>venir</reg></choice></w> 
+					<w>antes</w> 
+					<w>de</w> 
+					<w>San</w> 
+					<w><choice><orig>Juan</orig><reg>Juan</reg></choice></w> 
+					<w>o</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>si</w> 
+					<w>no</w> 
+					<w><choice><orig>pues</orig><reg>puedes</reg></choice><note type="linguisticNote" subtype="consonant_system-verb_paradigm"/></w> 
+					<w><choice><orig>benir</orig><reg>venir</reg></choice></w> 
+					<w>antes</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>me</w> 
+					<w>escribas</w> 
+					<w>de</w> 
+					<w>contado</w> <lb break="yes" rend="verticalText"/> 
+					<w>para</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w>la</w> 
+					<w><choice><orig>aRienden</orig><reg>arrienden</reg></choice></w> 
+					<w>a</w> 
+					<w>otro</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>no</orig><reg>No</reg></choice></w> 
+					<w>se</w> 
+					<w>me</w> 
+					<w>ofrece</w> 
+					<w>otra</w> 
+					<w>cosa</w> 
+					<w>sino</w> 
+					<w>que</w> 
+					<w><choice><orig>Recibas</orig><reg>recibas</reg></choice></w> 
+					<w>mil</w> 
+					<w rend="Recados"><choice><orig>Reca<lb break="no" rend="verticalText"/>dos</orig><reg>recados</reg></choice></w> 
+					<w>de</w> 
+					<w>parte</w> 
+					<w>de</w> 
+					<w>mi</w> 
+					<w>madre</w> 
+					<w>y</w> 
+					<w>mi</w> 
+					<w>padre</w> 
+					<w>y</w> 
+					<w>mis</w> 
+					<w><choice><orig>ermanos</orig><reg>hermanos</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>y</w> 
+					<w>de</w> 
+					<w>mi</w> 
+					<w>parte</w> 
+					<w>mil</w> 
+					<w><choice><orig>abraços</orig><reg>abrazos</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>adios</orig><reg>adiós</reg></choice></w> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>asta</orig><reg>hasta</reg></choice></w> 
+					<w>la</w> 
+					<w><choice><orig>bista</orig><reg>vista</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w><choice><orig>confio</orig><reg>confío</reg></choice></w> 
+					<w>en</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w><choice><orig>sera</orig><reg>será</reg></choice></w> 
+					<w>con</w> 
+					<w><choice><orig>brebedad</orig><reg>brevedad</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p><lb break="yes"/>
+			<closer>
+				<placeName>
+					<w>Utiel</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</placeName>
+				<date>
+					<w>y</w> 
+					<w><choice><orig>Junio</orig><reg>junio</reg></choice></w> 
+					<w>a</w> 
+					<w>11</w> 
+					<w>de</w> 
+					<w>1692</w>
+				</date> <lb break="yes"/> 
+				<salute>
+					<w><choice><orig>tu</orig><reg>Tu</reg></choice></w> 
+					<w>esposa</w> 
+					<w>que</w> 
+					<w>desea</w> 
+					<w><choice><orig>berte</orig><reg>verte</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<signed>
+					<w><choice><orig>maria</orig><reg>María</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>moia</orig><reg>Moya</reg></choice></w>
+				</signed>
+			</closer>              
+            <postscript>
+                <p/><lb break="yes"/>
+            </postscript>
+		</body>
+	</text>
+</TEI>
+

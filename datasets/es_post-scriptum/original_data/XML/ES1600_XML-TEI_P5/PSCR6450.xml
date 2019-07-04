@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1611. Carta no autógrafa de Juan Alonso de Moscoso, obispo de Málaga, para Francisco Sánchez de Aguilera, clérigo beneficiado y contador.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="GAC">Guadalupe Adámez Castro</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name xml:id="CSS">Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name>Guadalupe Adámez Castro</name></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Guadalupe Adámez Castro</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2016">2016</date> 
+				<availability status="restricted"><p>Copyright 2016, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Madrid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Histórico Nacional</institution>
+							<repository xml:id="C">Consejos</repository>
+							<collection>Escribanías de Cámara</collection>
+							<idno>Legajo 36210</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor escribe a Francisco Sánchez de Aguilera para informarle de los problemas del obispado de Málaga.</summary>
+							<msItem class="original">
+								<p><locus>345r-346v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un bifolio de papel doblado en folio, escrito por recto y verso del primer folio y por el verso del segundo folio.
+										<dimensions scope="all" unit="mm">
+											<height>300</height>
+											<width>190</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>cinco líneas en blanco entre la cruz del encabezamiento y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> Al <expan>Licendo</expan> <expan>Franco</expan> <expan>ssz</expan> de Aguilera <lb/> <supplied resp="GAC" reason="hidden"><expan>Beneffido</expan></supplied> de Benamocarra <lb/> <expan>Md</expan></quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo Histórico Nacional.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>información</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K6"/>
+						<term n="2" key="KW.xml#K119"/>
+						<term n="3" key="KW.xml#K134"/>
+						<term n="4" key="KW.xml#K158"/>
+						<term n="5" key="KW.xml#K53"/>
+						Administración,Iglesia,Justicia,Negocios,Consejos</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#JAM10" xml:id="JAM10" cert="high"><name>Juan Alonso de Moscoso</name></persName>
+					<placeName confidence="1" type="origin">España, Málaga
+						<location>
+							<geo>36.7212737 -4.4213988</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1611-03-06" from="1611" to="1611" when-custom="1611.03.06"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#FSA2" xml:id="FSA2" cert="high"><name>Francisco Sánchez de Aguilera</name></persName>
+					<placeName confidence="1" type="destination">España, Madrid
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1623 se inició un pleito a instancia del licenciado Francisco Sánchez de Aguilera, quien solicitaba parte de los bienes del expolio de Juan Alonso de Moscoso, obispo de Málaga, en pago por los servicios que le había prestado. Según un documento que se adjuntó al proceso, en 1604 éste había nombrado a Francisco Sánchez de Aguilera contador de la hacienda episcopal con un salario de 50.000 maravedíes anuales. El demandante alegó que estuvo desempeñando este oficio, sin poder atender ningún otro asunto, durante 10 años, tiempo en el que no percibió los honorarios que le correspondían. Afirmaba entonces que la deuda seguía vigente en el momento del fallecimiento de Juan Alonso de Moscoso en 1614, en cuyo testamento figuraba una disposición que obligaba a satisfacer todas las deudas que él hubiera contraído con sus criados.</p> <p>Sin embargo, los testamentarios pusieron en duda los trabajos realizados por Francisco Sánchez de Aguilera argumentando que éstos no aparecían reflejados en el «libro de los criados». Además, según la pragmática de 1566, que también se incorporó al proceso, a la muerte de cualquier obispo los salarios que no estuvieran anotados en dicho libro como pendientes no podían ser reclamados. Por todo ello, se negaban a pagar la cantidad exigida por el contador. Éste presentó diversas cartas, así como otro tipo de documentación, para probar que había servido al obispo hasta prácticamente el fin de sus días y que incluso se había trasladado a la corte por su mandato. No obstante, se determinó que las misivas no justificaban la existencia de esa relación profesional entre ambos, pues los escribanos que las examinaron dictaminaron que tanto la cortesía como el lenguaje empleados en ellas no eran los propios entre un criado y un señor, sino que revelaban un trato más cercano. El proceso está inconcluso.</p> <p>Respecto a la misiva aquí transcrita, en el margen superior del folio 345r aparece la siguiente anotación de otra mano: "Misiva".</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2016-10-25">Guadalupe Adámez Castro: Codificación XML y contextualización</change> 
+			<change when="2016-12-18">Carmen Serrano Sánchez: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title"></p>
+				<p sameAs="summary"></p>
+				<p sameAs="settingDesc"></p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="345r" facs="PSCR6450_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute>
+			</opener>
+			<p>
+				<s><hi rend="underlined" resp="annotator">
+					<w>Bien</w> 
+					<w>holgara</w> 
+					<w>yo</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w><choice><orig>Ubiera</orig><reg>hubiera</reg></choice></w> 
+					<w><choice><orig>tractado</orig><reg>tratado</reg><sic>tractado</sic></choice></w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w>residencia</w> 
+					<w>del</w> 
+					<w><choice><orig>Chantre</orig><reg>chantre</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> <lb break="yes"/> 
+					<w>la</w> 
+					<w>que</w> 
+					<w><choice><orig>haze</orig><reg>hace</reg></choice></w> 
+					<w>en</w> 
+					<w>esa</w> 
+					<w>corte</w> 
+					<w>es</w> 
+					<w>la</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w>importante</w> 
+					<w>que</w> 
+					<w>al</w> 
+					<w><choice><orig>pressente</orig><reg>presente</reg></choice></w> 
+					<w>tiene</w> 
+					<w>esta</w> 
+					<w><choice><abbr>nra</abbr><expan>nuestra</expan></choice></w> 
+					<w><choice><orig>sancta</orig><reg>Santa</reg></choice></w> 
+					<w><choice><abbr>Igla</abbr><expan>Iglesia</expan></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></hi>
+				</s>
+				<s> <lb break="yes"/> 
+					<w>Pero</w> 
+					<w>los</w> 
+					<w>que</w> 
+					<w>en</w> 
+					<w>ella</w> 
+					<w>estamos</w> 
+					<w>no</w> 
+					<w>creen</w> 
+					<w>le</w> 
+					<w>procuramos</w> 
+					<w>tanto</w> 
+					<w>bien</w> 
+					<w>como</w> 
+					<w>tenemos</w> 
+					<w><choice><abbr>obligon</abbr><expan>obligacion</expan><reg>obligación</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>Consuelome</orig><reg>Consuélome</reg></choice></w> 
+					<w>que</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>entendiendolo</orig><reg>entendiéndolo</reg></choice></w> 
+					<w>esos</w> 
+					<w>señores</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>o</w> 
+					<w><choice><orig>an</orig><reg>han</reg></choice></w> 
+					<w>de</w> 
+					<w>deponer</w> 
+					<w>en</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>al</w> 
+					<w>chantre</w> <lb break="yes"/> 
+					<w>toca</w> 
+					<w>su</w> 
+					<w>decreto</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>o</w> 
+					<w><choice><orig>an</orig><reg>han</reg></choice></w> 
+					<w>de</w> 
+					<w>determinar</w> 
+					<w>luego</w> 
+					<w>a</w> 
+					<w>la</w> 
+					<w>hora</w> 
+					<w>su</w> 
+					<w>negocio</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>en</w> 
+					<w>verdad</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w>tengo</w> 
+					<w>por</w> <lb break="yes"/> 
+					<w>muy</w> 
+					<w>cierto</w> 
+					<w>lo</w> 
+					<w>uno</w> 
+					<w>o</w> 
+					<w>lo</w> 
+					<w>otro</w>
+					<pc>.</pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w>Por</w> 
+					<w><choice><orig>aca</orig><reg>acá</reg></choice></w> 
+					<w>la</w> 
+					<w><choice><orig>Visita</orig><reg>visita</reg></choice></w> 
+					<w>en</w> 
+					<w>que</w> 
+					<w>me</w> 
+					<w>hallo</w> 
+					<w><choice><orig>esta</orig><reg>está</reg></choice></w> 
+					<w>muy</w> 
+					<w>ensangrentada</w> 
+					<w>y</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>en</w> 
+					<w>verdad</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> <lb break="yes"/> 
+					<w>me</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>dado</w> 
+					<w>en</w> 
+					<w>algunos</w> 
+					<w>negocios</w> 
+					<w>mucha</w> 
+					<w>pena</w>
+					<pc>.</pc>
+				</s> 
+				<s>
+					<w><choice><orig>es</orig><reg>Es</reg></choice></w> 
+					<w><choice><orig>forçoso</orig><reg>forzoso</reg></choice></w> 
+					<w>ir</w> 
+					<w>decretando</w> 
+					<w>cosas</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w>con</w> 
+					<w>el</w> 
+					<w>favor</w> 
+					<w>del</w> 
+					<w><choice><orig>Cielo</orig><reg>cielo</reg></choice></w> 
+					<w>pienso</w> 
+					<w>salir</w> 
+					<w><choice><orig>passada</orig><reg>pasada</reg></choice></w> 
+					<w><choice><orig>pasqua</orig><reg>Pascua</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>Visitar</orig><reg>visitar</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w>Los</w> 
+					<w>negocios</w> 
+					<w>de</w> 
+					<w><choice><orig>Aragon</orig><reg>Aragón</reg></choice></w> 
+					<w>me</w> 
+					<w>tienen</w> 
+					<w>admirado</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>pareceme</orig><reg>Paréceme</reg></choice></w> 
+					<w>que</w> 
+					<w>el</w> 
+					<w>señor</w> 
+					<w>nuncio</w> 
+					<w rend="deviera"><choice><orig>de<lb break="no"/>viera</orig><reg>debiera</reg></choice></w> 
+					<w>de</w> 
+					<w>entender</w> 
+					<w>que</w> 
+					<w>los</w> 
+					<w><choice><orig>podia</orig><reg>podía</reg></choice></w> 
+					<w>rendir</w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w>voluntad</w> 
+					<w>como</w> 
+					<w>rinde</w> 
+					<w>los</w> 
+					<w><choice><orig>demas</orig><reg>demás</reg></choice></w> 
+					<w><choice><orig>clerigos</orig><reg>clérigos</reg></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>Castilla</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>con</orig><reg>Con</reg></choice></w> 
+					<w>todo</w> 
+					<w>esto</w> 
+					<w>tengo</w> 
+					<w>grande</w> 
+					<w><choice><orig>esperança</orig><reg>esperanza</reg></choice></w> 
+					<w>que</w> 
+					<w>el</w> 
+					<w>rey</w> 
+					<w><choice><abbr>nro</abbr><expan>nuestro</expan></choice></w> 
+					<w>señor</w> 
+					<w>lo</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>de</w> 
+					<w rend="componer">com<lb break="no"/>poner</w> 
+					<w>todo</w>
+					<pc>.</pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w><choice><orig>Alla</orig><reg>Allá</reg></choice></w> 
+					<w>va</w> 
+					<w>el</w> 
+					<w><choice><abbr>Raciono</abbr><expan>Racionero</expan><reg>racionero</reg></choice></w> 
+					<w>Tello</w> 
+					<w>y</w> 
+					<w><choice><orig>aca</orig><reg>acá</reg></choice></w> 
+					<w>deja</w> 
+					<w>nombre</w> 
+					<w>y</w> 
+					<w><choice><orig>credito</orig><reg>crédito</reg></choice></w> 
+					<w>muy</w> 
+					<w>honrado</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>dotado</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>mucha</w> 
+					<w>prudencia</w> 
+					<w>y</w> 
+					<w>virtud</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>pareceme</orig><reg>Paréceme</reg></choice></w> 
+					<w>que</w> 
+					<w>tiene</w> 
+					<w><choice><orig>hazendica</orig><reg>hacendica</reg></choice></w> 
+					<w>en</w> 
+					<w>esa</w> 
+					<w>corte</w> 
+					<w>y</w> 
+					<w><choice><orig>haze</orig><reg>hace</reg></choice></w> <lb break="yes"/> 
+					<w>muy</w> 
+					<w>bien</w> 
+					<w>en</w> 
+					<w>ponerla</w> 
+					<w>de</w> 
+					<w>manera</w> 
+					<w>que</w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w>le</w> 
+					<w>pierda</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w>Fue</w> 
+					<w>con</w> 
+					<w><choice><orig>animo</orig><reg>ánimo</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>bolverse</orig><reg>volverse</reg></choice></w> <lb break="yes"/> 
+					<w><choice><orig>Luego</orig><reg>luego</reg></choice></w> 
+					<w>y</w> 
+					<w>para</w> 
+					<w>esto</w> 
+					<w><choice><orig>llevo</orig><reg>llevó</reg></choice></w> 
+					<w><choice><orig>Cabalgaduras</orig><reg>cabalgaduras</reg></choice></w> 
+					<w>para</w> 
+					<w><choice><orig>bolverse</orig><reg>volverse</reg></choice></w> 
+					<w>en</w> 
+					<w>ellas</w>
+					<pc>.</pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w>Ni</w> 
+					<w>la</w> 
+					<w>ciudad</w> 
+					<w>ni</w> 
+					<w>la</w> 
+					<w><choice><abbr>Igla</abbr><expan>Iglesia</expan><reg>iglesia</reg></choice></w> 
+					<w><choice><orig>estan</orig><reg>están</reg></choice></w> 
+					<w>como</w> 
+					<w>yo</w> 
+					<w>deseo</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>tieneme</orig><reg>Tiéneme</reg></choice></w> 
+					<w>con</w> 
+					<w>mucho</w> 
+					<w>cuidado</w> 
+					<w>y</w> 
+					<w>no</w> <lb break="yes"/> 
+					<w>menor</w> 
+					<w>pesadumbre</w> 
+					<w>por</w> 
+					<w>no</w> 
+					<w>poder</w> 
+					<w><choice><orig>executar</orig><reg>ejecutar</reg></choice></w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>deseo</w> 
+					<w>ni</w> 
+					<w>en</w> 
+					<w>la</w> 
+					<w>una</w> 
+					<w>parte</w> 
+					<w>ni</w> 
+					<w>en</w> <lb break="yes"/> 
+					<w>la</w> 
+					<w>otra</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>mas</orig><reg>Mas</reg></choice></w> 
+					<w>no</w> 
+					<w>pierdo</w> 
+					<w>la</w> 
+					<w><choice><orig>sperança</orig><reg>esperanza</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>Dios</w> 
+					<w><choice><abbr>nro</abbr><expan>nuestro</expan><reg>Nuestro</reg></choice></w> 
+					<w><choice><orig>señor</orig><reg>Señor</reg></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>de</w> 
+					<w>remediar</w> 
+					<w>todo</w>
+					<pc>.</pc>
+				</s>
+			</p> <lb break="yes"/> 
+			<p>
+				<s>
+					<w><choice><orig>estamos</orig><reg>Estamos</reg></choice></w> 
+					<w>por</w> 
+					<w>momentos</w> 
+					<w><choice><orig>sperando</orig><reg>esperando</reg></choice></w> 
+					<w>al</w> 
+					<w><choice><abbr>Corregor</abbr><expan>Corregidor</expan><reg>corregidor</reg></choice></w> 
+					<w><choice><orig>Don</orig><reg>don</reg></choice></w> 
+					<w><choice><abbr>Anto</abbr><expan>Antonio</expan></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>deseo</orig><reg>Deseo</reg></choice></w> 
+					<w>su</w> 
+					<w>llegada</w> 
+					<w>para</w> <lb break="yes"/> 
+					<w><choice><orig>Ver</orig><reg>ver</reg></choice></w> 
+					<w>si</w> 
+					<w>los</w> 
+					<w>dos</w> 
+					<w>podemos</w> 
+					<w><choice><orig>hazer</orig><reg>hacer</reg></choice></w> 
+					<w>algo</w> 
+					<w>que</w> 
+					<w>aproveche</w> 
+					<w>en</w> 
+					<w>los</w> 
+					<w>negocios</w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w>ciudad</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/> 
+			<p>
+				<s>
+					<w><choice><orig>el</orig><reg>El</reg></choice></w> 
+					<w><choice><abbr>Raciono</abbr><expan>Racionero</expan><reg>racionero</reg></choice></w> 
+					<w>Tello</w> 
+					<w>lleva</w> 
+					<w>una</w> 
+					<w>carta</w> 
+					<w>para</w> 
+					<w>el</w> 
+					<w><choice><abbr>sor</abbr><expan>señor</expan></choice></w> 
+					<w><choice><orig>Nuncio</orig><reg>nuncio</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>suplicando</w> 
+					<w>en</w> 
+					<w>ella</w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w><choice><abbr>sa</abbr><expan>señoria</expan><reg>señoría</reg></choice></w> 
+					<w><choice><abbr>I</abbr><expan>Ilustrissima</expan><reg>ilustrísima</reg></choice></w> <lb break="yes"/> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>ha</w> 
+					<w>seis</w> 
+					<w>o</w> 
+					<w>siete</w> 
+					<w><choice><orig>messes</orig><reg>meses</reg></choice></w> 
+					<w>que</w> 
+					<w>tengo</w> 
+					<w><choice><orig>escripto</orig><reg>escrito</reg><sic>escripto</sic></choice></w> 
+					<w>diversas</w> 
+					<w>cartas</w> 
+					<w>y</w> 
+					<w><choice><orig>embiado</orig><reg>enviado</reg></choice></w> 
+					<w rend="diversas">diver<lb break="no"/>sas</w> 
+					<w>informaciones</w> 
+					<w>para</w> 
+					<w>remediar</w> 
+					<w>esta</w> 
+					<w><choice><abbr>nra</abbr><expan>nuestra</expan></choice></w> 
+					<w><choice><orig>sancta</orig><reg>Santa</reg></choice></w> 
+					<w><choice><abbr>Igla</abbr><expan>Iglesia</expan></choice></w> 
+					<w>en</w> 
+					<w>los</w> 
+					<w>negocios</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>estan</orig><reg>están</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w>su</w> 
+					<w>cargo</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w>me</w> 
+					<w>los</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>quitado</w> 
+					<w>de</w> 
+					<w>las</w> 
+					<w>manos</w> 
+					<w>exentando</w> 
+					<w>personas</w> 
+					<w>de</w> 
+					<w>mi</w> 
+					<w rend="Jurisdicion"><choice><orig>Juris<lb break="no"/>dicion</orig><reg>jurisdicción</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w>disguste</w> 
+					<w>de</w> 
+					<w>que</w> 
+					<w>yo</w> 
+					<w>busque</w> 
+					<w>el</w> 
+					<w>remedio</w> 
+					<w>por</w> 
+					<w>otro</w> 
+					<w>camino</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>en</w> <lb break="yes"/> 
+					<w><choice><orig>Conciencia</orig><reg>conciencia</reg></choice></w> 
+					<w>estoy</w> 
+					<w>obligado</w> 
+					<w>a</w> 
+					<w>buscar</w> 
+					<w>el</w> 
+					<w>remedio</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p> <lb break="yes"/>
+			<p>
+				<s>
+					<w>Y</w> 
+					<w>a</w> 
+					<w><choice><orig>Vm</orig><reg>VM</reg></choice></w> 
+					<w><choice><orig>Certifico</orig><reg>certifico</reg></choice></w> 
+					<w>que</w> 
+					<w>si</w> 
+					<w>su</w> 
+					<w><choice><abbr>sa</abbr><expan>señoria</expan><reg>señoría</reg></choice></w> 
+					<w><choice><abbr>I</abbr><expan>Ilustrissima</expan><reg>ilustrísima</reg></choice></w> 
+					<w>no</w> 
+					<w>le</w> 
+					<w>pone</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w>tengo</w> 
+					<w>de</w> 
+					<w><choice><orig>embiar</orig><reg>enviar</reg></choice></w> 
+					<w>al</w> 
+					<w>Consejo</w> 
+					<w><choice><orig>real</orig><reg>Real</reg></choice></w> 
+					<w rend="traslado">tras<lb break="no"/>lado</w> 
+					<w>de</w> 
+					<w>las</w> 
+					<w>informaciones</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>avisando</w> 
+					<w>como</w> 
+					<w>las</w> 
+					<w>tiene</w> 
+					<w>en</w> 
+					<w>su</w> 
+					<w>poder</w> 
+					<w>el</w> 
+					<w>señor</w> 
+					<w rend="nuncio">nun<lb break="no"/>cio</w> 
+					<w>y</w> 
+					<w>como</w> 
+					<w>no</w> 
+					<w><choice><orig>haze</orig><reg>hace</reg></choice></w> 
+					<w>nada</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>aunq</abbr><expan>aunque</expan></choice></w> 
+					<w>tengo</w> 
+					<w>grande</w> 
+					<w><choice><orig>esperança</orig><reg>esperanza</reg></choice></w> 
+					<w>que</w> 
+					<w>con</w> 
+					<w>brevedad</w> <pb n="345v" facs="PSCR6450_3.JPG"/><lb break="yes"/> 
+					<w><choice><orig>A</orig><reg>ha</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>imbiar</orig><reg>enviar</reg><sic>inviar</sic></choice></w> 
+					<w>persona</w> 
+					<w>que</w> 
+					<w>me</w> 
+					<w>saque</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w>este</w> 
+					<w>cuidado</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>plega</w> 
+					<w>a</w> 
+					<w>Dios</w> 
+					<w>por</w> 
+					<w>su</w> 
+					<w>infinita</w> <lb break="yes"/> 
+					<w>bondad</w> 
+					<w>no</w> 
+					<w>nos</w> 
+					<w>entre</w> 
+					<w>en</w> 
+					<w>otros</w> 
+					<w>mayores</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w><choice><abbr>Ge</abbr><expan>Guarde</expan></choice></w> 
+					<w>Dios</w> 
+					<w>a</w> 
+					<w><choice><orig>Vm</orig><reg>VM</reg></choice></w> 
+					<w>muchos</w> 
+					<w>y</w> 
+					<w><choice><orig>felicissimos</orig><reg>felicísimos</reg></choice></w> 
+					<w>años</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s><lb break="yes"/> 
+				<seg type="closer" subtype="placeName">
+					<w><choice><orig>en</orig><reg>En</reg></choice></w> 
+					<w><choice><orig>Malaga</orig><reg>Málaga</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w>a</w> 
+					<w>6</w> 
+					<w>de</w> 
+					<w><choice><orig>março</orig><reg>marzo</reg></choice></w> 
+					<w>de</w> 
+					<w>1611</w>
+					<pc>.</pc></seg>
+				</s>
+			</p> <lb break="yes"/>
+			<closer>
+				<signed><handShift resp="JAM10"/>
+					<w rend="El">El</w> 
+					<w><choice><abbr>obpo</abbr><expan>obispo</expan></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>malaga</orig><reg>Málaga</reg></choice></w>
+				</signed> 
+				<salute><pb n="345r" facs="PSCR6450_4.JPG"/><lb break="yes"/> <handShift resp="scribe"/>
+					<w rend="Ldo"><choice><abbr><supplied resp="GAC" reason="hidden">Ldo</supplied></abbr><expan>Licenciado</expan></choice></w> <supplied resp="GAC" reason="hidden">
+					<w><choice><abbr>frco</abbr><expan>francisco</expan><reg>Francisco</reg></choice></w></supplied> 
+					<w><choice><abbr>sz</abbr><expan>sanchez</expan><reg>Sánchez</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc><note type="addressee"/>
+				</salute>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

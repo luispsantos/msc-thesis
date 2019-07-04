@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1780. Carta de Teresa Espinosa para su marido Francisco Bernardo Quirós, albañil.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name xml:id="CSS">Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2014">2014</date> 
+				<availability status="restricted"><p>Copyright 2014, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Valladolid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo de la Real Chancillería de Valladolid</institution>
+							<repository xml:id="SC">Salas de lo Criminal</repository>
+							<collection>Pleitos criminales</collection>
+							<idno>Caja 400, Expediente 16</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>La autora suplica a su marido, Francisco Bernardo Quirós, que se reúna con ella en Madrid, o bien que envíe a alguien para buscarla, pues tanto ella como su hija están pasando grandes necesidades.</summary>
+							<msItem class="original">
+								<p><locus>[1]r-[3]v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un folio de papel doblado en cuarto, escrito por recto y verso del primer cuarto y por el recto del segundo cuarto.
+										<dimensions scope="all" unit="mm">
+											<height>215</height>
+											<width>155</width>
+										</dimensions>
+									</extent>
+									<condition><p>la encuadernación dificulta la lectura de algunos márgenes de la carta; el sobrescrito va aparte y está formado por un folio de papel doblado en tres partes.</p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>sin cambio de línea entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> A franzisco quiros <lb/> <expan>gde</expan> Dios <expan>ms</expan> <expan>as</expan> en Casa <lb/> del <expan>Sr</expan> Don Christo <lb/> bal de biberros <lb/> en <lb/> balladoliz</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo de la Real Chancillería de Valladolid.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>súplica</catDesc></category>
+					<category xml:id="type"><catDesc>familiar</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc></catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#TE1" xml:id="TE1" cert="high"><name>Teresa Espinosa</name></persName>
+					<placeName confidence="1" type="origin">España, Madrid
+						<location>
+							<geo>40.4167754 -3.7037902</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1780-11-07" from="1780" to="1780" when-custom="1780.11.07"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#FBQ1" cert="high"><name>Francisco Bernardo Quirós</name></persName>
+					<placeName confidence="1" type="destination">España, Valladolid
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1780 Francisco Bernardo Quirós fue procesado por la justicia por vagancia y amancebamiento. Casado con Teresa Espinosa, el reo trabajaba ocasionalmente como albañil y había vivido en diversas ciudades. En 1778 salió de Madrid y durante su viaje estuvo amancebado con una mujer llamada Teresa Calleja. Después se marchó a Valladolid, donde ejerció su oficio en la casa del marqués de Canillejas. Entabló entonces una relación con Ángela Esteban, a quien llegó a dar palabra de matrimonio ocultándole su verdadero estado civil. Sin embargo, Ángela Esteban no tardó en descubrir el engaño al recibir una carta dirigida a Francisco Bernardo Quirós, escrita por su esposa. Ángela Esteban presentó al Tribunal esta misiva junto con otras dos cartas que el propio Francisco Bernardo Quirós le había entregado en prisión. Cuando los jueces le mostraron estas misivas, este aseguró que Ángela Esteban le había obligado a redactar las dos que estaban escritas de su mano. En cuanto a la carta de su mujer, la reconoció y se defendió de las acusaciones de vagancia que se colegían de su lectura alegando que si no había vuelto a su lado era por falta de medios. Finalmente, el reo fue sentenciado al cumplimiento de ocho años de servicio al rey en el Ejército de Tierra o en la Marina; o bien, en caso de no ser hábil para el servicio militar, a cuatro años de reclusión en un presidio africano.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2014-09">Elisa García Prieto: Codificación XML</change> 
+			<change when="2016-03-01">Carmen Serrano Sánchez: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title">Lettre from Teresa Espinosa to her husband Francisco Bernardo Quirós, a bricklayer.</p>
+				<p sameAs="summary">The author urges her husband to come back to her in Madrid or to send someone to look for her because both her and their daughter are going through great difficulties.</p>
+				<p sameAs="settingDesc">In 1780 Francisco Bernardo Quirós was tried for vagrancy and for being in a de facto relationship. He was married to Teresa Espinosa and worked occasionally as a bricklayer, he had lived in several cities. In 1778 he left Madrid and during his trip he had a de facto relationship with a woman named Teresa Calleja. After that he went to Valladolid, were he worked at marques de Canillejas´ house. He started then a relationship with Ángela Esteban, to whom he hid he was married and promised to marry her. However, Ángela soon discovered the lie when she received a letter addressed to Francisco from his wife. Ángela Esteban presented this letter before the Tribunal together with two other letters that Francisco Bernardo Quirós had handed her in prison. When the judges showed him these letters, he assured that Ángela made him write them. Regarding his wife´s letter, he admitted it was hers and defended himself of the accusation of vagrancy by alleging that if he had not come back it was due to the lack of resources. Eventually, the defendant was condemned to either eight years´ service in the Army or in the Navy or four years´ imprisonment in an African jail, in the event he was not fit for the service.</p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="[2]r" facs="PSCR7524_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute> 
+				<seg type="sign">cruz</seg>
+				</salute> <lb break="yes"/> 
+				<placeName>
+					<w rend="Madrid">Madrid</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</placeName> 
+				<date>
+					<w>y</w> 
+					<w><choice><orig>nobiembre</orig><reg>noviembre</reg></choice></w> <lb break="yes"/> 
+					<w>7</w> 
+					<w>de</w> 
+					<w>1780</w>
+				</date>
+			</opener>
+			<p>
+				<s>
+				<seg type="opener" subtype="salute">
+					<w>Esposo</w> 
+					<w><choice><orig>mio</orig><reg>mío</reg></choice></w> 
+					<w>de</w> 
+					<w>mi</w> 
+					<w rend="mayor">ma<lb break="no"/>yor</w> 
+					<w><choice><orig>estimazion</orig><reg>estimación</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+				<s> 
+					<w rend="una"><choice><orig>un<add hand="TE1" place="supralinear">a</add></orig><reg>Una</reg></choice></w> <lb break="yes"/> 
+					<w>carta</w> 
+					<w>tuya</w> 
+					<w rend="rezebi"><choice><orig>reze<lb break="no"/>bi</orig><reg>recibí</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w> 
+					<w>y</w> 
+					<w>te</w> 
+					<w><choice><orig>respondi</orig><reg>respondí</reg></choice></w> 
+					<w>al</w> <lb break="yes"/> 
+					<w><choice><orig>ystante</orig><reg>instante</reg></choice><note type="linguisticNote" subtype="complex_syllable"/></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>no</w> 
+					<w><choice><orig>se</orig><reg>sé</reg></choice></w> 
+					<w>si</w> 
+					<w>la</w> <lb break="yes"/> 
+					<w><choice><orig>rezebiste</orig><reg>recibiste</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>estoy</w> <lb break="yes"/> 
+					<w>con</w> 
+					<w>sentimiento</w> 
+					<w rend="bastante">ba<add hand="TE1" place="supralinear">s</add><lb break="no"/>tante</w> 
+					<w><choice><orig>porqe</orig><reg>porque</reg></choice></w> 
+					<w>no</w> 
+					<w>me</w> 
+					<w rend="respondes">res<lb break="no"/>pondes</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>yo</w> 
+					<w>deseo</w> 
+					<w rend="saber">sa<lb break="no"/>ber</w> 
+					<w>de</w> 
+					<w>tu</w> 
+					<w>salud</w> 
+					<w>y</w> 
+					<w rend="adonde"><choice><orig>ado<add hand="TE1" place="supralinear">n</add><lb break="no"/>de</orig><reg>adónde</reg></choice></w> 
+					<w>paras</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>de</orig><reg>De</reg></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>me</w> <lb break="yes"/> 
+					<w><choice><orig>dizes</orig><reg>dices</reg></choice></w> 
+					<w>de</w> <surplus reason="repeated">
+					<w><choice><orig>q</orig><reg/></choice></w></surplus> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>no</w> 
+					<w>me</w> <surplus reason="repeated">
+					<w><choice><orig>t</orig><reg/></choice></w></surplus> <lb break="yes"/> 
+					<w><choice><orig>meti</orig><reg>metí</reg></choice></w> 
+					<w>en</w> 
+					<w>el</w> 
+					<w><choice><orig>alcazar</orig><reg>alcázar</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>te</w> 
+					<w>juro</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w><choice><orig>artas</orig><reg>hartas</reg></choice></w> 
+					<w rend="delijenzias"><choice><orig>de<lb break="no"/>lijenzias</orig><reg>diligencias</reg></choice><note type="linguisticNote" subtype="unstressed_vowels"/></w> 
+					<w><choice><orig>yze</orig><reg>hice</reg></choice></w> 
+					<w>para</w> <lb break="yes"/> 
+					<w>entrar</w> 
+					<w>yo</w> 
+					<w>y</w> 
+					<w>mi</w> 
+					<w>hija</w> <lb break="yes"/> 
+					<w>y</w> 
+					<w><choice><orig>enpeños</orig><reg>empeños</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pero</w> 
+					<w>no</w> <lb break="yes"/> 
+					<w><choice><orig>emos</orig><reg>hemos</reg></choice></w> 
+					<w>podido</w> 
+					<w rend="consegirlo"><choice><orig>conse<lb break="no"/>girlo</orig><reg>conseguirlo</reg></choice></w> 
+					<w>por</w> 
+					<w>la</w> 
+					<w rend="mucha">mu<lb break="no" rend="verticalText"/>cha</w> 
+					<w><choice><orig>jente</orig><reg>gente</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>de</w> 
+					<w>los</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w><choice><orig>estan</orig><reg>están</reg></choice></w> <lb break="yes" rend="verticalText"/> 
+					<w>dentro</w> 
+					<w>los</w> 
+					<w>echan</w> 
+					<w>fuera</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>cuanto</orig><reg>Cuánto</reg></choice></w> <lb break="yes" rend="verticalText"/> 
+					<w>mejor</w> 
+					<w><choice><orig>estubieramos</orig><reg>estuviéramos</reg></choice></w> 
+					<w><choice><orig>alli</orig><reg>allí</reg></choice></w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>en</w> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>madrid</orig><reg>Madrid</reg></choice></w> 
+					<w>no</w> 
+					<w>dando</w> 
+					<w>y</w> 
+					<w>pasando</w> <lb break="yes" rend="verticalText"/> <supplied resp="EGP" reason="hidden">
+					<w rend="tantos">tantos</w></supplied> <supplied resp="EGP" reason="hidden">
+					<w rend="trabajos">trabajos</w></supplied> <pb n="[2]v" facs="PSCR7524_3.JPG"/><lb break="yes"/> 
+					<w>y</w> 
+					<w><choice><orig>nezesidades</orig><reg>necesidades</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>qe</orig><reg>Que</reg></choice></w> <lb break="yes"/> 
+					<w>te</w> 
+					<w>juro</w> 
+					<w>por</w> 
+					<w>la</w> 
+					<w rend="salbazion"><choice><orig>salba<lb break="no"/>zion</orig><reg>salvación</reg></choice></w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>espero</w> 
+					<w>de</w> 
+					<w rend="dios"><choice><orig>di<lb break="no"/>os</orig><reg>Dios</reg></choice></w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>los</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w><choice><orig>dias</orig><reg>días</reg></choice></w> <supplied resp="EGP" reason="hidden">
+					<w rend="no">no</w></supplied> <lb break="yes"/> 
+					<w>comemos</w> 
+					<w>cosa</w> 
+					<w rend="caliente">cali<lb break="no"/>ente</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>sino</w> 
+					<w>un</w> 
+					<w>poco</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>caldo</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>me</w> 
+					<w>dan</w> <lb break="yes"/> 
+					<w>en</w> 
+					<w>una</w> 
+					<w><choice><orig>cozina</orig><reg>cocina</reg></choice></w> 
+					<w>y</w> <supplied resp="EGP" reason="hidden">
+					<w rend="no">no</w></supplied> <lb break="yes"/> 
+					<w>es</w> 
+					<w>todos</w> 
+					<w>los</w> 
+					<w><choice><orig>dias</orig><reg>días</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><supplied resp="EGP" reason="hidden">
+					<w rend="mira"><choice><orig>mira</orig><reg>Mira</reg></choice></w></supplied> <lb break="yes"/> 
+					<w><choice><orig>como</orig><reg>cómo</reg></choice></w> 
+					<w>estamos</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> <lb break="yes"/> 
+					<w>todo</w> 
+					<w>esto</w> 
+					<w>es</w> 
+					<w>el</w> 
+					<w rend="ebanjelio"><choice><orig>eba<add hand="TE1" place="supralinear">n</add><lb break="no"/>jelio</orig><reg>evangelio</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="pues">pu<add hand="TE1" place="supralinear">e</add>s</w> 
+					<w>ya</w> <supplied resp="EGP" reason="hidden">
+					<w rend="sabes">sabes</w></supplied> <lb break="yes"/> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w>puede</w> <supplied resp="EGP" reason="hidden">
+					<w rend="pedir">pedir</w></supplied>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>as</orig><reg>has</reg></choice></w> 
+					<w>de</w> 
+					<w>saber</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>mi</w> <lb break="yes"/> 
+					<w>yerno</w> 
+					<w><choice><orig>miguel</orig><reg>Miguel</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <supplied resp="EGP" reason="hidden">
+					<w rend="como">como</w></supplied> <lb break="yes"/> 
+					<w><choice><orig>sienpre</orig><reg>siempre</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>echo</orig><reg>hecho</reg></choice></w> 
+					<w>un</w> <lb break="yes"/> 
+					<w>tuno</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w rend="en">e<add hand="TE1" place="supralinear">n</add></w> 
+					<w>todo</w> 
+					<w>el</w> <lb break="yes"/> 
+					<w>mes</w> 
+					<w>no</w> 
+					<w>lo</w> 
+					<w><choice><orig>bemos</orig><reg>vemos</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>pues</orig><reg>Pues</reg></choice></w> 
+					<w>mira</w> 
+					<w>por</w> <supplied resp="EGP" reason="hidden">
+					<w rend="dios"><choice><orig>di<lb break="no"/>os</orig><reg>Dios</reg></choice></w></supplied> 
+					<w>y</w> 
+					<w>por</w> 
+					<w>su</w> 
+					<w><choice><orig>pasion</orig><reg>pasión</reg></choice></w> <lb break="yes"/> 
+					<w>santa</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>nos</w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>de</w> <lb break="yes"/> 
+					<w>pedir</w> 
+					<w>cuenta</w> <supplied resp="EGP" reason="hidden">
+					<w rend="de">de</w></supplied> <lb break="yes"/> 
+					<w>lo</w> 
+					<w>bueno</w> 
+					<w>y</w> 
+					<w>de</w> 
+					<w>lo</w> <supplied resp="EGP" reason="hidden">
+					<w rend="malo">malo</w></supplied>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>asi</orig><reg>así</reg></choice></w> 
+					<w>te</w> 
+					<w>suplico</w> 
+					<w>que</w> 
+					<w>cuanto</w> 
+					<w rend="antes">an<lb break="no" rend="verticalText"/>tes</w> 
+					<w><choice><orig>bengas</orig><reg>vengas</reg></choice></w> 
+					<w>a</w> 
+					<w>buscarme</w> 
+					<w><choice><orig>u</orig><reg>o</reg></choice></w> 
+					<w rend="enbiar"><choice><orig><add hand="TE1" place="supralinear">e</add>nbiar</orig><reg>enviar</reg></choice></w> 
+					<w>por</w> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>mi</orig><reg>mí</reg></choice></w> 
+					<w>con</w> 
+					<w><choice><orig>algun</orig><reg>algún</reg></choice></w> 
+					<w><choice><orig>ariero</orig><reg>arriero</reg></choice></w> 
+					<w><choice><orig>conozido</orig><reg>conocido</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w rend="pues">pu<lb break="no" rend="verticalText"/>es</w> 
+					<w>lo</w> 
+					<w>deseo</w> 
+					<w>como</w> 
+					<w><choice><orig>salbarme</orig><reg>salvarme</reg></choice></w> <pb n="[3]r" facs="PSCR7524_4.JPG"/><lb break="yes"/> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>sea</w> 
+					<w>cuanto</w> 
+					<w rend="antes">an<lb break="no"/>tes</w> 
+					<w>puedas</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w rend="respondeme"><choice><orig>respo<add hand="TE1" place="supralinear">n</add><lb break="no"/>deme</orig><reg>respondedme</reg></choice></w> 
+					<w>al</w> 
+					<w><choice><orig>istate</orig><reg>instante</reg></choice><note type="linguisticNote" subtype="complex_syllable"/></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> <lb break="yes"/> 
+					<w>me</w> 
+					<w><choice><orig>qedo</orig><reg>quedo</reg></choice></w> 
+					<w>con</w> 
+					<w rend="cuyydado"><choice><orig>cuyy<lb break="no"/>dado</orig><reg>cuidado</reg></choice></w> 
+					<w>y</w> 
+					<w>esperando</w> <lb break="yes"/> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>nos</w> <del hand="TE1">
+					<w><choice><orig>esp</orig><reg/></choice></w></del> 
+					<w rend="anpares"><choice><orig>anpare<add hand="TE1" place="supralinear">s</add></orig><reg>ampares</reg></choice></w> <lb break="yes"/> 
+					<w>como</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w>manda</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><lb break="yes"/> 
+					<w><choice><orig>no</orig><reg>No</reg></choice></w> 
+					<w>te</w> 
+					<w>canso</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>sino</w> 
+					<w>pedir</w> 
+					<w>a</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w>te</w> <lb break="yes"/> 
+					<w><choice><orig>de</orig><reg>dé</reg></choice></w> 
+					<w>salud</w> 
+					<w>para</w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> <lb break="yes"/> 
+					<w>nos</w> 
+					<w><choice><orig>socoras</orig><reg>socorras</reg></choice></w> 
+					<w>y</w> 
+					<w rend="ampares">am<lb break="no"/>pares</w> 
+					<w>y</w> 
+					<w><choice><orig>bengas</orig><reg>vengas</reg></choice></w> 
+					<w>a</w> 
+					<w>mi</w> <lb break="yes"/> 
+					<w><choice><orig>bista</orig><reg>vista</reg></choice></w> 
+					<w>y</w> 
+					<w><choice><orig>compania</orig><reg>compañía</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w><choice><orig>amen</orig><reg>amén</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>de</orig><reg>De</reg></choice></w> 
+					<w>parte</w> 
+					<w>de</w> <lb break="yes"/> 
+					<w>la</w> 
+					<w><choice><orig>ysidora</orig><reg>Isidora</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w>te</w> 
+					<w rend="estima">es<lb break="no"/>tima</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>el</w> 
+					<w>abrazo</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>pero</w> 
+					<w>mejor</w> 
+					<w>lo</w> 
+					<w rend="estimara"><choice><orig>esti<lb break="no"/>mara</orig><reg>estimará</reg></choice></w> 
+					<w><choice><orig>qe</orig><reg>que</reg></choice></w> 
+					<w><choice><orig>bengas</orig><reg>vengas</reg></choice></w> 
+					<w><choice><orig>tu</orig><reg>tú</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><orig>darselo</orig><reg>dárselo</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>con</w> 
+					<w rend="esto">e<add hand="TE1" place="supralinear">s</add><lb break="no"/>to</w> 
+					<w>Dios</w> 
+					<w>te</w> 
+					<w><choice><abbr>gde</abbr><expan>guarde</expan></choice></w> 
+					<w><choice><abbr>m</abbr><expan>muchos</expan></choice></w> 
+					<w><choice><abbr>a</abbr><expan>años</expan></choice></w> <lb break="yes"/> 
+					<w>con</w> 
+					<w>salud</w> 
+					<w>para</w> <lb break="yes"/> 
+					<w>mi</w> 
+					<w><choice><orig>anparo</orig><reg>amparo</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg>
+			</p><lb break="yes"/>
+			<closer>
+				<salute>
+					<w><choice><orig>quien</orig><reg>Quien</reg></choice></w> 
+					<w>te</w> 
+					<w>estima</w> 
+					<w>y</w> 
+					<w><choice><orig>ber</orig><reg>ver</reg></choice></w> 
+					<w>desea</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>tu</w> 
+					<w>esposa</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<signed>
+					<w><choice><orig>teresa</orig><reg>Teresa</reg></choice></w> 
+					<w><choice><orig>espinosa</orig><reg>Espinosa</reg></choice></w>
+				</signed>
+				<salute>
+					<w><choice><orig>esposo</orig><reg>Esposo</reg></choice></w> 
+					<w><choice><orig>mio</orig><reg>mío</reg></choice></w> <lb break="yes"/> 
+					<w><choice><abbr>franco</abbr><expan>francisco</expan><reg>Francisco</reg></choice></w> 
+					<w><choice><orig>quiros</orig><reg>Quirós</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc><note type="addressee"/>
+				</salute>
+			</closer>
+            <postscript>
+			<p>
+				<s>
+					<w><choice><orig>la</orig><reg>La</reg></choice></w> 
+					<w rend="respuesta">r<add hand="TE1" place="supralinear">e</add>spuesta</w> 
+					<w>te</w> 
+					<w rend="encargo">en<lb break="no"/>cargo</w> 
+					<w>por</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> 
+					<w>y</w> 
+					<w>su</w> 
+					<w><choice><orig>sntisima</orig><reg>Santísima</reg></choice></w> 
+					<w rend="madre"><choice><orig>madr<add hand="TE1" place="supralinear">e</add></orig><reg>Madre</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s>
+			</p><lb break="yes"/></postscript>
+		</body>
+	</text>
+</TEI>
+

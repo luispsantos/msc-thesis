@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1689. Carta de fray Juan de Almagro de San Ildefonso para fray Julián Cano, prior y calificador del Santo Oficio.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="LMM">Laura Martínez Martín</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name xml:id="CSS">Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Carmen Serrano Sánchez</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name/></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Laura Martínez Martín</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2016">2016</date> 
+				<availability status="restricted"><p>Copyright 2016, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Madrid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo Histórico Nacional</institution>
+							<repository xml:id="INQ">Inquisición</repository>
+							<collection>Tribunal de Distrito de la Inquisición de Toledo</collection>
+							<idno>Legajo 227, Expediente 9</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor informa a fray Julián Cano de las averiguaciones que ha hecho sobre la acusación existente contra fray Pedro Barbero de Torres y le proporciona algunos detalles del interrogatorio al que ha sometido a Jerónima de la Cruz.</summary>
+							<msItem class="original">
+								<p><locus>20r y [21b]r</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un folio de papel doblado en cuarto, escrito por el recto del primer cuarto y por el recto del segundo cuarto.
+										<dimensions scope="all" unit="mm">
+											<height>212</height>
+											<width>151</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>sin cambio de línea entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> En Mano del muy <lb/> <expan>Rdo</expan> <expan>Pe</expan> Prior del convento <lb/> de los Relijiosos Carmelitas cal <lb/> zados de la ciudad de <lb/> Toledo <lb/> por mano <expan>nro</expan> <expan>Rdo</expan> <expan>Pe</expan> Lector</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo Histórico Nacional.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>información</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K245"/>
+						<term n="2" key="KW.xml#K116"/>
+						<term n="3" key="KW.xml#K206"/>
+						Carmelitas,Honra,Sospechas</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#JASI1" xml:id="JASI1" cert="high"><name>Juan de Almagro de San Ildefonso</name></persName>
+					<placeName confidence="1" type="origin">España, Toledo, Tembleque
+						<location>
+							<geo>39.6958069 -3.5041358</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1689-09-08" from="1689" to="1689" when-custom="1689.09.08"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#JC38" cert="high"><name>Julián Cano</name></persName>
+					<placeName confidence="1" type="destination">España, Toledo
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>Entre 1686 y 1695 se abrió un proceso por solicitación contra fray Pedro Barbero de Torres, religioso carmelita calzado, confesor y morador en el convento de su orden en la ciudad de Toledo. La solicitada fue Jerónima de la Cruz, vecina de la villa de Tembleque (Toledo), quien declaró que el acusado la solía perseguir hasta la parte más retirada de la capilla y la amenazaba si no accedía a sus peticiones. De acuerdo con diversos testimonios, era habitual que durante la confesión el reo "está dando palmadas y palpando las mujeres" (fol. 28r). Así, también fue acusado del mismo delito por María Fernández Viñas. Las cartas conservadas en el proceso fueron intercambiadas por un círculo de religiosos al hilo de la causa y se adjuntaron como prueba para corroborar la declaración de fray Julián Cano, prior del convento del Carmen Calzado de Toledo en el que habitaba el reo. Cuando el prior tuvo noticia de este posible caso de solicitación, comenzó a hacer averiguaciones acerca de la reputación de Jerónima de la Cruz, tras acudir esta a él para denunciar los hechos. Sin embargo, sus indagaciones no le aclararon la situación y llegó a sospechar incluso que Jerónima de la Cruz se correspondía ilícitamente con el padre fray Felipe Tamayo. Además, fray Pedro Barbero de Torres intentó menoscabar su honra afirmando que era una mujer pública y que, por tanto, no era necesario solicitarla en la confesión. Todo ello llevó a fray Julián Cano a pensar que podía haberse orquestado una conjura en contra del reo, si bien este fue finalmente condenado. Las cartas fueron ordenadas y convenientemente marcadas para la causa. De este modo, en el folio [21b]r de la misiva aquí transcrita un anotador escribió: "Quinta carta. Señor de San Francisco".</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2016-01-13">Laura Martínez Martín: Codificación XML y contextualización</change> 
+			<change when="2016-02-01">Carmen Serrano Sánchez: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title"></p>
+				<p sameAs="summary"></p>
+				<p sameAs="settingDesc"></p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="20r" facs="PSCR5390_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute>
+			</opener>
+			<p>
+				<s>
+				<seg type="opener" subtype="salute">
+					<w><choice><abbr>Rdo</abbr><expan>Reverendo</expan></choice></w> 
+					<w><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice></w> 
+					<w><choice><orig>Prior</orig><reg>prior</reg></choice></w></seg>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="harangue">
+				<s>
+					<w><choice><orig>recivi</orig><reg>Recibí</reg></choice></w> 
+					<w>la</w> 
+					<w>de</w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w>veo</w> <lb break="yes"/> 
+					<w>en</w> 
+					<w>ella</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>lo</w> 
+					<w>mucho</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>me</w> 
+					<w><choice><orig>favoreçe</orig><reg>favorece</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w>la</w> 
+					<w><choice><abbr>Volutad</abbr><expan>Voluntad</expan><reg>voluntad</reg></choice></w> <lb break="yes"/> 
+					<w>tan</w> 
+					<w>fina</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>me</w> 
+					<w>muestra</w>
+					<pc>.</pc>
+				</s></seg> 
+				<seg type="harangue">
+				<s>
+					<w><choice><orig>todo</orig><reg>Todo</reg></choice></w> 
+					<w>es</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>para</w> 
+					<w>mostrarme</w> <lb break="yes"/> 
+					<w>rendido</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>a</w> 
+					<w>darle</w> 
+					<w>gusto</w> 
+					<w>en</w> 
+					<w>todo</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>el</w> 
+					<w>de</w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>P</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>muy</w> <lb break="yes"/> 
+					<w><choice><abbr>Rda</abbr><expan>Reverenda</expan><reg>reverenda</reg></choice></w> 
+					<w>guste</w>
+					<pc>.</pc>
+				</s></seg> 
+				<s>
+					<w>En</w> 
+					<w>que</w> 
+					<w>lo</w> 
+					<w>dice</w> 
+					<w>mi</w> 
+					<w><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice></w> 
+					<w><choice><orig>Prior</orig><reg>prior</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>de</w> 
+					<w>que</w> 
+					<w>asegure</w> <lb break="yes"/> 
+					<w><choice><orig>El</orig><reg>el</reg></choice></w> 
+					<w><choice><orig>Echo</orig><reg>hecho</reg></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w><choice><orig>referire</orig><reg>referiré</reg></choice></w> 
+					<w>el</w> 
+					<w><choice><orig>casso</orig><reg>caso</reg></choice></w>
+					<pc>,</pc> 
+					<w>o</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>alcanzo</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<pc>(</pc>
+					<w>puedo</w> 
+					<w>decirle</w>
+					<pc>)</pc>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>y</w> 
+					<w>en</w> 
+					<w>virtud</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w><choice><orig>esso</orig><reg>eso</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w><choice><orig>podra</orig><reg>podrá</reg></choice></w> 
+					<w>asegurarse</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>o</w> 
+					<w>no</w>
+					<pc>.</pc>
+				</s> 
+				<s>
+					<w><choice><orig>llegando</orig><reg>Llegando</reg></choice></w> 
+					<w><choice><orig>essa</orig><reg>esa</reg></choice></w> <lb break="yes"/> 
+					<w>persona</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>a</w> 
+					<w>comunicar</w> 
+					<w>este</w> 
+					<w><choice><orig>casso</orig><reg>caso</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<pc>(</pc>
+					<w>que</w> 
+					<w>tanto</w> 
+					<w>sentimiento</w> 
+					<w>le</w> 
+					<w>ha</w> <lb break="yes"/> 
+					<w>causado</w> 
+					<w>a</w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w>
+					<pc>,</pc> 
+					<w>y</w> 
+					<w>a</w> 
+					<w><choice><orig>mi</orig><reg>mí</reg></choice></w> 
+					<w>pesar</w>
+					<pc>,</pc> 
+					<w>porque</w> 
+					<w>a</w> 
+					<w>todos</w> 
+					<w>los</w> 
+					<w><choice><orig>Relijiosos</orig><reg>religiosos</reg></choice></w> <lb break="yes"/> 
+					<w>los</w> 
+					<w>quiero</w> 
+					<w>como</w> 
+					<w>a</w> 
+					<w>mi</w> 
+					<w><choice><orig>Alma</orig><reg>alma</reg></choice></w>
+					<pc><choice><orig>.</orig><reg/></choice></pc>
+					<pc>)</pc>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>hiçe</orig><reg>hice</reg></choice></w> 
+					<w>todo</w> 
+					<w>lo</w> 
+					<w>posible</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>por</w> <lb break="yes"/> 
+					<w>favorecer</w> 
+					<w>al</w> 
+					<w><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice></w> 
+					<w><choice><abbr>fr</abbr><expan>frai</expan><reg>fray</reg></choice></w> 
+					<w>Pedro</w> <hi rend="underlined">
+					<w><choice><orig>amedrantadola</orig><reg>amedrantándola</reg></choice></w> 
+					<w>a</w> 
+					<w>la</w> 
+					<w>tal</w> 
+					<w><choice><orig>Persona</orig><reg>persona</reg></choice></w> <lb break="yes"/> 
+					<w>con</w> 
+					<w>el</w> 
+					<w>cargo</w> 
+					<w>que</w> 
+					<w>se</w> 
+					<w><choice><orig>echava</orig><reg>echaba</reg></choice></w> 
+					<w>a</w> 
+					<w>cuestas</w>
+					<pc>,</pc> 
+					<w><choice><abbr>e</abbr><expan>et</expan><reg>etc</reg></choice></w> 
+					<w>y</w> 
+					<w>que</w> 
+					<w>mirase</w> <lb break="yes"/> 
+					<w>si</w> 
+					<w>la</w> 
+					<w><choice><orig>llevava</orig><reg>llevaba</reg></choice></w> 
+					<w>venganza</w>
+					<pc><choice><orig>;</orig><reg>.</reg></choice></pc></hi>
+				</s> 
+				<s><hi rend="underlined">
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w></hi> 
+					<w>respondiendo</w>
+					<pc><choice><orig>;</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>era</w> 
+					<w>verdad</w> <lb break="yes"/> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w><choice><orig>decia</orig><reg>decía</reg></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w>la</w> 
+					<w><choice><orig>persuadi</orig><reg>persuadí</reg></choice></w> 
+					<w>al</w> 
+					<w>cumplimiento</w> 
+					<w>de</w> 
+					<w>su</w> <lb break="yes"/> 
+					<w><choice><orig>obligacion</orig><reg>obligación</reg></choice></w>
+					<pc><choice><orig>;</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w>que</w> 
+					<w>se</w> 
+					<w>cargase</w> 
+					<w>siempre</w> 
+					<w>a</w> 
+					<w>la</w> 
+					<w>parte</w> 
+					<w>de</w> 
+					<w>la</w> <lb break="yes"/> 
+					<w>misericordia</w>
+					<pc><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> <hi rend="underlined">
+					<w>para</w> 
+					<w>mejor</w> 
+					<w><choice><orig>haçerlo</orig><reg>hacerlo</reg></choice></w>
+					<pc>,</pc> 
+					<w>la</w> 
+					<w><choice><orig>remiti</orig><reg>remití</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w> 
+					<w><choice><abbr>Rda</abbr><expan>Reverenda</expan><reg>reverenda</reg></choice></w>
+					<pc>,</pc> 
+					<w>que</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>como</w> 
+					<w>tan</w> 
+					<w>docto</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w>finalmente</w> <lb break="yes"/> 
+					<w>su</w> 
+					<w><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w>mirase</w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w><choice><orig>Relijioso</orig><reg>religioso</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>como</w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w>hijo</w></hi>
+					<pc>.</pc>
+				</s> 
+				<s>
+					<w><choice><orig>tambien</orig><reg>También</reg></choice></w> 
+					<w>la</w> <lb break="yes"/> 
+					<w>dije</w> 
+					<w>se</w> 
+					<w><choice><orig>rrindiese</orig><reg>rindiese</reg></choice></w> 
+					<w>a</w> 
+					<w>su</w> 
+					<w>dictamen</w>
+					<pc>;</pc> 
+					<w>y</w> 
+					<w>me</w> 
+					<w>dio</w> 
+					<w>palabra</w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>no</w> 
+					<w>hacer</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w> 
+					<w>le</w> 
+					<w>ordenase</w>
+					<pc><choice><orig>;</orig><reg/></choice></pc> 
+					<w>y</w> <hi rend="underlined">
+					<w>que</w> <lb break="yes"/> 
+					<w>desde</w> 
+					<w><choice><orig>Aora</orig><reg>ahora</reg></choice></w> 
+					<w>lo</w> 
+					<w><choice><orig>sepultava</orig><reg>sepultaba</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>en</w> 
+					<w>su</w> 
+					<w>pecho</w> 
+					<w>para</w> 
+					<w>no</w> 
+					<w>decirlo</w> 
+					<w>a</w> 
+					<w>otro</w> <lb break="yes"/> 
+					<w>alguno</w>
+					<pc>.</pc></hi>
+				</s>
+				<s> 
+					<w><choice><orig>esta</orig><reg>Ésta</reg></choice></w> 
+					<w>es</w> 
+					<w>la</w> 
+					<w>seguridad</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>puede</w> 
+					<w><choice><orig>allarse</orig><reg>hallarse</reg></choice></w> 
+					<w>en</w> 
+					<w>el</w> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>casso</orig><reg>caso</reg></choice></w> 
+					<w>presente</w> 
+					<pc>(</pc>
+					<w>si</w> 
+					<w>es</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>que</w> 
+					<w>es</w> 
+					<w>verdad</w>
+					<pc>)</pc> 
+					<w>de</w> 
+					<w>parte</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w>esta</w> 
+					<w>persona</w>
+					<pc><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s><hi rend="underlined">
+					<w><choice><orig>digo</orig><reg>Digo</reg></choice></w> 
+					<w>de</w> 
+					<w>parte</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w><choice><orig>esta</orig><reg>ésta</reg></choice></w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w>porque</w> 
+					<w>no</w> 
+					<w><choice><orig>se</orig><reg>sé</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> <lb break="yes" rend="verticalText"/> 
+					<w><choice><orig>que</orig><reg>qué</reg></choice></w> 
+					<w>he</w> 
+					<w><choice><orig>oido</orig><reg>oído</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>acerca</w> 
+					<w>de</w> 
+					<w>otra</w></hi> 
+					<pc>(</pc>
+					<w><choice><orig>quiza</orig><reg>quizá</reg></choice></w> 
+					<w><choice><orig>sera</orig><reg>será</reg></choice></w> 
+					<w>todo</w> 
+					<w>falso</w>
+					<pc>)</pc>
+					<pc><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>lo</orig><reg>Lo</reg></choice></w> 
+					<w>que</w> 
+					<w>yo</w> 
+					<w>aseguro</w> 
+					<w>es</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>de</w> 
+					<w>estar</w> 
+					<w>con</w> 
+					<w>todo</w> 
+					<w><choice><orig>Estudio</orig><reg>estudio</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>para</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>si</w> <lb break="yes" rend="verticalText"/> 
+					<w>acerca</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w><choice><orig>essa</orig><reg>esa</reg></choice></w> 
+					<w>materia</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>llegare</w> 
+					<w>algo</w>
+					<pc>,</pc> 
+					<w>mirar</w> 
+					<w>por</w> 
+					<w>el</w> 
+					<w><choice><orig>credito</orig><reg>crédito</reg></choice></w> 
+					<w>del</w> 
+					<w><choice><abbr>Sto</abbr><expan>Santo</expan><reg>santo</reg></choice></w> 
+					<w><choice><orig>havito</orig><reg>hábito</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<pc>(</pc>
+					<w>sin</w> 
+					<w>faltar</w> 
+					<w>a</w> 
+					<w>la</w> 
+					<w><choice><orig>obligacion</orig><reg>obligación</reg></choice></w>
+					<pc>)</pc>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> <lb break="yes" rend="verticalText"/> <surplus reason="repeated">
+					<w><choice><orig>que</orig><reg/></choice></w></surplus> 
+					<w>es</w> 
+					<w>mirar</w> 
+					<w>por</w> <add hand="JASI1" place="supralinear">
+					<w rend="mi"><choice><orig>mi</orig><reg>mí</reg></choice></w></add> 
+					<w>mismo</w>
+					<pc><choice><orig>;</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>assi</orig><reg>así</reg></choice></w> 
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan><reg>vuestra</reg></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w> 
+					<w>no</w> 
+					<w>me</w> 
+					<w>agradezca</w> 
+					<w>lo</w> 
+					<w>que</w> 
+					<w>es</w> 
+					<w><choice><orig>util</orig><reg>útil</reg></choice></w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w><choice><orig>credito</orig><reg>crédito</reg></choice></w> 
+					<w><choice><orig>mio</orig><reg>mío</reg></choice></w>
+					<pc>.</pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w> 
+					<w>vea</w> 
+					<w>si</w> 
+					<w>en</w> 
+					<w>otra</w> 
+					<w><choice><orig>cossa</orig><reg>cosa</reg></choice></w> 
+					<w>le</w> <lb break="yes" rend="verticalText"/> 
+					<w>puedo</w> 
+					<w>servir</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w>y</w> 
+					<w><choice><orig>vera</orig><reg>verá</reg></choice></w> 
+					<w>mi</w> 
+					<w>buena</w> 
+					<w>voluntad</w>
+					<pc><choice><orig>;</orig><reg>,</reg></choice></pc> 
+					<w>que</w> 
+					<w><choice><orig>aora</orig><reg>ahora</reg></choice></w> 
+					<w>le</w> 
+					<w>dice</w> 
+					<w>a</w> 
+					<w>mi</w> 
+					<w>Dios</w> 
+					<w>me</w> 
+					<w>le</w> 
+					<w><choice><abbr>gde</abbr><expan>guarde</expan></choice></w>
+					<pc>.</pc>
+				</s></seg> 
+				<s>
+				<seg type="closer" subtype="placeName">
+					<w rend="tembleqe"><choice><orig>tembleqe</orig><reg>Tembleque</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w>y</w> 
+					<w><choice><orig>setiembre</orig><reg>septiembre</reg></choice></w> 
+					<w>8</w> 
+					<w>de</w> 
+					<w>89</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+			</p><lb break="yes"/>
+			<closer>              
+				<salute>
+					<w><choice><abbr>V</abbr><expan>Vuestra</expan></choice></w> 
+					<w><choice><abbr>Pd</abbr><expan>Paternidad</expan><reg>paternidad</reg></choice></w> 
+					<w>muy</w> 
+					<w><choice><abbr>Rda</abbr><expan>Reverenda</expan><reg>reverenda</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc><note type="addressee"/>
+				</salute> 
+				<salute>
+					<w><choice><orig>capellan</orig><reg>Capellán</reg></choice></w> 
+					<w>y</w> 
+					<w>siervo</w>
+					<pc><choice><orig>,</orig><reg/></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><abbr>S</abbr><expan>Su</expan><reg>su</reg></choice></w> 
+					<w><choice><abbr>M</abbr><expan>Mano</expan><reg>mano</reg></choice></w> 
+					<w><choice><abbr>B</abbr><expan>Besa</expan><reg>besa</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</salute>
+				<signed>
+					<w><choice><abbr>fr</abbr><expan>frai</expan><reg>fray</reg></choice></w> 
+					<w><choice><abbr>Ju</abbr><expan>Juan</expan></choice></w> 
+					<w>de</w> 
+					<w>Almagro</w> 
+					<w>de</w> 
+					<w><choice><abbr>S</abbr><expan>San</expan></choice></w> 
+					<w><choice><orig>Yldefonso</orig><reg>Ildefonso</reg></choice></w>
+				</signed> <lb break="yes"/> <lb break="yes"/> 
+				<salute>
+					<w><choice><orig>mi</orig><reg>Mi</reg></choice></w> 
+					<w><choice><abbr>Rdo</abbr><expan>Reverendo</expan><reg>reverendo</reg></choice></w> 
+					<w><choice><abbr>Pe</abbr><expan>Padre</expan><reg>padre</reg></choice></w> 
+					<w><choice><orig>Prior</orig><reg>prior</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc><note type="addressee"/>
+				</salute>
+			</closer>
+		</body>
+	</text>
+</TEI>
+

@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="ES">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>1582. Carta de don Bernardino de Cárdenas y Portugal, duque de Maqueda, para Antonio Mauriño de Pazos, presidente del Consejo de Castilla.</title>
+				<sponsor>CLUL, Centro de Linguística da Universidade de Lisboa</sponsor>
+				<funder>ERC, European Research Council - 7FP/ERC Advanced Grant 2011 GA295562</funder>
+				<respStmt><resp>Proyecto</resp><name xml:id="PS">PS, Post Scriptum</name></respStmt> 
+				<respStmt><resp>Coordinación</resp><name xml:id="RM">Rita Marquilhas</name></respStmt> 
+				<respStmt><resp>Transcripción</resp><name xml:id="EGP">Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Anotación POS</resp><name/></respStmt> 
+				<respStmt><resp>Parsing</resp><name>por_anotar</name></respStmt> 
+				<respStmt><resp>Revisión</resp><name xml:id="GV">Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Edición modernizada</resp><name>Gael Vaamonde</name></respStmt> 
+				<respStmt><resp>Palabras-clave</resp><name>Elisa García Prieto</name></respStmt> 
+				<respStmt><resp>Contextualización</resp><name>Elisa García Prieto</name></respStmt>
+			</titleStmt>
+			<publicationStmt> 
+				<publisher>CLUL, Centro de Linguística da Universidade de Lisboa</publisher> 
+				<address> 
+					<addrLine>Av. Professor Gama Pinto, 2</addrLine> 
+					<addrLine>1649-003 Lisboa-Portugal</addrLine>
+				</address> 
+				<pubPlace>Lisboa</pubPlace> 
+				<date when="2016">2016</date> 
+				<availability status="restricted"><p>Copyright 2016, CLUL</p></availability> 
+			</publicationStmt>
+			<sourceDesc>
+					<msDesc>
+						<msIdentifier>
+							<country>España</country>
+							<settlement>Valladolid</settlement>
+							<institution key="CDD.xml#NatXReg">Archivo General de Simancas</institution>
+							<repository xml:id="CRC">Consejo Real de Castilla</repository>
+							<collection>Escribanías de Cámara</collection>
+							<idno>Legajo 266, Expediente 2</idno>
+						</msIdentifier>
+						<msContents>
+							<summary>El autor informa al presidente del Consejo de los hechos que rodearon el confinamiento de su tío y las justas causas que motivaron su acción, pidiendo que actúe en beneficio de las mismas.</summary>
+							<msItem class="original">
+								<p><locus>[11]r-[12]v</locus></p>
+							</msItem>
+						</msContents>
+						<physDesc>
+							<objectDesc form="letter">
+								<supportDesc>
+									<extent>un bifolio de papel doblado en folio, escrito por todas sus caras.
+										<dimensions scope="all" unit="mm">
+											<height>294</height>
+											<width>210</width>
+										</dimensions>
+									</extent>
+									<condition><p></p></condition>
+								</supportDesc>
+								<layoutDesc>
+									<layout>tres líneas en blanco entre la fórmula de saludo y el inicio del texto.</layout>
+								</layoutDesc>
+							</objectDesc>
+							<accMat>
+								<p>Sobrescrito:</p>
+								<p><quote xml:lang="ES"><seg type="sign">cruz</seg> <lb/> <expan>Illmo</expan> señor el presidente <lb/> de Castilla Mi señor</quote></p>
+							</accMat>
+						</physDesc>
+						<additional>
+							<adminInfo>
+								<availability><p>Para hacer uso de las imágenes es necesaria la autorización del Archivo General de Simancas.</p></availability>
+							</adminInfo>
+							<surrogates>
+								<ref></ref>
+								<cit><bibl>facsímile digital guardado como fichero JPEG</bibl></cit>
+							</surrogates>
+						</additional>
+					</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc corresp="PS-GENERAL.xml#PS-ES">
+			<projectDesc><p/></projectDesc>
+			<editorialDecl><p/></editorialDecl>
+			<classDecl>
+				<taxonomy xml:id="Tip-PS">
+					<bibl>Tipología PS</bibl>
+					<category xml:id="pragmatics"><catDesc>información</catDesc></category>
+					<category xml:id="type"><catDesc>particular</catDesc></category>
+					<category xml:id="linguisticSource"><catDesc></catDesc></category>
+					<category xml:id="socioHistoricalSource"><catDesc>
+						<term n="1" key="KW.xml#K141"/>
+						<term n="2" key="KW.xml#K106"/>
+						<term n="3" key="KW.xml#K159"/>
+						<term n="4" key="KW.xml#K115"/>
+						Matrimonio,Familia,Nobleza,Honor</catDesc></category>
+					<category xml:id="balancedSelection"><catDesc>1</catDesc></category>
+				</taxonomy>
+			</classDecl>
+		</encodingDesc>
+		<profileDesc>
+			<langUsage><language ident="ES"/></langUsage>
+			<textClass>
+				<catRef target="#pragmatics"/>
+				<catRef target="#type"/>
+				<catRef target="#linguisticSource"/>
+				<catRef target="#socioHistoricalSource"/>
+				<catRef target="#balancedSelection"/>
+			</textClass>
+			<creation/>
+			<correspDesc>
+				<correspAction type="sent">
+					<persName key="CDD.xml#BCP1" xml:id="BCP1" cert="high"><name>Bernardino de Cárdenas y Portugal</name></persName>
+					<placeName confidence="1" type="origin">España, Toledo, Torrijos
+						<location>
+							<geo>39.9833124 -4.2811456</geo>
+						</location>
+					</placeName>
+					<date confidence="1" when="1582-03-19" from="1582" to="1582" when-custom="1582.03.19"/>
+				</correspAction>
+				<correspAction type="received">
+					<persName key="CDD.xml#AMPF1" cert="high"><name>Antonio Mauriño de Pazos y Figueroa</name></persName>
+					<placeName confidence="1" type="destination">España, Madrid
+						<location>
+							<geo></geo>
+						</location>
+					</placeName>
+				</correspAction>
+			</correspDesc>
+			<settingDesc><p>En 1582, Ana Ramírez, vecina de Burujón, se querelló contra el duque de Maqueda por los impedimentos que había puesto a su matrimonio con don Diego de Cárdenas, tío de aquel. En efecto, al tener conocimiento de los extraños planes matrimoniales de don Diego, el duque acudió a la ciudad de Toledo y 'secuestró' al novio, que fue llevado primero a Torrijos y más tarde a la fortaleza de San Silvestre. Ana contaba con una promesa de matrimonio escrita y firmada por ambos y estaba convencida de que don Diego era impelido a actuar en contra de su voluntad. No obstante, el propio don Diego negó su falta de libertad y solicitó frente al consejo que Ana Ramírez desistiese en su intención de contraer matrimonio con él. Junto a los interrogatorios y diligencias que se hicieron en torno a este caso, se anejaron al proceso varias cartas que muestran el choque entre la familia ducal y los deudos de Ana Ramírez.</p>
+			</settingDesc>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2016-05-03">Elisa García Prieto: Codificación XML y contextualización</change> 
+			<change when="2017-02-22">Gael Vaamonde: Edición modernizada</change>
+			<change xml:lang="EN">
+				<p sameAs="title"></p>
+				<p sameAs="summary"></p>
+				<p sameAs="settingDesc"></p>
+				<p sameAs="text"></p></change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body><pb n="[11]r" facs="PSCR8130_2.JPG"/><lb break="yes"/>
+			<opener>
+				<salute>
+				<seg type="sign">cruz</seg>
+				</salute> <lb break="yes"/> 
+				<salute>
+					<w><choice><abbr>Illmo</abbr><expan>Illustrisimo</expan><reg>Ilustrísimo</reg></choice></w> 
+					<w>señor</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</salute>
+			</opener>
+			<p>
+				<s>
+					<w><choice><orig>tenemos</orig><reg>Tenemos</reg></choice></w> 
+					<w>de</w> 
+					<w>acudir</w> 
+					<w>a</w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>en</w> 
+					<w>todo</w> 
+					<w>lo</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>se</w> 
+					<w><choice><orig>ofreçiere</orig><reg>ofreciere</reg></choice></w> 
+					<w>de</w> 
+					<w rend="Reçibir"><choice><orig>Re<lb break="no"/>çibir</orig><reg>recibir</reg></choice></w> 
+					<w><choice><abbr>m</abbr><expan>merced</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>su</w> 
+					<w><choice><orig>zelo</orig><reg>celo</reg></choice></w> 
+					<w>de</w> 
+					<w>hacer</w> 
+					<w><choice><orig>justiçia</orig><reg>justicia</reg></choice></w> 
+					<w>nos</w> 
+					<w rend="asegura">asegu<lb break="no"/>ra</w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>no</orig><reg>No</reg></choice></w> 
+					<w><choice><orig>Recibira</orig><reg>recibirá</reg></choice></w> 
+					<w>pesadumbre</w> 
+					<w>de</w> 
+					<w><choice><orig>oir</orig><reg>oír</reg></choice></w> 
+					<w>las</w> 
+					<w>causas</w> 
+					<w>de</w> 
+					<w>los</w> <lb break="yes"/> 
+					<w><choice><abbr>hobres</abbr><expan>hombres</expan></choice></w> 
+					<w>principales</w> 
+					<w>y</w> 
+					<w>dolerse</w> 
+					<w><choice><orig>d</orig><reg>de</reg></choice></w> 
+					<w>ellos</w> 
+					<w>si</w> 
+					<w><choice><orig>ay</orig><reg>hay</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan><reg>qué</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>a</w> 
+					<w rend="todas">to<lb break="no"/>das</w> 
+					<w>las</w> 
+					<w>partes</w> 
+					<w>acude</w> 
+					<w><choice><orig>Como</orig><reg>como</reg></choice></w> 
+					<w>padre</w> 
+					<w>mirando</w> 
+					<w>por</w> 
+					<w>almas</w> <lb break="yes"/> 
+					<w>y</w> 
+					<w>por</w> 
+					<w>vidas</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>asi</orig><reg>así</reg></choice></w> 
+					<w>digo</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>señor</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><abbr>do</abbr><expan>don</expan></choice></w> 
+					<w><choice><orig>diego</orig><reg>Diego</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>Cardenas</orig><reg>Cárdenas</reg></choice></w> 
+					<w>es</w> <lb break="yes"/> 
+					<w>primo</w> 
+					<w>hermano</w> 
+					<w>de</w> 
+					<w>mi</w> 
+					<w>padre</w> 
+					<w>y</w> 
+					<w>por</w> 
+					<w>otra</w> 
+					<w>parte</w> 
+					<w>de</w> <lb break="yes"/> 
+					<w>su</w> 
+					<w><choice><orig>Madre</orig><reg>madre</reg></choice></w> 
+					<w>del</w> 
+					<w><choice><abbr>Code</abbr><expan>Conde</expan><reg>conde</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>motalva</abbr><expan>montalvan</expan><reg>Montalbán</reg></choice></w> 
+					<w>hijo</w> 
+					<w><choice><orig>unigenito</orig><reg>unigénito</reg></choice></w> 
+					<w>de</w> <lb break="yes"/> 
+					<w>su</w> 
+					<w>padre</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>a</orig><reg>Ha</reg></choice></w> 
+					<w>determinado</w> 
+					<w>casarse</w> 
+					<w>con</w> 
+					<w>una</w> 
+					<w><choice><orig>biuda</orig><reg>viuda</reg></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><abbr>u</abbr><expan>un</expan></choice></w> 
+					<w>hijo</w> 
+					<w>de</w> 
+					<w>un</w> 
+					<w>oficial</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>creo</w> 
+					<w><choice><orig>çerero</orig><reg>cerero</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>baxa</orig><reg>baja</reg></choice></w> 
+					<w>suerte</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> <lb break="yes"/> 
+					<w>fea</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>viexa</orig><reg>vieja</reg></choice></w> 
+					<w>y</w> 
+					<w><choice><orig>diffamada</orig><reg>difamada</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><abbr>u</abbr><expan>un</expan></choice></w> 
+					<w>primo</w> 
+					<w>hermano</w> 
+					<w>del</w> 
+					<w rend="dicho">di<lb break="no"/>cho</w> 
+					<w><choice><abbr>do</abbr><expan>don</expan></choice></w> 
+					<w><choice><orig>diego</orig><reg>Diego</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>movido</orig><reg>Movido</reg></choice></w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w><choice><abbr>obligacio</abbr><expan>obligacion</expan><reg>obligación</reg></choice></w> 
+					<w>de</w> 
+					<w>ser</w> 
+					<w>señor</w> 
+					<w>de</w> 
+					<w>esta</w> <lb break="yes"/> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>y</w> 
+					<w>de</w> 
+					<w>la</w> 
+					<w>sangre</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><orig>asin</orig><reg>así</reg><sic>asín</sic></choice></w> 
+					<w>luego</w> 
+					<w>yo</w> 
+					<w>me</w> 
+					<w>fuile</w> 
+					<w>a</w> 
+					<w>buscar</w> 
+					<w>a</w> <pb n="[11]v" facs="PSCR8130_3.JPG"/><lb break="yes"/> 
+					<w><choice><orig>toledo</orig><reg>Toledo</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>auq</abbr><expan>aunque</expan></choice></w> 
+					<w>se</w> 
+					<w>me</w> 
+					<w><choice><orig>escondio</orig><reg>escondió</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>hallamos</w> 
+					<w>tres</w> 
+					<w>primos</w> 
+					<w>hermanos</w> <lb break="yes"/> 
+					<w>suyos</w> 
+					<w>y</w> 
+					<w>yo</w> 
+					<w>la</w> 
+					<w><choice><orig>casa</orig><reg>casa</reg></choice></w> 
+					<w>en</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>estava</orig><reg>estaba</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>porque</w> 
+					<w>la</w> 
+					<w>ventura</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>le</w> 
+					<w rend="oimos"><choice><orig>oi<lb break="no"/>mos</orig><reg>oímos</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>desde</orig><reg>Desde</reg></choice></w> 
+					<w>la</w> 
+					<w><choice><orig>Calle</orig><reg>calle</reg></choice></w> 
+					<w>llamamos</w> 
+					<w>diciendo</w> 
+					<w>ser</w> 
+					<w>la</w> 
+					<w><choice><orig>justiçia</orig><reg>justicia</reg></choice></w> 
+					<w><choice><abbr>pa</abbr><expan>publica</expan><reg>para</reg></choice></w> <lb break="yes"/> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>abriese</w> 
+					<w>sin</w> 
+					<w><choice><orig>Ruido</orig><reg>ruido</reg></choice></w> 
+					<w>y</w> 
+					<w>no</w> 
+					<w><choice><abbr>quisiero</abbr><expan>quisieron</expan></choice></w>
+					<pc><choice><orig/><reg>;</reg></choice></pc>
+				</s> 
+				<s>
+					<w>y</w> 
+					<w>dimos</w> 
+					<w>dos</w> 
+					<w><choice><orig>coçes</orig><reg>coces</reg></choice></w> <lb break="yes"/> 
+					<w>y</w> 
+					<w>entramos</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s><del hand="BCP1">
+					<w><choice><orig>nis</orig><reg/></choice></w></del> 
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>despues</orig><reg>después</reg></choice></w> 
+					<w>de</w> 
+					<w>todo</w> 
+					<w>mirado</w> 
+					<w>hallamos</w> 
+					<w>al</w> 
+					<w rend="desventurado">desven<lb break="no"/>turado</w> 
+					<w><choice><orig>Cavallero</orig><reg>caballero</reg></choice></w>
+					<pc><choice><orig>,</orig><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>sin</orig><reg>Sin</reg></choice></w> 
+					<w><choice><orig>Replica</orig><reg>réplica</reg></choice></w> 
+					<w>se</w> 
+					<w>vino</w> 
+					<w><choice><orig>comigo</orig><reg>conmigo</reg></choice></w> <lb break="yes"/> <gap reason="hidden" extent="3 words"/> 
+					<w>el</w> 
+					<w><choice><orig>Correxidor</orig><reg>corregidor</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>llama</w> 
+					<w>prender</w> 
+					<w><choice><orig>Recoxer</orig><reg>recoger</reg></choice></w> 
+					<w>unos</w> 
+					<w rend="Cavalleros"><choice><orig>Cava<lb break="no"/>lleros</orig><reg>caballeros</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><abbr>u</abbr><expan>un</expan></choice></w> 
+					<w>deudo</w> 
+					<w><choice><orig>descariado</orig><reg>descarriado</reg></choice></w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>los</w> 
+					<w>quiere</w> 
+					<w>afrentar</w>
+					<pc><choice><orig/><reg>;</reg></choice></pc>
+				</s> 
+				<s>
+					<w>y</w> 
+					<w>llama</w> 
+					<w rend="qbrantamiento"><choice><abbr>q<lb break="no"/>brantamiento</abbr><expan>quebrantamiento</expan></choice></w> 
+					<w>entrar</w> 
+					<w>a</w> 
+					<w><choice><abbr>dode</abbr><expan>donde</expan></choice></w> 
+					<w>le</w> 
+					<w><choice><orig>oiamos</orig><reg>oíamos</reg></choice></w> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w>el</w> 
+					<w><choice><abbr>hobre</abbr><expan>hombre</expan></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w>la</w> 
+					<w><choice><orig>Casa</orig><reg>casa</reg></choice></w> 
+					<w>no</w> 
+					<w><choice><abbr>qria</abbr><expan>queria</expan><reg>quería</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>alo</orig><reg>Halo</reg></choice></w> 
+					<w>tomado</w> 
+					<w>de</w> 
+					<w>manera</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w>prendido</w> 
+					<w>a</w> <lb break="yes"/> 
+					<w><choice><abbr>do</abbr><expan>don</expan></choice></w> 
+					<w><choice><orig>gaspar</orig><reg>Gaspar</reg></choice></w> 
+					<w><choice><abbr>xiro</abbr><expan>xiron</expan><reg>Girón</reg></choice></w> 
+					<w>y</w> 
+					<w>a</w> 
+					<w><choice><abbr>do</abbr><expan>don</expan></choice></w> 
+					<w><choice><orig>pero</orig><reg>Pero</reg></choice></w> 
+					<w><choice><orig>lopez</orig><reg>López</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>ayala</orig><reg>Ayala</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><abbr>fuero</abbr><expan>fueron</expan></choice></w> <lb break="yes"/> 
+					<w><choice><orig>Comigo</orig><reg>conmigo</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w><choice><orig>diçen</orig><reg>dicen</reg></choice></w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>a</orig><reg>ha</reg></choice></w> 
+					<w><choice><orig>embiado</orig><reg>enviado</reg></choice></w> 
+					<w>a</w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>la</w> 
+					<w><choice><abbr>informacio</abbr><expan>informacion</expan><reg>información</reg></choice></w> 
+					<w>y</w> 
+					<w rend="qxadose"><choice><abbr>qxa<lb break="no"/>dose</abbr><expan>quexadose</expan><reg>quejádose</reg></choice></w> 
+					<w>de</w> 
+					<w><choice><orig>mi</orig><reg>mí</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>yo</orig><reg>Yo</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>señor</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>puede</w> 
+					<w>ser</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>errase</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>mas</w> 
+					<w>a</w> 
+					<w><choice><orig>dios</orig><reg>Dios</reg></choice></w> <lb break="yes"/> 
+					<w>y</w> 
+					<w>al</w> 
+					<w><choice><orig>Rey</orig><reg>rey</reg></choice></w> 
+					<w><choice><abbr>nro</abbr><expan>nuestro</expan></choice></w> 
+					<w>señor</w> 
+					<w><choice><orig>Creo</orig><reg>creo</reg></choice></w> 
+					<w><choice><orig>e</orig><reg>he</reg></choice></w> 
+					<w>hecho</w> 
+					<w>gran</w> 
+					<w>servicio</w> 
+					<w>en</w> 
+					<w rend="estorvar"><choice><orig>es<lb break="no"/>torvar</orig><reg>estorbar</reg></choice></w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w>perdiese</w> 
+					<w>un</w> 
+					<w><choice><abbr>hobre</abbr><expan>hombre</expan></choice></w> 
+					<w>tan</w> 
+					<w>noble</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>suplico</orig><reg>Suplico</reg></choice></w> <lb break="yes"/> 
+					<w>a</w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>mire</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>lejos</w> 
+					<w>de</w> 
+					<w><choice><orig>governador</orig><reg>gobernador</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>esta</orig><reg>está</reg></choice></w> 
+					<w>obligado</w> 
+					<w>a</w> 
+					<w>ayudar</w> <pb n="[12]r" facs="PSCR8130_4.JPG"/><lb break="yes"/> 
+					<w>y</w> 
+					<w><choice><orig>faborecernos</orig><reg>favorecernos</reg></choice></w> 
+					<w>para</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>podamos</w> 
+					<w><choice><orig>Conservar</orig><reg>conservar</reg></choice></w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w>honras</w> 
+					<w>y</w> 
+					<w rend="autoridades">au<lb break="no"/>toridades</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>no</w> 
+					<w>permita</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>no</w> 
+					<w>se</w> 
+					<w>haga</w> 
+					<w>procesos</w> 
+					<w>de</w> 
+					<w rend="afrentadores">afren<lb break="no"/>tadores</w> 
+					<w>de</w> 
+					<w><choice><orig>Casas</orig><reg>casas</reg></choice></w> 
+					<w>el</w> 
+					<w><choice><orig>correxidor</orig><reg>corregidor</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>pues</w> 
+					<w>fue</w> 
+					<w>negocio</w> 
+					<w><choice><orig>fovoso</orig><reg>fogoso</reg></choice></w> <lb break="yes"/> 
+					<w>y</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>de</w> 
+					<w>dilatarse</w> 
+					<w><choice><abbr>u</abbr><expan>un</expan></choice></w> 
+					<w><choice><orig>dia</orig><reg>día</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>se</w> 
+					<w><choice><orig>perdia</orig><reg>perdía</reg></choice></w> 
+					<w><choice><abbr>porq</abbr><expan>porque</expan></choice></w> 
+					<w><choice><orig>cosistia</orig><reg>consistía</reg></choice></w> 
+					<w>en</w> 
+					<w>casarse</w> <lb break="yes"/> 
+					<w>la</w> 
+					<w>persona</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>la</w> 
+					<w><choice><orig>qual</orig><reg>cual</reg></choice></w> 
+					<w>tengo</w> 
+					<w>a</w> 
+					<w>buen</w> 
+					<w><choice><orig>Recaudo</orig><reg>recaudo</reg></choice></w> 
+					<w>para</w> 
+					<w>lo</w> <lb break="yes"/> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>mandare</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w> 
+					<w>andamos</w> 
+					<w>buscando</w> 
+					<w>partidos</w> 
+					<w>y</w> 
+					<w rend="cociertos"><choice><abbr>cocier<lb break="no"/>tos</abbr><expan>conciertos</expan></choice></w> 
+					<w>para</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>la</w> 
+					<w><choice><orig>muger</orig><reg>mujer</reg></choice></w> 
+					<w>se</w> 
+					<w><choice><orig>Contente</orig><reg>contente</reg></choice></w> 
+					<w>sin</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w>este</w> 
+					<w><choice><abbr>hobre</abbr><expan>hombre</expan></choice></w> 
+					<w>se</w> 
+					<w rend="pierda">pi<lb break="no"/>erda</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s> 
+				<seg type="peroration">
+				<s>
+					<w><choice><orig>y</orig><reg>Y</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w><choice><abbr>Cofiado</abbr><expan>Confiado</expan><reg>confiado</reg></choice></w> 
+					<w>no</w> 
+					<w><choice><orig>permitira</orig><reg>permitirá</reg></choice></w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>se</w> 
+					<w>haga</w> 
+					<w>agravio</w> 
+					<w>a</w> 
+					<w rend="quien">qui<lb break="no"/>en</w> 
+					<w>tan</w> 
+					<w><choice><orig>aparexado</orig><reg>aparejado</reg></choice></w> 
+					<w><choice><orig>esta</orig><reg>está</reg></choice></w> 
+					<w>a</w> 
+					<w>servir</w> 
+					<w>a</w> 
+					<w>Su</w> 
+					<w><choice><abbr>Mgd</abbr><expan>Magestad</expan><reg>Majestad</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc> 
+					<w>acabo</w> 
+					<w>con</w> 
+					<w><choice><abbr>q</abbr><expan>que</expan></choice></w> 
+					<w><choice><abbr>nro</abbr><expan>nuestro</expan><reg>Nuestro</reg></choice></w> 
+					<w><choice><orig>señor</orig><reg>Señor</reg></choice></w> <lb break="yes"/> 
+					<w>la</w> 
+					<w><choice><abbr>Illma</abbr><expan>Illustrisima</expan><reg>ilustrísima</reg></choice></w> 
+					<w>persona</w> 
+					<w>de</w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> 
+					<w>guarde</w> 
+					<w>y</w> 
+					<w>su</w> 
+					<w>estado</w> 
+					<w>acreciente</w> 
+					<w>como</w> 
+					<w>deseo</w>
+					<pc><choice><orig/><reg>.</reg></choice></pc>
+				</s></seg> 
+				<s><lb break="yes"/> 
+				<seg type="closer" subtype="placeName">
+					<w><choice><orig>de</orig><reg>De</reg></choice></w> 
+					<w><choice><orig>torijos</orig><reg>Torrijos</reg></choice></w>
+					<pc><choice><orig/><reg>,</reg></choice></pc></seg> 
+				<seg type="closer" subtype="date">
+					<w>y</w> 
+					<w><choice><orig>Março</orig><reg>marzo</reg></choice></w> 
+					<w><choice><orig>Creo</orig><reg>creo</reg></choice></w> 
+					<w><choice><orig>deçiocho</orig><reg>dieciocho</reg></choice></w>
+					<pc><choice><orig/><reg>.</reg></choice></pc></seg>
+				</s>
+			</p> <lb break="yes"/>
+			<closer>
+				<salute>
+					<w><choice><abbr>Illmo</abbr><expan>Illustrisimo</expan><reg>Ilustrísimo</reg></choice></w> 
+					<w>señor</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<salute>
+					<w>besa</w> 
+					<w>las</w> 
+					<w>manos</w> 
+					<w>a</w> 
+					<w><choice><orig>VS</orig><reg>VSa</reg></choice></w> <lb break="yes"/> 
+					<w>su</w> 
+					<w><choice><orig>mas</orig><reg>más</reg></choice></w> 
+					<w><choice><abbr>vro</abbr><expan>verdadero</expan></choice></w> 
+					<w>servidor</w>
+					<pc><choice><orig/><reg>,</reg></choice></pc>
+				</salute> <lb break="yes"/> 
+				<signed>
+					<w>el</w> 
+					<w><choice><abbr>duq</abbr><expan>duque</expan></choice></w> <lb break="yes"/> 
+					<w>de</w> 
+					<w><choice><abbr>maq</abbr><expan>maqueda</expan><reg>Maqueda</reg></choice></w>
+				</signed>
+			</closer>
+		</body>
+	</text>
+</TEI>
+
