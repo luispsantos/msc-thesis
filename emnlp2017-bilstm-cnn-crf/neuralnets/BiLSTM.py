@@ -28,19 +28,19 @@ class BiLSTM:
     def __init__(self, params=None):
         # modelSavePath = Path for storing models, resultsSavePath = Path for storing output labels while training
         self.model = None
+        self.modelAux = None
         self.modelSavePath = None
         self.resultsSavePath = None
 
 
         # Hyperparameters for the network
         defaultParams = {'dropout': (0.5,0.5), 'classifier': ['Softmax'], 'LSTM-Size': (100,), 'customClassifier': {},
-                         'optimizer': 'adam',
+                         'optimizer': 'adam', 'adversarial': True,
                          'charEmbeddings': None, 'charEmbeddingsSize': 30, 'charFilterSize': 30, 'charFilterLength': 3, 'charLSTMSize': 25, 'maxCharLength': 25,
                          'useTaskIdentifier': False, 'clipvalue': 0, 'clipnorm': 1,
                          'earlyStopping': 5, 'miniBatchSize': 32,
                          'featureNames': ['tokens', 'casing'], 'addFeatureDimensions': 10}
-        if params != None:
-            defaultParams.update(params)
+        if params != None: defaultParams.update(params)
         self.params = defaultParams
 
     def setMappings(self, mappings, embeddings):
@@ -116,16 +116,12 @@ class BiLSTM:
         mergeInputLayers = [tokens]
 
         for featureName in self.params['featureNames']:
-            if featureName == 'tokens' or featureName == 'characters':
-                continue
-
+            if featureName == 'tokens' or featureName == 'characters': continue
             feature_input = Input(shape=(None,), dtype='int32', name=featureName+'_input')
             feature_embedding = Embedding(input_dim=len(self.mappings[featureName]), output_dim=self.params['addFeatureDimensions'], name=featureName+'_embeddings')(feature_input)
-
             inputNodes.append(feature_input)
             mergeInputLayers.append(feature_embedding)
         
-
         # :: Character Embeddings ::
         if self.params['charEmbeddings'] not in [None, "None", "none", False, "False", "false"]:
             charset = self.mappings['characters']
@@ -136,7 +132,7 @@ class BiLSTM:
                 limit = math.sqrt(3.0 / charEmbeddingsSize)
                 vector = np.random.uniform(-limit, limit, charEmbeddingsSize)
                 charEmbeddings.append(vector)
-
+                
             charEmbeddings[0] = np.zeros(charEmbeddingsSize)  # Zero padding
             charEmbeddings = np.asarray(charEmbeddings)
 
@@ -182,7 +178,7 @@ class BiLSTM:
             cnt += 1
             
         outputs, losses = [], []
-
+                
         # add softmax or CRF output layer (one classifier per task)
         for task in self.tasks:
             output = shared_layer
@@ -202,8 +198,8 @@ class BiLSTM:
                 assert(False) #Wrong classifier
 
             outputs.append(output)
-            losses.append(lossFct)
-                
+            losses.append(lossFct)        
+            
         # :: Parameters for the optimizer ::
         optimizerParams = {}
         if 'clipnorm' in self.params and self.params['clipnorm'] != None and  self.params['clipnorm'] > 0:
@@ -224,10 +220,17 @@ class BiLSTM:
             opt = Adagrad(**optimizerParams)
         elif self.params['optimizer'].lower() == 'sgd':
             opt = SGD(lr=0.1, **optimizerParams)
-
+            
+        if self.params['adversarial'] not in [None, "None", "none", False, "False", "false"]:
+            output = GlobalAveragePooling1D(shared_layer)
+            lossFct = 'sparse_categorical_crossentropy'
+            modelAux = Model(inputs=inputNodes, outputs=[output])
+            modelAux.compile(loss=[lossFct], optimizer=opt)
+            modelAux.summary(line_length=125)
+            self.modelAux = modelAux
+            
         model = Model(inputs=inputNodes, outputs=outputs)
         model.compile(loss=losses, optimizer=opt)
-
         model.summary(line_length=125)
         self.model = model
 
@@ -240,6 +243,8 @@ class BiLSTM:
 
         # train model a mini-batch at a time (1 epoch sees 1 batch of every dataset)
         for nnInput, nnLabels, nnWeights in self.minibatch_iterate_dataset():
+            if self.params['adversarial'] not in [None, "None", "none", False, "False", "false"]:
+                self.modelAux.train_on_batch(nnInput, nnLabels, nnWeights)
             self.model.train_on_batch(nnInput, nnLabels, nnWeights)
 
     def minibatch_iterate_dataset(self):
