@@ -29,7 +29,8 @@ models_dir, results_dir = Path('models/multi_task'), Path('results/multi_task')
 
 # select BiLSTM network hyperparameters
 network_params = {'charEmbeddings': 'LSTM', 'charLSTMSize': 25, 'LSTM-Size': [100, 100],
-                  'classifier': 'CRF','dropout': (0.5, 0.5), 'earlyStopping': 10}
+                  'classifier': 'CRF', 'optimizer': 'adam' ,'dropout': (0.5, 0.5),
+                  'adversarial': False, 'earlyStopping': 10}
 
 def run_experiment(datasets_dict, lang, task, embeddings, mappings, data):
     # set network hyperparameters and mappings/datasets
