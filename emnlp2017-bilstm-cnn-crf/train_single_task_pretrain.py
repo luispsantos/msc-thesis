@@ -32,7 +32,7 @@ def run_experiment(dataset_id, dataset_dict, lang, task, data):
     lang_prefix = f'{lang.lower()}_' if lang is not None else ''
     model = BiLSTM.loadModel(multi_task_models_dir / f'{lang_prefix}datasets.h5')
 
-    # configure the single task dataset and select all tasks
+    # set the single task dataset and select both tasks
     model.setDataset(dataset_dict, data)
     model.tasks = ['POS', 'NER_BIO']
 
@@ -58,7 +58,7 @@ for lang in ['PT', 'ES', None]:
     embeddings, mappings, data = loadDatasetPickle(embeddings_path, lang)
 
     # obtain datasets for the experiment
-    datasets = Datasets(exclude=['pt_colonia', 'pt_wikiner', 'es_wikiner'], lang=lang)
+    datasets = Datasets(exclude=['pt_colonia'], lang=lang)
 
     # iterate through the multiple Portuguese and Spanish datasets
     for dataset_id, dataset in datasets:
