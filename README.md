@@ -1,4 +1,4 @@
-Source code and datasets supporting MSc dissertation:  
+Source code and datasets supporting M.Sc. dissertation related to the [DECM project](https://www.lancaster.ac.uk/digging-ecm/):  
 https://fenix.tecnico.ulisboa.pt/cursos/meic-a/dissertacao/846778572212377
 
 **Simultaneous Tagging of Named Entities and Parts-of-Speech for Portuguese and Spanish Texts -**  
